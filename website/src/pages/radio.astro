@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Radio Tần Số — Đài Phát 24/7 | Tần Số Nacha" description="Radio Tần Số Nacha — podcast Phật pháp phát liên tục, xen những khúc Âm Kinh. Mọi người cùng nghe một khoảnh khắc.">
+  <section class="rd-wrap">
+    <div class="rd-bg"></div>
+    <div class="container-content max-w-2xl relative z-10 py-16 text-center">
+      <p class="font-brush text-2xl tracking-[0.4em]" style="color:#C9A96E">頻 率 電 臺</p>
+      <h1 class="font-display text-4xl md:text-5xl text-parchment mt-2 mb-2">Radio Tần Số</h1>
+      <p class="text-parchment/60 text-sm italic mb-10">Đài ngân suốt ngày đêm — ai mở lên cũng nghe cùng một khoảnh khắc.</p>
+
+      <div class="rd-card">
+        <div class="rd-live"><span class="rd-dot"></span> ĐANG PHÁT</div>
+        <div class="rd-disc-wrap">
+          <div class="rd-wave-field" aria-hidden="true">
+            <span class="rd-wave rd-wave-1"></span>
+            <span class="rd-wave rd-wave-2"></span>
+            <span class="rd-wave rd-wave-3"></span>
+            <span class="rd-wave rd-wave-4"></span>
+         </div>
+          <div id="rd-disc" class="rd-disc"><img id="rd-disc-img" src="/media/avatar/tieutam-01.jpg" alt="Radio Tần Số" /><span class="rd-hole"></span></div>
+       </div>
+        <p id="rd-kind" class="rd-kind">—</p>
+        <h2 id="rd-title" class="rd-title">Đang dò tần số…</h2>
+        <p id="rd-album" class="rd-album"></p>
+        <div class="rd-bar-wrap"><div id="rd-bar" class="rd-bar"></div></div>
+        <p id="rd-time" class="rd-time">--:-- / --:--</p>
+        <button id="rd-play" class="rd-btn" hidden> Tham Gia</button>
+        <p id="rd-next" class="rd-next"></p>
+        <p id="rd-msg" class="rd-msg" hidden></p>
+     </div>
+
+      <p class="text-parchment/40 text-xs mt-8 italic">Đài không tua được — như dòng sông, chỉ chảy về phía trước </p>
+      <section id="rd-social" class="rd-social" hidden>
+        <h2>Đang đồng nghe</h2><div id="rd-orbit" class="rd-orbit"></div>
+        <div id="rd-chat" class="rd-chat" aria-live="polite"></div>
+        <form id="rd-chat-form"><input id="rd-chat-input" maxlength="160" placeholder="Gửi một lời an lành…" aria-label="Lời đồng nghe" /><button>Gửi</button></form>
+     </section>
+   </div>
+ </section>
+  <audio id="rd-audio" preload="auto"></audio>
+
+  <style is:global>
+    .rd-wrap { position: relative; min-height: 100vh; margin-top: -4rem; overflow: hidden; }
+    .rd-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 20%, #3a3020 0%, #1c1710 55%, #14100b 100%); }
+    .rd-card { background: rgba(255,255,255,0.045); border: 1px solid rgba(201,169,110,0.32); border-radius: 1.6rem; padding: 2rem 1.6rem; box-shadow: 0 24px 64px rgba(0,0,0,0.45); }
+    .rd-live { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.72rem; letter-spacing:0.2em; color:#e8b4b8; font-weight:700; }
+    .rd-dot { width:9px; height:9px; border-radius:9999px; background:#c0392b; animation: rd-pulse 1.6s ease-in-out infinite; }
+    @keyframes rd-pulse { 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:0.35; transform:scale(0.8)} }
+    .rd-disc-wrap { position:relative; display:grid; place-items:center; margin:2.8rem 0; min-height:238px; isolation:isolate; }
+    .rd-wave-field { position:absolute; inset:50% auto auto 50%; width:190px; height:190px; transform:translate(-50%,-50%); border-radius:9999px; pointer-events:none; z-index:0; }
+    .rd-wave { position:absolute; inset:0; border-radius:9999px; border:1.5px solid rgba(201,169,110,0.7); box-shadow:0 0 18px rgba(201,169,110,0.18), inset 0 0 15px rgba(201,169,110,0.08); opacity:0; animation:rd-wave-out 4.8s cubic-bezier(.18,.55,.3,1) infinite; }
+    .rd-wave-2 { animation-delay:1.2s; }
+    .rd-wave-3 { animation-delay:2.4s; }
+    .rd-wave-4 { animation-delay:3.6s; }
+    @keyframes rd-wave-out {
+      0% { transform:scale(.88); opacity:0; border-color:rgba(232,196,120,.85); }
+      12% { opacity:.75; }
+      70% { opacity:.18; }
+      100% { transform:scale(1.72); opacity:0; border-color:rgba(201,169,110,.05); }
+    }
+    .rd-disc { position:relative; z-index:2; width:190px; height:190px; border-radius:9999px; overflow:hidden; border:5px solid rgba(201,169,110,0.5); box-shadow:0 0 42px rgba(201,169,110,0.28); animation:rd-spin 24s linear infinite; animation-play-state:paused; }
+    .rd-disc.on { animation-play-state:running; }
+    .rd-disc.on + * { animation-play-state:running; }
+    .rd-disc img { width:100%; height:100%; object-fit:cover; }
+    .rd-hole { position:absolute; top:50%; left:50%; width:22px; height:22px; border-radius:9999px; background:#1c1710; border:3px solid rgba(201,169,110,0.7); transform:translate(-50%,-50%); }
+    @keyframes rd-spin { to { transform:rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .rd-wave { animation-duration:9s; } .rd-disc { animation-duration:40s; } }
+    .rd-kind { font-size:0.7rem; letter-spacing:0.25em; color:#C9A96E; font-weight:700; }
+    .rd-title { font-family:'Playfair Display',serif; font-size:1.35rem; color:#F5F0EB; margin:0.3rem 0 0.1rem; line-height:1.4; }
+    .rd-album { font-size:0.8rem; color:rgba(245,240,235,0.55); font-style:italic; min-height:1.1rem; }
+    .rd-bar-wrap { height:5px; background:rgba(255,255,255,0.09); border-radius:9999px; margin:1.1rem 0 0.4rem; overflow:hidden; }
+    .rd-bar { height:100%; width:0%; background:linear-gradient(90deg,#C9A96E,#e6d3a8); border-radius:9999px; transition: width 1s linear; }
+    .rd-time { font-size:0.75rem; color:rgba(245,240,235,0.5); font-variant-numeric: tabular-nums; }
+    .rd-btn { margin-top:1.1rem; background:#C9A96E; color:#1c1710; font-weight:700; border-radius:9999px; padding:0.85rem 2.4rem; font-size:1rem; box-shadow:0 10px 26px rgba(201,169,110,0.3); transition: transform .15s; }
+    .rd-btn:active { transform: scale(0.97); }
+    .rd-next { margin-top:1rem; font-size:0.78rem; color:rgba(245,240,235,0.5); min-height:1.1rem; }
+    .rd-msg { margin-top:0.6rem; font-size:0.78rem; color:#e8b4b8; }
+    .rd-social{margin-top:1.2rem;padding:1rem;border:1px solid rgba(201,169,110,.25);border-radius:1.2rem;background:rgba(10,8,5,.38);text-align:left}.rd-social h2{color:#e6d3a8;text-align:center;font-size:.85rem;letter-spacing:.12em}.rd-orbit{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;margin:.8rem}.rd-person{width:46px;height:46px;border-radius:50%;border:2px solid #C9A96E;overflow:hidden;display:grid;place-items:center;background:#403522;color:#fff;font-size:.72rem;font-weight:700;animation:rd-float 3s ease-in-out infinite}.rd-person img{width:100%;height:100%;object-fit:cover}@keyframes rd-float{50%{transform:translateY(-4px)}}.rd-chat{display:flex;flex-direction:column;gap:.4rem;max-height:210px;overflow:auto}.rd-bubble{align-self:flex-start;max-width:88%;padding:.45rem .7rem;border-radius:1rem;background:rgba(201,169,110,.13);color:#F5F0EB;font-size:.78rem}.rd-bubble b{color:#C9A96E;margin-right:.35rem}#rd-chat-form{display:flex;gap:.5rem;margin-top:.8rem}#rd-chat-input{flex:1;min-width:0;border:1px solid rgba(201,169,110,.3);border-radius:999px;background:rgba(255,255,255,.06);color:#fff;padding:.65rem .9rem}#rd-chat-form button{border-radius:999px;background:#C9A96E;color:#1c1710;padding:.5rem .9rem;font-weight:700}
+ </style>
+
+  <script>
+    const audio = document.getElementById('rd-audio') as HTMLAudioElement;
+    const disc = document.getElementById('rd-disc')!;
+    const discImg = document.getElementById('rd-disc-img') as HTMLImageElement;
+    const elKind = document.getElementById('rd-kind')!;
+    const elTitle = document.getElementById('rd-title')!;
+    const elAlbum = document.getElementById('rd-album')!;
+    const elBar = document.getElementById('rd-bar') as HTMLElement;
+    const elTime = document.getElementById('rd-time')!;
+    const elNext = document.getElementById('rd-next')!;
+    const elMsg = document.getElementById('rd-msg')!;
+    const btn = document.getElementById('rd-play') as HTMLButtonElement;
+    const social=document.getElementById('rd-social')!,orbit=document.getElementById('rd-orbit')!,chat=document.getElementById('rd-chat')!,chatForm=document.getElementById('rd-chat-form') as HTMLFormElement,chatInput=document.getElementById('rd-chat-input') as HTMLInputElement;
+    const token=localStorage.getItem('pp-token')||'';let clientId=sessionStorage.getItem('radio-client-id')||'';if(!clientId){clientId=crypto.randomUUID().replaceAll('-','');sessionStorage.setItem('radio-client-id',clientId)}
+    const esc=(s:string)=>{const d=document.createElement('div');d.textContent=s;return d.innerHTML};
+    async function radioSocial(){if(!token)return;social.hidden=false;const h={'X-PP-Token':token};try{await fetch('/pp-api/radio/ping',{method:'POST',headers:{...h,'Content-Type':'application/json'},body:JSON.stringify({clientId,itemKey:cur?.file||''})});const mr=await fetch('/pp-api/merit/prove',{method:'POST',headers:{...h,'Content-Type':'application/json'},body:JSON.stringify({kind:'radio',clientId})});const md=await mr.json();if(md.added) { elMsg.textContent=`+${md.added} Phước · đủ 3 phút đồng nghe `;elMsg.hidden=false;setTimeout(()=>elMsg.hidden=true,5000); }const [p,c]=await Promise.all([fetch('/pp-api/radio/presence',{headers:h}),fetch('/pp-api/radio/chat',{headers:h})]);const pd=await p.json(),cd=await c.json();if(pd.ok)orbit.innerHTML=pd.people.map((x:any)=>`<span class="rd-person" title="${esc(x.phapdanh)}">${x.avatarUrl?`<img src="${esc(x.avatarUrl)}" alt="${esc(x.phapdanh)}">`:esc(x.initials)}</span>`).join('');if(cd.ok)chat.innerHTML=cd.messages.map((m:any)=>`<div class="rd-bubble"><b>${esc(m.author.phapdanh)}</b>${esc(m.body)}</div>`).join(''),chat.scrollTop=chat.scrollHeight}catch{}}
+    chatForm.addEventListener('submit',async(e)=>{e.preventDefault();const body=chatInput.value.trim();if(!body||!token)return;const r=await fetch('/pp-api/radio/chat',{method:'POST',headers:{'Content-Type':'application/json','X-PP-Token':token},body:JSON.stringify({body})});if(r.ok){chatInput.value='';radioSocial()}});if(token){radioSocial();setInterval(radioSocial,20000)}
+
+    // dĩa xoay: avatar Tiểu Tâm random
+    discImg.src = `/media/avatar/tieutam-${String(1 + Math.floor(Math.random() * 45)).padStart(2, '0')}.jpg`;
+
+    let on = false;          // đã "vào sóng"?
+    let cur: any = null;     // item đang phát
+    let lastFix: any = null; // {offset, at} — mốc đồng bộ gần nhất
+    let seekGuard = false;   // đang tự seek (không phải user tua)
+
+    function fmt(s: number) { s = Math.max(0, Math.floor(s)); return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`; }
+    function liveOffset() { return lastFix ? lastFix.offset + (Date.now() - lastFix.at) / 1000 : 0; }
+
+    function render(d: any) {
+      const it = d.item;
+      elKind.textContent = it.kind === 'podcast' ? ' PODCAST' : ' KHÚC NGHỈ · ÂM KINH';
+      elTitle.textContent = it.title;
+      elAlbum.textContent = it.album || '';
+      elNext.textContent = d.next ? `Tiếp theo: ${d.next.kind === 'music' ? '' : ''} ${d.next.title} · sau ${fmt(d.next.inSec)}` : '';
+    }
+
+    // seek tới đúng sóng
+    function syncSeek() {
+      if (!cur || !cur.dur) return;
+      const doSeek = () => {
+        const target = Math.min(liveOffset() + 0.4, cur.dur - 1);
+        seekGuard = true;
+        try { audio.currentTime = Math.max(0, target); } catch {}
+        setTimeout(() => { seekGuard = false; }, 1200);
+        audio.play().catch(()=>{});
+      };
+      if (audio.readyState >= 1) doSeek();
+      else audio.addEventListener('loadedmetadata', doSeek, { once: true });
+    }
+
+    async function tune(applyAudio = true) {
+      try {
+        const r = await fetch('/pp-api/radio/now', { cache: 'no-store' });
+        const d = await r.json();
+        if (!d.ok) { elMsg.textContent = 'Đài đang lặng — quay lại sau nhé '; elMsg.hidden = false; return null; }
+        if (d.item.kind === 'gap') { setTimeout(() => tune(applyAudio), 1600); return null; }
+        const changed = !cur || cur.file !== d.item.file;
+        cur = d.item;
+        lastFix = { offset: d.offset, at: Date.now() };
+        render(d);
+        if (on && applyAudio) {
+          if (changed) { audio.src = cur.file; audio.load(); }
+          const drift = Math.abs((audio.currentTime || 0) - liveOffset());
+          if (changed || drift > 4 || audio.paused) syncSeek();
+        }
+        return d;
+      } catch {
+        elMsg.textContent = 'Sóng chập chờn, thử lại…'; elMsg.hidden = false;
+        setTimeout(() => { elMsg.hidden = true; }, 3000);
+        return null;
+      }
+    }
+
+    // ĐÀI TỰ CHẠY (anh Nấng chỉ thị): vào trang là phát, không nút dừng.
+    // Nếu trình duyệt chặn autoplay → hiện nút " Tham Gia" bấm 1 lần rồi ẩn luôn.
+    function joined() {
+      on = true; disc.classList.add('on'); btn.hidden = true;
+      const tk = localStorage.getItem('pp-token');
+      if (tk) fetch('/pp-api/tich-phuoc', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: tk, kind: 'radio' }) }).catch(()=>{});
+    }
+    let autoTried = false;
+    async function autoJoin() {
+      if (on || !cur || !cur.file || autoTried) return;
+      autoTried = true;
+      audio.src = cur.file;
+      try {
+        await audio.play();          // thử autoplay thẳng
+        syncSeek(); joined();
+      } catch {
+        // bị chặn autoplay → chờ 1 cú chạm đầu tiên bất kỳ trên trang, hoặc nút Tham Gia
+        btn.hidden = false;
+        const unlock = () => {
+          if (on) return;
+          audio.play().then(() => { syncSeek(); joined(); }).catch(()=>{});
+        };
+        btn.addEventListener('click', unlock, { once: false });
+        document.addEventListener('pointerdown', unlock, { once: true });
+      }
+    }
+
+    // đồng hồ tiến trình: LUÔN chạy theo sóng đài, kể cả chưa bấm nghe
+    setInterval(() => {
+      if (!cur || !cur.dur) return;
+      const pos = on && !audio.paused ? audio.currentTime : liveOffset();
+      elBar.style.width = Math.min(100, (pos / cur.dur) * 100) + '%';
+      elTime.textContent = `${fmt(pos)} / ${fmt(cur.dur)}`;
+      if (pos >= cur.dur - 0.8) tune(on);
+      if (!on && !autoTried) autoJoin(); // sóng vừa dò xong sau gap → tự phát
+    }, 1000);
+    // re-sync nhẹ mỗi 45s
+    setInterval(() => { tune(on); }, 45000);
+    // CẤM TUA: user kéo là bị kéo về đúng sóng (bỏ qua seek hệ thống)
+    audio.addEventListener('seeking', () => { if (on && cur && !seekGuard) syncSeek(); });
+    audio.addEventListener('ended', () => { if (on) tune(true); });
+    // mở trang → dò sóng → TỰ PHÁT luôn
+    tune(false).then(() => autoJoin());
+ </script>
+</BaseLayout>

@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { artists, albumReadyCount } from '../../../../data/amkinh';
+
+export function getStaticPaths() {
+  const paths: any[] = [];
+  for (const a of artists) {
+    for (const al of a.albums) {
+      paths.push({ params: { artist: a.slug, album: al.slug } });
+    }
+  }
+  return paths;
+}
+
+const { artist: artistSlug, album: albumSlug } = Astro.params;
+const artist = artists.find((a) => a.slug === artistSlug)!;
+const album = artist.albums.find((al) => al.slug === albumSlug)!;
+const ready = albumReadyCount(album);
+const firstReady = album.tracks.find((t) => t.ready);
+const avatarPool = [
+  '/images/tieu-tam/avatar_1.jpg','/images/tieu-tam/avatar_2.jpg','/images/tieu-tam/avatar_3.jpg','/images/tieu-tam/avatar_4.jpg',
+  '/images/tieu-tam/avatar_5.jpg','/images/tieu-tam/avatar_6.jpg','/images/tieu-tam/avatar_7.jpg','/images/tieu-tam/avatar_8.jpg',
+];
+function hashStr(s: string): number { return [...s].reduce((n, c) => ((n * 31) + c.charCodeAt(0)) >>> 0, 7); }
+const albumCover = avatarPool[hashStr(album.slug || album.title) % avatarPool.length];
+function cleanTitle(input = ''): string {
+  return input
+    .replace(/\s*\([^)]*(?:snap\s*v\d*|ThichCa|Lv\d|BedroomPop|bedroom\s*pop)[^)]*\)\s*/gi, ' ')
+    .replace(/\bLv\d+\b/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+---
+
+<BaseLayout
+  title={`${album.title} — ${artist.name} | Âm Kinh`}
+  description={`${album.title} — ${album.desc}`}
+  ogImage={album.cover}
+>
+  <!-- ALBUM HERO -->
+  <section class="relative overflow-hidden -mt-16 md:-mt-20">
+    <div class="absolute inset-0 bg-ink">
+      <img src={albumCover} alt={album.title} class="w-full h-full object-cover opacity-30" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/88 via-ink/78 to-ink"></div>
+   </div>
+    <div class="relative z-10 container-content pt-24 pb-10">
+      <nav class="text-xs text-parchment/55 mb-5 flex items-center gap-3">
+        <a href={`/am-kinh/${artist.slug}`} class="amk-back-btn" aria-label="Quay lại trang nghệ giả">‹ Quay lại</a>
+        <span>
+          <a href="/am-kinh" class="hover:text-bronze-light">Âm Kinh</a><span class="mx-1">›</span>
+          <a href={`/am-kinh/${artist.slug}`} class="hover:text-bronze-light">{artist.name}</a><span class="mx-1">›</span>
+          <span class="text-bronze-light">{album.title}</span>
+       </span>
+     </nav>
+      <div class="flex flex-col sm:flex-row items-center sm:items-end gap-6">
+        <div class="amk-album-hero-cover">
+          <img src={albumCover} alt={album.title} />
+       </div>
+        <div class="text-center sm:text-left">
+          <p class="text-[11px] uppercase tracking-[0.25em] text-parchment/50">Album · {artist.name}</p>
+          <p class="font-brush text-bronze-light text-xl tracking-widest mt-2">{album.cn}</p>
+          <h1 class="font-display text-4xl md:text-5xl text-parchment font-bold mt-1">{album.title}</h1>
+          <p class="text-parchment/70 text-sm mt-3 max-w-lg">{album.desc}</p>
+          <p class="text-xs text-bronze-light/80 mt-3">
+            {ready > 0 ? `${ready} bài đang phát` : 'Đang chuẩn bị — sắp mở'}
+            {album.tracks.length > ready && ` · ${album.tracks.length - ready} sắp mở`}
+         </p>
+          {firstReady && (
+            <a href={`/am-kinh/${artist.slug}/${album.slug}/${firstReady.slug}`} class="btn-primary mt-5 inline-flex items-center gap-2 text-sm">
+              <svg class="amk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4L18.5 12z"/></svg> Phát album
+           </a>
+          )}
+       </div>
+     </div>
+   </div>
+ </section>
+
+  <!-- TRACK LIST -->
+  <section class="section-padding bg-parchment">
+    <div class="container-content max-w-3xl">
+      {album.tracks.length === 0 ? (
+        <div class="text-center py-16">
+          <p class="font-brush text-bronze text-3xl tracking-widest mb-3">未 開</p>
+          <p class="font-display text-2xl text-ink mb-2">Album đang được kết tập</p>
+          <p class="text-ink-light/60 text-sm max-w-md mx-auto">Những bài Âm Kinh của album này sẽ sớm được thỉnh lên. Xin trở lại sau nhé.</p>
+          <a href={`/am-kinh/${artist.slug}`} class="btn-secondary mt-6 inline-block text-sm">← Về trang {artist.name}</a>
+       </div>
+      ) : (
+        <div class="space-y-3">
+          {album.tracks.map((t, i) => (
+            <a
+              href={t.ready ? `/am-kinh/${artist.slug}/${album.slug}/${t.slug}` : '#'}
+              class={`amk-track-row ${t.ready ? '' : 'amk-track-soon'}`}
+              aria-disabled={!t.ready}
+            >
+              <span class="amk-track-num">{i + 1}</span>
+              <img src={albumCover} alt={t.title} class="amk-track-cover" loading="lazy" />
+              <div class="flex-1 min-w-0">
+                <h3 class="font-display text-base text-ink truncate">{cleanTitle(t.title)}</h3>
+                <p class="text-xs text-ink-light/65">{t.author || artist.name}{t.tag ? ` · ${t.tag}` : ''}</p>
+             </div>
+              {t.duration && <span class="text-xs text-ink-light/55 flex-shrink-0">{t.duration}</span>}
+              {t.ready ? (
+                <span class="amk-track-play"><svg class="amk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4L18.5 12z"/></svg></span>
+              ) : (
+                <span class="text-[10px] uppercase tracking-widest text-bronze/60 flex-shrink-0">Sắp mở</span>
+              )}
+           </a>
+          ))}
+       </div>
+      )}
+   </div>
+ </section>
+
+  <style is:global>
+    .amk-ico{width:1.05em;height:1.05em;display:inline-block;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.16em}.amk-ico path[d^="M8.5"]{fill:currentColor;stroke:none}
+    .amk-back-btn { display:inline-flex; align-items:center; gap:.25rem; padding:.42rem .8rem; border-radius:999px; border:1px solid rgba(201,166,107,.4); background:rgba(201,166,107,.14); color:#F2E8D5; font-size:.75rem; white-space:nowrap; }
+    .amk-back-btn:hover { background:rgba(201,166,107,.3); }
+    .amk-album-hero-cover { width: 168px; height: 168px; border-radius: 1rem; overflow: hidden; flex-shrink: 0; box-shadow: 0 16px 44px rgba(0,0,0,0.5); }
+    .amk-album-hero-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .amk-track-row { display: flex; align-items: center; gap: 1rem; padding: 0.7rem 0.9rem; border-radius: 0.9rem; background: var(--parchment-warm, #F2E8D5); border: 1px solid rgba(201,166,107,0.12); transition: border-color .25s ease, transform .2s ease, background .25s ease; }
+    .amk-track-row:hover { border-color: rgba(201,166,107,0.4); transform: translateX(3px); background: #fff; }
+    .amk-track-soon { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
+    .amk-track-num { font-family: 'Noto Serif SC', serif; color: rgba(139,111,46,0.55); width: 1.4rem; text-align: center; flex-shrink: 0; font-size: 0.95rem; }
+    .amk-track-cover { width: 52px; height: 52px; border-radius: 0.6rem; object-fit: cover; flex-shrink: 0; }
+    .amk-track-play { width: 36px; height: 36px; border-radius: 9999px; background: var(--bronze, #C9A96E); color: #fff; display: grid; place-items: center; font-size: 0.8rem; flex-shrink: 0; }
+ </style>
+</BaseLayout>

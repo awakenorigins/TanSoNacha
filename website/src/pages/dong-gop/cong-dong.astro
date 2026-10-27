@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Duyên Cộng Đồng — Tần Số Nacha" description="Những duyên lành do cộng đồng Tần Số Nacha cùng góp.">
+  <section class="section-padding" style="background:#1a1510;min-height:100vh;margin-top:-4rem;padding-top:6rem">
+    <div class="container-content max-w-3xl">
+      <div class="text-center mb-10">
+        <span class="font-brush text-2xl tracking-[0.35em]" style="color:#C9A96E">共 獻</span>
+        <h1 class="font-display text-3xl md:text-4xl text-parchment mt-2">Cộng Đồng Tần Số Nacha</h1>
+        <p class="text-parchment/60 text-sm mt-3">Những viên gạch do người hữu duyên khắp nơi cùng góp.</p>
+        <a href="/dong-gop" class="cd-add">+ Cộng Duyên của bạn</a>
+     </div>
+
+      <div id="cd-list" class="cd-list">
+        <p class="text-center text-parchment/50 text-sm" id="cd-loading">Đang mở kho…</p>
+     </div>
+   </div>
+ </section>
+
+  <style is:global>
+    .cd-add { display: inline-block; margin-top: 1rem; border-radius: 9999px; padding: 0.5rem 1.3rem; background: #C9A96E; color: #1c1710; font-weight: 600; font-size: 0.85rem; }
+    .cd-list { display: flex; flex-direction: column; gap: 1.3rem; }
+    .cd-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,169,110,0.25); border-radius: 1.1rem; padding: 1.2rem 1.3rem; }
+    .cd-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.7rem; }
+    .cd-badge { font-size: 0.7rem; padding: 2px 10px; border-radius: 999px; background: rgba(201,169,110,0.16); color: #C9A96E; }
+    .cd-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #F5F0EB; font-weight: 600; }
+    .cd-by { font-size: 0.72rem; color: rgba(245,240,235,0.55); }
+    .cd-embed { border-radius: 0.8rem; overflow: hidden; margin: 0.6rem 0; border: 1px solid rgba(201,169,110,0.2); }
+    .cd-embed iframe { width: 100%; aspect-ratio: 16/9; border: 0; display: block; }
+    .cd-embed.audio iframe { aspect-ratio: auto; height: 130px; }
+    .cd-body { font-size: 0.85rem; color: rgba(245,240,235,0.7); line-height: 1.6; }
+    .cd-link { font-size: 0.78rem; color: #C9A96E; text-decoration: underline; }
+ </style>
+
+  <script>
+    const API = '/pp-api';
+    function esc(s: string): string { return String(s||'').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c] as string)); }
+    const TYPE: Record<string,string> = { track:' Nhạc/Pháp âm', video:' Video', podcast:' Podcast', post:' Câu chuyện' };
+    const AUDIO = new Set(['soundcloud','direct']);
+
+    async function load() {
+      try {
+        const r = await fetch(`${API}/contributions?limit=50`);
+        const d = await r.json();
+        const box = document.getElementById('cd-list');
+        if (!box) return;
+        if (!d.ok || !d.items || !d.items.length) {
+          box.innerHTML = '<p class="text-center text-parchment/50 text-sm">Chưa có duyên nào khai mở. Hãy là người đầu tiên gieo </p>';
+          return;
+        }
+        box.innerHTML = d.items.map((it: any) => {
+          const embed = it.embed_url ? (
+            AUDIO.has(it.platform)
+              ? `<div class="cd-embed audio"><iframe src="${esc(it.embed_url)}" allow="autoplay" loading="lazy"></iframe></div>`
+              : `<div class="cd-embed"><iframe src="${esc(it.embed_url)}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
+          ) : (it.media_url ? `<a class="cd-link" href="${esc(it.media_url)}" target="_blank" rel="noopener">▶ Mở nội dung →</a>` : '');
+          return `<div class="cd-card">
+            <div class="cd-head"><span class="cd-badge">${TYPE[it.ctype]||'Bài'}</span></div>
+            <p class="cd-title">${esc(it.title)}</p>
+            <p class="cd-by">Góp bởi ${esc(it.phapdanh)}</p>
+            ${embed}
+            ${it.body ? `<p class="cd-body">${esc(it.body)}</p>` : ''}
+         </div>`;
+        }).join('');
+      } catch {
+        const box = document.getElementById('cd-list');
+        if (box) box.innerHTML = '<p class="text-center text-parchment/50 text-sm">Không tải được, xin thử lại.</p>';
+      }
+    }
+    load();
+ </script>
+</BaseLayout>

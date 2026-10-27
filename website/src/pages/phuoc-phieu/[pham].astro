@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { phamList, getPham } from '../../data/phuocphieu';
+
+export function getStaticPaths() {
+  return phamList.filter((p) => p.open).map((p) => ({ params: { pham: p.slug } }));
+}
+
+const { pham: slug } = Astro.params;
+const p = getPham(slug!)!;
+const boards = p.board || [];
+---
+
+<BaseLayout
+  title={`Phước Phiếu ${p.name} — Tần Số Nacha`}
+  description={`${p.name} 品 — ${p.poetic}`}
+  ogImage={p.cover}
+>
+  <!-- HERO — art riêng theo cấp -->
+  <section class="relative min-h-[64vh] flex items-center overflow-hidden -mt-16 md:-mt-20"
+    style={`--from:${p.hue.from};--to:${p.hue.to};--accent:${p.hue.accent};--pink:${p.hue.ink}`}>
+    <div class="absolute inset-0">
+      <img src={p.cover} alt={p.name} class="w-full h-full object-cover opacity-45" loading="eager" />
+      <div class="absolute inset-0" style={`background: linear-gradient(160deg, color-mix(in srgb, ${p.hue.from} 82%, transparent), ${p.hue.to} 92%);`}></div>
+   </div>
+    <div class="relative z-10 container-content pt-24 pb-12">
+      <nav class="text-xs mb-6" style="color:var(--pink);opacity:.7">
+        <a href="/phuoc-phieu" class="hover:underline">Phước Phiếu</a>
+        <span class="mx-1">›</span><span style="color:var(--accent)">{p.name}</span>
+     </nav>
+      <div class="max-w-2xl">
+        <p class="pp-h-glyph">{p.glyph}</p>
+        <p class="font-brush text-3xl md:text-4xl tracking-[0.35em] mb-3" style="color:var(--accent)">{p.han}</p>
+        <p class="text-xs uppercase tracking-[0.25em] mb-2" style="color:var(--pink);opacity:.6">Phẩm {p.rank} · Đường Tự Thân</p>
+        <h1 class="font-display text-5xl md:text-6xl font-bold mb-5" style="color:var(--pink)">{p.name}</h1>
+        <p class="font-accent italic text-lg md:text-2xl leading-relaxed" style="color:var(--pink);opacity:.9">"{p.poetic}"</p>
+     </div>
+   </div>
+ </section>
+
+  <!-- KÍCH HOẠT / VÀO EVENT -->
+  <section class="relative py-14" style={`background:${p.hue.to};--accent:${p.hue.accent};--pink:${p.hue.ink}`}>
+    <div class="container-content max-w-lg text-center">
+      <span class="font-brush text-lg tracking-widest" style="color:var(--accent)">開 緣</span>
+      <h2 class="font-display text-2xl md:text-3xl mt-1 mb-3" style="color:var(--pink)">Khai Duyên · Vào Cõi {p.name}</h2>
+      <p class="text-sm mb-6" style="color:var(--pink);opacity:.7">
+        Cầm Phước Phiếu trên tay? Chỉ cần <b>quét mã QR</b> trên phiếu — cõi tự mở, không phải gõ gì.
+        Đã có Pháp Danh rồi thì bước thẳng vào cõi của mình.
+     </p>
+
+      <div class="pp-cta">
+        <a href="/vao-coi" class="pp-cta-btn primary" style={`background:var(--accent)`}> Vào Cõi Của Ta</a>
+        <a href="/vao-coi" class="pp-cta-btn ghost" style={`border-color:var(--accent);color:var(--pink)`}> Có Phước Phiếu? Quét vào</a>
+     </div>
+      <p class="text-[11px] mt-5" style="color:var(--pink);opacity:.5">
+        Chưa có phiếu? Mỗi cuốn sách Tần Số Nacha mở một Phước Phiếu. Tìm đến Thủ Các để thỉnh.
+     </p>
+   </div>
+ </section>
+
+  <!-- CONCEPT BOARDS -->
+  {boards.length > 0 && (
+    <section class="section-padding bg-parchment">
+      <div class="container-content max-w-4xl">
+        <div class="section-header" data-animate="fade-up">
+          <span class="eyebrow">意 象</span>
+          <h2 class="font-display text-3xl text-ink">Ý Tượng Phước Phiếu</h2>
+          <div class="divider-ornament mt-6"><span>{p.han}</span></div>
+       </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10" data-animate="fade-up">
+          {boards.map((b, i) => (
+            <div class="pp-board">
+              <img src={b} alt={`${p.name} concept ${i + 1}`} loading="lazy" />
+           </div>
+          ))}
+       </div>
+     </div>
+   </section>
+  )}
+
+  <!-- Ý NGHĨA + PHƯỚC/DUYÊN -->
+  <section class="section-dark relative" style={`--accent:${p.hue.accent};--pink:${p.hue.ink}`}>
+    <div class="container-content max-w-3xl py-14">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5" data-animate="fade-up">
+        <div class="pp-info-card">
+          <span class="pp-info-han">福</span>
+          <h3 class="font-display text-lg text-parchment mt-1">Điểm Phước</h3>
+          <p class="text-sm text-parchment/70 mt-1">"Phước là cái bạn gieo. Nó được đếm." Chỉ cộng khi bạn trao đi — gieo vào quỹ hoặc tặng sách.</p>
+       </div>
+        <div class="pp-info-card">
+          <span class="pp-info-han">緣</span>
+          <h3 class="font-display text-lg text-parchment mt-1">Điểm Duyên</h3>
+          <p class="text-sm text-parchment/70 mt-1">"Duyên là cái tới với bạn. Không mua được, cũng không đổi được." Hiện ra cùng mảnh chuyện bạn rút.</p>
+       </div>
+     </div>
+      <p class="text-center font-accent italic text-parchment/60 mt-8 text-sm" data-animate="fade-up">
+        Nơi cõi {p.name}, mỗi lần quét phiếu là một lần rút duyên — bạn không chọn mảnh; mảnh chọn bạn.
+     </p>
+   </div>
+ </section>
+
+  <style is:global>
+    .pp-h-glyph { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4)); }
+    .pp-cta { display: flex; flex-direction: column; gap: 0.6rem; max-width: 22rem; margin: 0 auto; }
+    .pp-cta-btn { display: block; border-radius: 9999px; padding: 0.85rem 1.4rem; font-weight: 600; font-size: 0.92rem; text-align: center; text-decoration: none; transition: transform .2s ease, filter .2s ease; }
+    .pp-cta-btn.primary { color: #1c1710; }
+    .pp-cta-btn.ghost { background: transparent; border: 1px solid; }
+    .pp-cta-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .pp-board { border-radius: 1rem; overflow: hidden; border: 1px solid rgba(201,169,110,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.12); aspect-ratio: 3/4; }
+    .pp-board img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .pp-board:hover img { transform: scale(1.05); }
+    .pp-info-card { background: rgba(255,255,255,0.04); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 1rem; padding: 1.2rem; }
+    .pp-info-han { font-family: 'Noto Serif SC', serif; font-size: 2rem; color: var(--accent); }
+ </style>
+
+</BaseLayout>

@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Bí Sử — Tần Số Nacha 秘史">
+
+  <!-- HERO -->
+  <section class="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <img src="/images/art/img-25-wide.jpg" alt="Bí sử Tần Số Nacha" class="tkc-hero-art absolute inset-0 w-full h-full object-cover opacity-52" loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/60 to-ink/98"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(circle at 30% 40%, rgba(139,111,46,0.22) 0%, transparent 60%);"></div>
+    <div class="container-content relative text-center">
+      <p class="font-brush text-bronze-light text-2xl tracking-widest mb-4" data-animate="fade-in">秘 史</p>
+      <h1 class="font-display text-5xl md:text-6xl text-parchment mb-4" data-animate="fade-up">Bí Sử</h1>
+      <p class="font-accent italic text-parchment/70 text-lg max-w-2xl mx-auto" data-animate="fade-up">
+        Câu chuyện ngàn năm của Tàng — và những bậc thủ các đã đi qua đời này.
+     </p>
+   </div>
+ </section>
+
+  <!-- ORIGIN -->
+  <section class="section-padding bg-parchment">
+    <div class="container-content max-w-4xl">
+      <div class="text-center mb-12" data-animate="fade-up">
+        <span class="seal-stamp">緣 起</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink mt-6">Khởi Duyên</h2>
+     </div>
+
+      <div class="prose-story text-lg text-ink-light leading-loose" data-animate="fade-up">
+        <p>
+          Truyền rằng vào năm Đường Trinh Quán thứ ba, có một vị lão tăng từ Tây Vực đi qua dãy núi, lưng cõng một bao kinh. Khi đến chân núi, ông gặp một thiếu niên đang ngồi giã thuốc bên dòng suối. Lão tăng đặt bao kinh xuống, uống một bát nước, rồi nói: "Sách này không phải của ta. Nó thuộc về kẻ nào biết giữ."
+       </p>
+        <p>
+          Thiếu niên hỏi: "Vậy ai mới là kẻ biết giữ?"
+       </p>
+        <p>
+          Lão tăng cười: "Kẻ không nhân danh chữ để cầu lợi, không dùng kinh để khoe mình, không vì người đến mà mở mà cũng không vì người đi mà đóng. Là kẻ giữ sách như giữ một giếng nước — ai khát thì tới, ai no thì đi, mà nước thì vẫn ở đó."
+       </p>
+        <p>
+          Lão tăng để bao kinh lại, đi mất. Thiếu niên năm đó dựng một ngôi gác nhỏ ven sườn núi, gọi là <em>Tàng Kinh Các</em> — nay chính là cõi <em>Tần Số Nacha</em>. Đến nay đã trải qua ba mươi bảy đời thủ các. Sách trong gác chưa hề thiếu, mà cũng chưa hề thừa.
+       </p>
+     </div>
+   </div>
+ </section>
+
+  <!-- THREE VOWS -->
+  <section class="tkc-about-vows section-padding bg-parchment-warm">
+    <div class="container-content max-w-5xl">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow">三 願</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink">Tam Đại Thệ Nguyện</h2>
+        <div class="divider-ornament mt-6"><span>願</span></div>
+        <p class="font-accent italic text-ink-light/70 max-w-2xl mx-auto mt-4">
+          Ba lời thề mỗi thủ các đều phải lập khi nhận chìa khoá Tàng.
+       </p>
+     </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { han:'不 賣', title:'Bất Mãi', img:'/images/art/img-16-square.jpg', text:'Không bán. Sách của Tàng không có giá. Kẻ đến đọc, đọc đủ thì đi. Không đem chữ ra đổi vàng bạc.' },
+          { han:'不 改', title:'Bất Cải', img:'/images/art/img-15-square.jpg', text:'Không sửa. Văn của tiền nhân, giữ nguyên từng chấm phẩy. Chú giải có thể thêm, chánh văn không động.' },
+          { han:'不 拒', title:'Bất Cự', img:'/images/art/img-18-square.jpg', text:'Không từ chối. Ai đến đọc đều là khách. Sang hèn nam nữ, hỏi tới quyển nào, đem ra quyển ấy.' },
+        ].map((vow, i) => (
+          <div class="scroll-card text-center overflow-hidden !p-0" data-animate="fade-up" style={`animation-delay:${i * 120}ms`}>
+            <div class="relative h-44 overflow-hidden">
+              <img src={vow.img} alt={vow.title} class="w-full h-full object-cover" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/15 to-transparent"></div>
+              <p class="absolute bottom-4 left-0 right-0 font-brush text-bronze-light text-3xl tracking-widest">{vow.han}</p>
+           </div>
+            <div class="p-6">
+              <h3 class="font-display text-xl mb-3 text-ink">{vow.title}</h3>
+              <p class="text-sm text-ink-light leading-relaxed">{vow.text}</p>
+           </div>
+         </div>
+        ))}
+     </div>
+   </div>
+ </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="section-padding bg-ink relative overflow-hidden">
+    <div class="absolute inset-0 opacity-15" style="background:
+      repeating-linear-gradient(0deg, transparent 0px, transparent 60px, rgba(139,111,46,0.2) 60px, rgba(139,111,46,0.2) 62px);"></div>
+    <div class="container-content relative max-w-5xl">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow text-bronze-light">五 層 樓 閣</span>
+        <h2 class="font-display text-3xl md:text-4xl text-parchment">Ngũ Tầng Lâu Các</h2>
+        <p class="font-accent italic text-parchment/60 max-w-2xl mx-auto mt-4">
+          Tàng dựng năm tầng. Mỗi tầng một loại sách, một loại không khí.
+       </p>
+     </div>
+
+      <div class="space-y-4">
+        {[
+          { lv: '五', vi: 'Tầng Năm — Quan Tinh Đài', cn: '觀 星 臺', desc: 'Trên mái gác. Đặt thiên văn đồ, hỗn thiên nghi, lịch pháp. Đêm trăng tròn, thủ các lên đây ngắm sao.' },
+          { lv: '四', vi: 'Tầng Bốn — Bí Tịch Lầu', cn: '秘 籍 樓', desc: 'Sách hiếm. Có khoá bằng đồng, chìa khoá truyền tay đời này sang đời khác. Phải có giấy giới thiệu của tiền bối mới được mở.' },
+          { lv: '三', vi: 'Tầng Ba — Đạo Nho Đường', cn: '道 儒 堂', desc: 'Đạo Đức Kinh, Luận Ngữ, Mạnh Tử, Trang Tử. Đệ tử đến đây thường ở lại đọc đến rạng sáng.' },
+          { lv: '二', vi: 'Tầng Hai — Phật Kinh Điện', cn: '佛 經 殿', desc: 'Tam Tạng kinh điển. Trên mỗi giá đặt một lư trầm. Đọc kinh kèm khói trầm — chữ vào tâm như nước thấm vào giấy.' },
+          { lv: '一', vi: 'Tầng Một — Tiếp Khách Sảnh', cn: '接 客 廳', desc: 'Bàn trà gỗ đào, ấm sứ trắng. Khách đến trước ngồi đây dùng một chén trà, nói chuyện vô thường rồi mới vào trong.' },
+        ].map((floor, i) => (
+          <div class="card-dark flex gap-4 md:gap-6 items-start group hover:border-bronze-light/50 transition-all" data-animate="fade-up" style={`animation-delay:${i * 100}ms`}>
+            <div class="flex-shrink-0">
+              <p class="font-brush text-bronze-light text-5xl md:text-6xl leading-none">{floor.lv}</p>
+           </div>
+            <div class="flex-1">
+              <div class="flex items-baseline gap-3 mb-2">
+                <h3 class="font-display text-xl md:text-2xl text-parchment">{floor.vi}</h3>
+                <p class="font-chinese text-bronze-light text-sm tracking-widest hidden md:inline">{floor.cn}</p>
+             </div>
+              <p class="text-sm text-parchment/90 leading-relaxed">{floor.desc}</p>
+           </div>
+         </div>
+        ))}
+     </div>
+   </div>
+ </section>
+
+  <!-- QUOTE -->
+  <section class="section-padding bg-parchment">
+    <div class="container-content max-w-3xl text-center">
+      <div data-animate="fade-up">
+        <p class="font-brush text-bronze text-4xl md:text-5xl tracking-widest mb-6">守 而 不 持</p>
+        <p class="quote-block !text-2xl md:!text-3xl !font-display !not-italic !text-ink mx-auto inline-block">
+          Giữ mà không chiếm. Mở mà không khoe. Đọc mà không bám.
+       </p>
+        <p class="mt-6 text-sm text-ink-light/70 font-accent italic">— Lời truyền của Tổ Tàng</p>
+     </div>
+   </div>
+ </section>
+
+</BaseLayout>

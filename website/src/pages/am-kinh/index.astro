@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { artists, albumReadyCount } from '../../data/amkinh';
+
+const artPool = [
+  '/images/tieu-tam/avatar_1.jpg','/images/tieu-tam/avatar_2.jpg','/images/tieu-tam/avatar_3.jpg','/images/tieu-tam/avatar_4.jpg',
+  '/images/tieu-tam/avatar_5.jpg','/images/tieu-tam/avatar_6.jpg','/images/tieu-tam/avatar_7.jpg','/images/tieu-tam/avatar_8.jpg',
+].filter(Boolean);
+function hash(s: string): number { return [...s].reduce((n, c) => ((n * 31) + c.charCodeAt(0)) >>> 0, 7); }
+function albumCover(album: any, artist: any): string { return artPool[hash(album.slug || album.title) % artPool.length]; }
+function cleanTitle(input = ''): string {
+  return input
+    .replace(/\s*\([^)]*(?:snap\s*v\d*|ThichCa|Lv\d|BedroomPop|bedroom\s*pop)[^)]*\)\s*/gi, ' ')
+    .replace(/^\s*Lv\d+\s+[\p{L}\d&/·\- ]{2,32}?\s+(?=[A-ZÀ-Ỵ])/u, '')
+    .replace(/\bLv\d+\b/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+function genreOf(track: any, album: any): string {
+  const text = `${track.tag || ''} ${track.title || ''} ${album.title || ''}`.toLowerCase();
+  if (/lofi|chill|bedroom|pop/.test(text)) return 'Lofi · Chill';
+  if (/như lai|nhu lai/.test(text)) return 'Như Lai';
+  if (/minh tuệ|minh tue/.test(text)) return 'Minh Tuệ';
+  if (/buông|buong|healing|sleep/.test(text)) return 'Buông nhẹ';
+  if (/thở|tho|breath|thiền|thien/.test(text)) return 'Hơi thở';
+  return 'Phật Pháp';
+}
+const readyAlbums = artists.flatMap((artist) => artist.albums.filter((album) => albumReadyCount(album) > 0).map((album) => ({ artist, album, cover: albumCover(album, artist), count: albumReadyCount(album) })));
+const genres = ['Tất cả','Phật Pháp','Lofi · Chill','Như Lai','Minh Tuệ','Buông nhẹ','Hơi thở'];
+---
+
+<BaseLayout
+  title="Âm Kinh 音經 — Music Home | Tần Số Nacha"
+  description="Âm Kinh — nghe nhạc Phật của Tiểu Tâm, khám phá album và tần số Nacha."
+>
+  <main class="amk-home" data-amk-home>
+    <section class="amk-shell amk-top">
+      <p class="amk-kicker">音經 · Tần số Nacha</p>
+      <div class="amk-now" id="amkNowCard">
+        <img id="amkCover" src={readyAlbums[0]?.cover || '/images/art/img-03-square.jpg'} alt="Bìa bài đang phát" />
+        <div class="amk-now-text">
+          <span>Đang phát</span>
+          <h1 id="amkTitle">Âm Kinh</h1>
+          <p id="amkMeta">Tiểu Tâm · Nhạc Phật</p>
+          <p id="amkPlays" class="amk-plays">Đang nạp lượt phát…</p>
+       </div>
+        <div class="amk-now-actions">
+          <button class="amk-primary" id="amkPlay" type="button"><svg class="amk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4L18.5 12z"/></svg></button>
+          <button class="amk-ghost" id="amkNext" type="button"><svg class="amk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7.5h2.4c2.7 0 4.2 9 7.4 9h1.4M4.5 16.5h2.4c1.2 0 2.2-1.8 3.2-3.8M14.3 7.5h1.4M15.4 4.9l3.1 2.6-3.1 2.6M15.4 13.9l3.1 2.6-3.1 2.6"/></svg></button>
+       </div>
+     </div>
+      <p class="amk-fallback" id="amkFallback" hidden>Chạm <svg class="amk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4L18.5 12z"/></svg> để mở âm thanh.</p>
+   </section>
+
+    <section class="amk-shell amk-section amk-bxh" id="amkBxh" aria-label="Bảng xếp hạng">
+      <div class="amk-title-row"><h2>Bảng Xếp Hạng</h2>
+        <div class="amk-bxh-tabs" role="tablist">
+          <button type="button" data-period="day" class="is-active">Ngày</button>
+          <button type="button" data-period="week">Tuần</button>
+          <button type="button" data-period="month">Tháng</button>
+        </div>
+      </div>
+      <ol id="amkBxhList" class="amk-bxh-list"><li class="amk-bxh-empty">Đang xếp hạng…</li></ol>
+    </section>
+
+    <section class="amk-shell amk-section">
+      <div class="amk-title-row"><h2>Nghe tiếp</h2><span>{readyAlbums.length} album</span></div>
+      <div class="amk-scroll-row" aria-label="Album nổi bật">
+        {readyAlbums.slice(0, 14).map(({ artist, album, cover, count }) => (
+          <a class="amk-album-tile" href={`#album-${album.slug}`} data-genre={genreOf(album.tracks.find((t) => t.ready) || {}, album)}>
+            <img src={cover} alt={album.title} loading="eager" />
+            <strong>{album.title}</strong>
+            <small>{artist.name} · {count} bài</small>
+         </a>
+        ))}
+     </div>
+   </section>
+
+    <section class="amk-shell amk-section amk-genres" aria-label="Thể loại">
+      {genres.map((g) => <button type="button" class:list={["amk-genre", g === 'Tất cả' && 'is-active']} data-genre={g}>{g}</button>)}
+   </section>
+
+    <section class="amk-shell amk-section">
+      <div class="amk-title-row"><h2>Tất cả album</h2><span id="amkGridCount">{readyAlbums.length}</span></div>
+      <div class="amk-grid" id="amkAlbumGrid">
+        {readyAlbums.map(({ artist, album, cover, count }) => {
+          const first = album.tracks.find((t) => t.ready) || album.tracks[0] || {};
+          const g = genreOf(first, album);
+          return (
+            <article class="amk-grid-card" id={`album-${album.slug}`} data-genre={g}>
+              <a href={`/am-kinh/${artist.slug}/${album.slug}/`} aria-label={`Mở ${album.title}`}>
+                <img src={cover} alt={album.title} loading="lazy" />
+                <strong>{album.title}</strong>
+                <small>{artist.name} · {g} · {count} bài</small>
+             </a>
+              <button type="button" class="amk-card-play" data-album={album.slug}>Phát ngẫu nhiên</button>
+           </article>
+          );
+        })}
+     </div>
+   </section>
+ </main>
+
+  <div class="amk-mini" id="amkMini" aria-live="polite">
+    <button id="amkMiniPlay" type="button"><svg class="amk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4L18.5 12z"/></svg></button>
+    <div><strong id="amkMiniTitle">Âm Kinh</strong><small id="amkMiniMeta">Sẵn sàng</small></div>
+    <button id="amkMiniNext" type="button"><svg class="amk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7.5h2.4c2.7 0 4.2 9 7.4 9h1.4M4.5 16.5h2.4c1.2 0 2.2-1.8 3.2-3.8M14.3 7.5h1.4M15.4 4.9l3.1 2.6-3.1 2.6M15.4 13.9l3.1 2.6-3.1 2.6"/></svg></button>
+ </div>
+  <audio id="amkAudio" preload="metadata"></audio>
+
+  <script define:vars={{ artists, artPool }}>
+    const hash = (s) => [...String(s)].reduce((n,c)=>((n*31)+c.charCodeAt(0))>>>0,7);
+    const cleanTitle = (s='') => String(s).replace(/\s*\([^)]*(?:snap\s*v\d*|ThichCa|Lv\d|BedroomPop|bedroom\s*pop)[^)]*\)\s*/gi,' ').replace(/^\s*Lv\d+\s+[\p{L}\d&/·\- ]{2,32}?\s+(?=[A-ZÀ-Ỵ])/u,'').replace(/\bLv\d+\b/gi,'').replace(/\s{2,}/g,' ').trim();
+    const genreOf = (t, al) => { const text = `${t.tag||''} ${t.title||''} ${al.title||''}`.toLowerCase(); if(/lofi|chill|bedroom|pop/.test(text)) return 'Lofi · Chill'; if(/như lai|nhu lai/.test(text)) return 'Như Lai'; if(/minh tuệ|minh tue/.test(text)) return 'Minh Tuệ'; if(/buông|buong|healing|sleep/.test(text)) return 'Buông nhẹ'; if(/thở|tho|breath|thiền|thien/.test(text)) return 'Hơi thở'; return 'Phật Pháp'; };
+    const coverFor = (al,a,t={}) => artPool[hash(al.slug || al.title) % artPool.length];
+    const tracks = artists.flatMap(a => a.albums.flatMap(al => al.tracks.filter(t => t.ready).map(t => ({...t, title: cleanTitle(t.title), rawTitle:t.title, artist:a.name, album:al.title, albumSlug:al.slug, tid:`${a.slug}:${al.slug}:${t.slug}`, genre:genreOf(t,al), cover:coverFor(al,a,t)}))));
+    const $ = (id) => document.getElementById(id);
+    const audio=$('amkAudio'), playBtn=$('amkPlay'), nextBtn=$('amkNext'), miniPlay=$('amkMiniPlay'), miniNext=$('amkMiniNext');
+    const title=$('amkTitle'), meta=$('amkMeta'), cover=$('amkCover'), fb=$('amkFallback'), mt=$('amkMiniTitle'), mm=$('amkMiniMeta'), gridCount=$('amkGridCount');
+    const playsEl=$('amkPlays');
+    const IC={play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4L18.5 12z"/></svg>',pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.2v11.6M15 6.2v11.6"/></svg>',shuffle:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7.5h2.4c2.7 0 4.2 9 7.4 9h1.4M4.5 16.5h2.4c1.2 0 2.2-1.8 3.2-3.8M14.3 7.5h1.4M15.4 4.9l3.1 2.6-3.1 2.6M15.4 13.9l3.1 2.6-3.1 2.6"/></svg>'};
+    [playBtn,miniPlay].forEach(b=>{ if(b) b.innerHTML=IC.play; }); [nextBtn,miniNext].forEach(b=>{ if(b) b.innerHTML=IC.shuffle; });
+    let current=null, recent=[], activeGenre='Tất cả';
+    const countedPlays = new Set();
+    function pool(){ const base = activeGenre === 'Tất cả' ? tracks : tracks.filter(t => t.genre === activeGenre); return base.length ? base : tracks; }
+    function pick(extra = {}){ const base=pool().filter(t => !recent.includes(t.src)); const list=base.length?base:pool(); const t=list[Math.floor(Math.random()*list.length)]; if(t) recent=[t.src,...recent].slice(0,18); return t; }
+    function setTrack(t, autoplay=false){ if(!t) return; current=t; audio.src=t.src; title.textContent=t.title; meta.textContent=`${t.artist} · ${t.album}`; cover.src=t.cover; mt.textContent=t.title; mm.textContent=t.artist; refreshPlays(); if(autoplay) play(); }
+    async function refreshPlays(){ if(!current||!playsEl) return; try{ const r=await fetch(`/api/stats?track=${encodeURIComponent(current.tid)}`); const d=await r.json(); const n=d?.stats?.play??0; playsEl.textContent=`${Number(n).toLocaleString('vi-VN')} lượt đã phát`; }catch{ playsEl.textContent='Lượt phát đang đồng bộ'; } }
+    async function countPlay(){ if(!current||countedPlays.has(current.tid)) return; countedPlays.add(current.tid); try{ const r=await fetch('/api/hit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({track:current.tid,metric:'play'})}); const d=await r.json(); const n=d?.stats?.play; if(playsEl&&typeof n==='number') playsEl.textContent=`${Number(n).toLocaleString('vi-VN')} lượt đã phát`; }catch{} }
+    async function play(){ try{ await audio.play(); playBtn.innerHTML=IC.pause; miniPlay.innerHTML=IC.pause; fb.hidden=true; countPlay(); }catch(e){ fb.hidden=false; playBtn.innerHTML=IC.play; miniPlay.innerHTML=IC.play; } }
+    function pause(){ audio.pause(); playBtn.innerHTML=IC.play; miniPlay.innerHTML=IC.play; }
+    function toggle(){ audio.paused ? play() : pause(); }
+    function next(){ setTrack(pick(), true); }
+    function filterGenre(g, autoplay=true){ activeGenre=g; document.querySelectorAll('.amk-genre').forEach(b=>b.classList.toggle('is-active', b.dataset.genre===g)); let shown=0; document.querySelectorAll('.amk-grid-card').forEach(card=>{ const ok=g==='Tất cả'||card.dataset.genre===g; card.hidden=!ok; if(ok) shown++; }); gridCount.textContent=shown; if(autoplay && g !== 'Tất cả') setTrack(pick(), true); }
+    document.querySelectorAll('.amk-genre').forEach(b=>b.addEventListener('click',()=>filterGenre(b.dataset.genre, true)));
+    document.querySelectorAll('.amk-card-play').forEach(b=>b.addEventListener('click',()=>{ const list=tracks.filter(t=>t.albumSlug===b.dataset.album); setTrack(list[Math.floor(Math.random()*list.length)], true); }));
+    [playBtn,miniPlay].forEach(b=>b.addEventListener('click',toggle)); [nextBtn,miniNext].forEach(b=>b.addEventListener('click',next)); audio.addEventListener('ended', next);
+    const bxhList=$('amkBxhList');
+    const byTid=new Map(tracks.map(t=>[t.tid,t]));
+    const escH=(x)=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const fmtN=(n)=>Number(n||0).toLocaleString('vi-VN');
+    function bxhRow(it,i){
+      const t=byTid.get(it.tid);
+      const title=t?t.title:it.tid.split(':').pop().replace(/-/g,' ');
+      const cov=t?t.cover:artPool[i%artPool.length];
+      const url='/am-kinh/'+it.tid.split(':').join('/')+'/';
+      const delta=it.dPlay>0?'<span class="bxh-delta">+'+fmtN(it.dPlay)+'</span>':'<span class="bxh-delta bxh-delta--dim">—</span>';
+      return '<li class="amk-bxh-row'+(i<3?' bxh-top'+(i+1):'')+'" data-url="'+url+'"><span class="bxh-rank">'+(i+1)+'</span><img src="'+cov+'" alt="" loading="lazy"/><div class="bxh-info"><strong>'+escH(title)+'</strong><small>'+fmtN(it.play)+' nghe · '+fmtN(it.like)+' kính · '+fmtN(it.comment)+' bình</small></div>'+delta+'</li>';
+    }
+    let hotMarked=false;
+    async function loadBxh(p){
+      try{
+        const r=await fetch('/api/top?period='+p+'&limit=20');
+        const d=await r.json();
+        if(!d.ok||!bxhList) return;
+        bxhList.innerHTML=d.items.map(bxhRow).join('')||'<li class="amk-bxh-empty">Chưa có dữ liệu.</li>';
+        if(!hotMarked&&d.items.length){
+          hotMarked=true;
+          d.items.slice(0,5).forEach(it=>{
+            const al=it.tid.split(':')[1];
+            const card=document.getElementById('album-'+al);
+            if(card) card.classList.add('amk-hot');
+          });
+        }
+      }catch{}
+    }
+    bxhList&&bxhList.addEventListener('click',(e)=>{const row=e.target.closest('.amk-bxh-row');if(row&&row.dataset.url)location.href=row.dataset.url;});
+    document.querySelectorAll('.amk-bxh-tabs button').forEach(b=>b.addEventListener('click',()=>{
+      document.querySelectorAll('.amk-bxh-tabs button').forEach(x=>x.classList.toggle('is-active',x===b));
+      loadBxh(b.dataset.period);
+    }));
+    loadBxh('day'); setInterval(()=>{const act=document.querySelector('.amk-bxh-tabs button.is-active');loadBxh(act?act.dataset.period:'day');},60000);
+    const opener=tracks.find(t=>t.tid==='tieu-tam:already-phat:da-nam-mo'); if(opener) recent=[opener.src]; setTrack(opener||pick(), false); play(); setInterval(refreshPlays,15000);
+ </script>
+
+  <style is:global>
+    .amk-ico{width:1.05em;height:1.05em;display:inline-block;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.16em}.amk-ico path[d^="M8.5"]{fill:currentColor;stroke:none}
+    :root{--amk-ink:#100b08;--amk-bronze:#C9A96E;--amk-paper:#f4e7cf;--amk-muted:rgba(244,231,207,.66)}
+    .amk-home{min-height:100vh;background:radial-gradient(circle at 50% -12%,rgba(201,169,110,.22),transparent 34rem),linear-gradient(180deg,#17100c 0%,var(--amk-ink) 38%);color:var(--amk-paper);padding:5.25rem 0 calc(12.5rem + env(safe-area-inset-bottom));font-family:Inter,system-ui,sans-serif}.amk-shell{width:min(1100px,92vw);margin:auto}.amk-kicker{margin:0 0 .7rem;color:var(--amk-bronze);letter-spacing:.22em;text-transform:uppercase;font-size:.72rem}.amk-top{padding-top:.35rem}.amk-now{display:grid;grid-template-columns:76px 1fr auto;gap:.9rem;align-items:center;padding:.72rem;border:1px solid rgba(201,169,110,.18);border-radius:24px;background:rgba(255,246,225,.07);box-shadow:0 18px 55px rgba(0,0,0,.28);backdrop-filter:blur(18px)}.amk-now img{width:76px;height:76px;aspect-ratio:1;border-radius:18px;object-fit:cover;background:#25170f}.amk-now-text{min-width:0}.amk-now-text span{color:var(--amk-bronze);font-size:.72rem;font-weight:700}.amk-now h1{margin:.12rem 0;font-size:clamp(1.15rem,5vw,2rem);line-height:1.08;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.amk-now p{margin:0;color:var(--amk-muted);font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.amk-now .amk-plays{margin-top:.16rem;color:var(--amk-bronze);font-size:.78rem}.amk-now-actions{display:flex;gap:.45rem}.amk-primary,.amk-ghost,.amk-genre,.amk-card-play,.amk-mini button{border:0;border-radius:999px;color:#160d07;background:var(--amk-bronze);font-weight:800}.amk-primary,.amk-ghost,.amk-mini button{width:44px;height:44px;display:grid;place-items:center}.amk-primary svg,.amk-ghost svg,.amk-mini button svg{width:1.15rem;height:1.15rem;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}.amk-primary svg path:first-child{fill:currentColor;stroke:none}.amk-primary svg path[d^="M9"],.amk-mini button svg path[d^="M9"]{fill:none;stroke:currentColor}.amk-ghost{background:rgba(244,231,207,.1);color:var(--amk-paper);border:1px solid rgba(201,169,110,.24)}.amk-fallback{margin:.55rem .3rem 0;color:#e7c88b;font-size:.82rem}.amk-section{margin-top:2.05rem}.amk-title-row{display:flex;align-items:end;justify-content:space-between;margin-bottom:.85rem}.amk-title-row h2{margin:0;font-size:1.35rem;letter-spacing:-.02em}.amk-title-row span{color:var(--amk-bronze);font-size:.86rem}.amk-scroll-row{display:grid;grid-auto-flow:column;grid-auto-columns:142px;gap:1rem;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:.1rem .1rem .9rem}.amk-album-tile{scroll-snap-align:start;display:block;color:inherit;text-decoration:none}.amk-album-tile img,.amk-grid-card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:18px;display:block;background:#24160f;box-shadow:0 12px 28px rgba(0,0,0,.24)}.amk-album-tile strong,.amk-grid-card strong{display:block;margin-top:.55rem;font-size:.95rem;line-height:1.18;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.amk-album-tile small,.amk-grid-card small{display:block;margin-top:.18rem;color:var(--amk-muted);font-size:.78rem}.amk-genres{display:flex;gap:.55rem;overflow-x:auto;padding-bottom:.25rem}.amk-genre{flex:0 0 auto;padding:.62rem .9rem;background:rgba(244,231,207,.08);color:var(--amk-paper);border:1px solid rgba(201,169,110,.2)}.amk-genre.is-active{background:var(--amk-paper);color:#160d07;border-color:var(--amk-paper)}.amk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.15rem}.amk-grid-card{min-width:0}.amk-grid-card[hidden]{display:none}.amk-grid-card a{color:inherit;text-decoration:none}.amk-card-play{margin-top:.55rem;width:100%;padding:.58rem .5rem;background:rgba(201,169,110,.16);color:#f5dfb6;border:1px solid rgba(201,169,110,.22);font-size:.78rem}.amk-mini{position:fixed;z-index:40;left:50%;bottom:calc(8.15rem + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(520px,90vw);display:grid;grid-template-columns:auto 1fr auto;gap:.65rem;align-items:center;padding:.52rem .62rem;border-radius:22px;border:1px solid rgba(201,169,110,.26);background:rgba(16,11,8,.9);backdrop-filter:blur(18px);box-shadow:0 14px 38px rgba(0,0,0,.42)}.amk-mini div{min-width:0}.amk-mini strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.9rem}.amk-mini small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--amk-bronze);font-size:.75rem}.amk-mini button{width:36px;height:36px;background:rgba(244,231,207,.1);color:var(--amk-paper);border:1px solid rgba(201,169,110,.22)}@media(min-width:760px){.amk-home{padding-top:6rem}.amk-now{grid-template-columns:96px 1fr auto;padding:1rem}.amk-now img{width:96px;height:96px}.amk-scroll-row{grid-auto-columns:176px}.amk-grid{grid-template-columns:repeat(4,1fr)}.amk-mini{bottom:calc(1.4rem + env(safe-area-inset-bottom))}}@media(max-width:420px){.amk-shell{width:91vw}.amk-home{padding-top:4.7rem}.amk-now{grid-template-columns:62px 1fr auto;border-radius:21px}.amk-now img{width:62px;height:62px;border-radius:15px}.amk-primary,.amk-ghost{width:38px;height:38px}.amk-now-actions{flex-direction:column}.amk-scroll-row{grid-auto-columns:132px;gap:.9rem}.amk-grid{gap:1rem}.amk-mini{bottom:calc(8.4rem + env(safe-area-inset-bottom));width:88vw}}
+ .amk-bxh-tabs{display:flex;gap:.4rem}.amk-bxh-tabs button{border:1px solid rgba(201,169,110,.25);background:rgba(244,231,207,.06);color:var(--amk-paper);border-radius:999px;padding:.38rem .8rem;font-size:.78rem;font-weight:700;transition:background .18s ease,color .18s ease}.amk-bxh-tabs button.is-active{background:var(--amk-bronze);color:#160d07;border-color:var(--amk-bronze)}.amk-bxh-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem}.amk-bxh-empty{color:var(--amk-muted);text-align:center;padding:1.2rem;font-size:.85rem}.amk-bxh-row{display:grid;grid-template-columns:1.7rem 46px minmax(0,1fr) auto;gap:.65rem;align-items:center;padding:.5rem .65rem;border:1px solid rgba(201,169,110,.16);border-radius:15px;background:rgba(244,231,207,.045);cursor:pointer;transition:border-color .2s ease,background .2s ease}.amk-bxh-row:hover{border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.08)}.amk-bxh-row img{width:46px;height:46px;border-radius:11px;object-fit:cover;background:#24160f}.bxh-rank{font-weight:800;color:rgba(201,169,110,.75);text-align:center;font-variant-numeric:tabular-nums}.bxh-info{min-width:0}.bxh-info strong{display:block;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bxh-info small{color:var(--amk-muted);font-size:.72rem}.bxh-delta{color:#9fd6a8;font-size:.72rem;font-weight:700}.bxh-delta--dim{color:rgba(244,231,207,.3)}@keyframes amkGlow{0%,100%{box-shadow:0 0 5px rgba(201,169,110,.22)}50%{box-shadow:0 0 20px rgba(201,169,110,.6)}}.bxh-top1{border-color:rgba(233,196,124,.7);animation:amkGlow 2.4s ease-in-out infinite}.bxh-top1 .bxh-rank{color:#ecc57e}.bxh-top1 .bxh-info strong{color:#f2d9a4;text-shadow:0 0 10px rgba(233,196,124,.55)}.bxh-top2{border-color:rgba(201,169,110,.45);box-shadow:0 0 10px rgba(201,169,110,.22)}.bxh-top3{border-color:rgba(201,169,110,.32)}.amk-hot{animation:amkGlow 2.8s ease-in-out infinite;border-radius:18px}@media(prefers-reduced-motion:reduce){.bxh-top1,.amk-hot{animation:none}}
+  </style>
+</BaseLayout>

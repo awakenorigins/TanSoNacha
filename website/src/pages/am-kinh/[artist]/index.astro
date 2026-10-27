@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { artists, albumReadyCount } from '../../../data/amkinh';
+
+export function getStaticPaths() {
+  return artists.map((a) => ({ params: { artist: a.slug } }));
+}
+
+const { artist: artistSlug } = Astro.params;
+const artist = artists.find((a) => a.slug === artistSlug)!;
+const avatarPool = [
+  '/images/tieu-tam/avatar_1.jpg','/images/tieu-tam/avatar_2.jpg','/images/tieu-tam/avatar_3.jpg','/images/tieu-tam/avatar_4.jpg',
+  '/images/tieu-tam/avatar_5.jpg','/images/tieu-tam/avatar_6.jpg','/images/tieu-tam/avatar_7.jpg','/images/tieu-tam/avatar_8.jpg',
+];
+function hashStr(s: string): number { return [...s].reduce((n, c) => ((n * 31) + c.charCodeAt(0)) >>> 0, 7); }
+function coverOf(al: any): string { return avatarPool[hashStr(al.slug || al.title) % avatarPool.length]; }
+---
+
+<BaseLayout
+  title={`${artist.name} 音經 — Âm Kinh | Tần Số Nacha`}
+  description={`${artist.name} — ${artist.tagline} Nghe nhạc Phật miễn phí tại Tần Số Nacha.`}
+>
+  <!-- ARTIST HERO -->
+  <section class="relative min-h-[46vh] flex items-end overflow-hidden -mt-16 md:-mt-20">
+    <div class="absolute inset-0 bg-ink">
+      <img src={artist.avatar || '/images/art/img-07-wide.jpg'} alt={artist.name} class="w-full h-full object-cover opacity-40" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/70 to-ink"></div>
+   </div>
+    <div class="relative z-10 container-content pb-10 pt-24">
+      <nav class="text-xs text-parchment/55 mb-4 flex items-center gap-3">
+        <a href="/am-kinh" class="amk-back-btn" aria-label="Quay lại Âm Kinh">‹ Quay lại</a>
+        <span>
+          <a href="/am-kinh" class="hover:text-bronze-light">Âm Kinh</a>
+          <span class="mx-1">›</span>
+          <span class="text-bronze-light">{artist.name}</span>
+       </span>
+     </nav>
+      <div class="flex items-end gap-5">
+        <div class="amk-hero-avatar">
+          <img src={artist.avatar || '/images/art/nacha-tiger.jpg'} alt={artist.name} />
+       </div>
+        <div>
+          <p class="font-brush text-bronze-light text-xl tracking-widest mb-1">{artist.cn}</p>
+          <h1 class="font-display text-4xl md:text-5xl text-parchment font-bold">{artist.name}</h1>
+          <p class="text-parchment/70 text-sm italic mt-2">{artist.tagline}</p>
+       </div>
+     </div>
+   </div>
+ </section>
+
+  <!-- BIO -->
+  {artist.bio && (
+    <section class="bg-ink border-t border-bronze/15">
+      <div class="container-content py-8 max-w-3xl">
+        <p class="text-parchment/75 text-center font-accent italic text-base md:text-lg leading-relaxed">{artist.bio}</p>
+     </div>
+   </section>
+  )}
+
+  <!-- ALBUMS -->
+  <section class="section-padding bg-parchment">
+    <div class="container-content max-w-4xl">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow">專 輯</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink">Album</h2>
+        <div class="divider-ornament mt-6"><span>專 輯 目 錄</span></div>
+     </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10" data-animate="fade-up">
+        {artist.albums.map((al) => {
+          const ready = albumReadyCount(al);
+          return (
+            <a href={`/am-kinh/${artist.slug}/${al.slug}`} class="amk-album-card group">
+              <div class="amk-album-cover">
+                <img src={coverOf(al)} alt={al.title} loading="lazy" />
+                <span class="amk-album-play"><svg class="amk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4L18.5 12z"/></svg></span>
+             </div>
+              <div class="p-4">
+                <p class="font-brush text-bronze-light text-sm tracking-widest">{al.cn}</p>
+                <h3 class="font-display text-lg text-ink mt-1">{al.title}</h3>
+                <p class="text-xs text-ink-light/65 mt-1 leading-relaxed line-clamp-2">{al.desc}</p>
+                <p class="text-[11px] text-bronze-dark mt-2">
+                  {ready > 0 ? `${ready} bài đang phát` : 'Sắp mở'}
+               </p>
+             </div>
+           </a>
+          );
+        })}
+     </div>
+   </div>
+ </section>
+
+  <style is:global>
+    .amk-ico{width:1.05em;height:1.05em;display:inline-block;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.16em}.amk-ico path[d^="M8.5"]{fill:currentColor;stroke:none}
+    .amk-back-btn { display:inline-flex; align-items:center; gap:.25rem; padding:.42rem .8rem; border-radius:999px; border:1px solid rgba(201,166,107,.4); background:rgba(201,166,107,.14); color:#F2E8D5; font-size:.75rem; white-space:nowrap; }
+    .amk-back-btn:hover { background:rgba(201,166,107,.3); }
+    .amk-hero-avatar { width: 96px; height: 96px; border-radius: 9999px; overflow: hidden; flex-shrink: 0; box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 3px rgba(201,166,107,0.4); }
+    .amk-hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .amk-album-card { display: block; background: var(--parchment-warm, #F2E8D5); border: 1px solid rgba(201,166,107,0.16); border-radius: 1rem; overflow: hidden; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+    .amk-album-card:hover { transform: translateY(-5px); border-color: rgba(201,166,107,0.5); box-shadow: 0 16px 40px rgba(139,111,46,0.16); }
+    .amk-album-cover { position: relative; aspect-ratio: 1/1; overflow: hidden; }
+    .amk-album-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .amk-album-card:hover .amk-album-cover img { transform: scale(1.06); }
+    .amk-album-play {
+      position: absolute; bottom: 10px; right: 10px; width: 40px; height: 40px; border-radius: 9999px;
+      background: rgba(139,111,46,0.92); color: #F2E8D5; display: grid; place-items: center; font-size: 0.9rem;
+      opacity: 0; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease; box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    .amk-album-card:hover .amk-album-play { opacity: 1; transform: translateY(0); }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+ </style>
+</BaseLayout>

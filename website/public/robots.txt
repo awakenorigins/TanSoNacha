@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tangkinhcac.62.146.238.213.sslip.io/sitemap.xml

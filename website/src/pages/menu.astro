@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sutras = {
+  phat: {
+    title: 'Phật Gia Kinh Tạng',
+    cn: '佛 家 經 藏',
+    desc: 'Tam Tạng — Kinh, Luật, Luận. Pháp âm chư Phật, lời dạy của bậc Như Lai.',
+    items: [
+      { id: 'tam-kinh', cn: '心 經', vi: 'Tâm Kinh', sub: 'Bát-nhã Ba-la-mật-đa', note: 'Quán Tự Tại — Ngũ Uẩn giai Không.' },
+      { id: 'kim-cuong-kinh', cn: '金 剛 經', vi: 'Kim Cương Kinh', sub: 'Năng Đoạn Kim Cương', note: 'Kinh dạy phá bốn tướng: ngã, nhân, chúng sinh, thọ giả. Đây là pháp bảo để chặt đứt bám chấp bằng trí tuệ kim cương.' },
+      { id: 'nacha', cn: '那 迦 頻', vi: 'Tần Số Nacha', sub: 'Nacha Resonance', note: 'Một phòng âm ba giả tưởng: lưu trữ tần số, chú âm, rung động và các ghi chép năng lượng. Đây là nhánh huyền học mới, không phải kinh văn truyền thống.' },
+      { cn: '法 華 經', vi: 'Pháp Hoa Kinh', sub: 'Diệu Pháp Liên Hoa', note: 'Một thừa pháp — chỉ duy Phật thừa.' },
+      { cn: '華 嚴 經', vi: 'Hoa Nghiêm Kinh', sub: 'Đại Phương Quảng Phật', note: 'Một là tất cả, tất cả là một.' },
+      { cn: '楞 嚴 經', vi: 'Lăng Nghiêm Kinh', sub: 'Thủ Lăng Nghiêm', note: 'Đại định bất động, soi tỏ chân tâm.' },
+      { cn: '阿 彌 陀 經', vi: 'A-di-đà Kinh', sub: 'Sukhāvatī-vyūha', note: 'Tịnh Độ Tây Phương, niệm Phật quy hương.' },
+    ],
+  },
+  dao: {
+    title: 'Đạo Gia Bí Tịch',
+    cn: '道 家 秘 籍',
+    desc: 'Lão — Trang — Liệt. Đạo khả đạo, phi thường đạo. Vô vi mà không gì chẳng làm.',
+    items: [
+      { id: 'dao-duc-kinh', cn: '道 德 經', vi: 'Đạo Đức Kinh', sub: 'Lão Tử', note: 'Ngũ thiên ngôn — nền tảng Đạo gia.' },
+      { cn: '南 華 經', vi: 'Nam Hoa Kinh', sub: 'Trang Tử', note: 'Tiêu Dao Du — bay cao như Đại Bằng.' },
+      { cn: '沖 虛 經', vi: 'Xung Hư Kinh', sub: 'Liệt Tử', note: 'Tâm vắng như hư, hành tựa gió.' },
+      { cn: '陰 符 經', vi: 'Âm Phù Kinh', sub: 'Hoàng Đế', note: 'Quan thiên chi đạo, chấp thiên chi hành.' },
+      { cn: '太 上 感 應 篇', vi: 'Cảm Ứng Thiên', sub: 'Thái Thượng', note: 'Họa phúc vô môn — duy nhân tự chiêu.' },
+      { cn: '清 靜 經', vi: 'Thanh Tĩnh Kinh', sub: 'Lão Quân', note: 'Thường thanh tĩnh — thiên địa tất giai quy.' },
+    ],
+  },
+  nho: {
+    title: 'Nho Gia Điển Tịch',
+    cn: '儒 家 典 籍',
+    desc: 'Tứ Thư — Ngũ Kinh. Đại đạo của bậc quân tử — tu thân, tề gia, trị quốc, bình thiên hạ.',
+    items: [
+      { cn: '論 語', vi: 'Luận Ngữ', sub: 'Khổng Tử', note: 'Học nhi thời tập chi, bất diệc duyệt hồ.' },
+      { cn: '大 學', vi: 'Đại Học', sub: 'Tăng Tử', note: 'Tu thân — tề gia — trị quốc — bình thiên hạ.' },
+      { cn: '中 庸', vi: 'Trung Dung', sub: 'Tử Tư', note: 'Trung là gốc đại bản, hòa là đạo đạt.' },
+      { cn: '孟 子', vi: 'Mạnh Tử', sub: 'Mạnh Kha', note: 'Nhân chi sơ — tính bản thiện.' },
+      { cn: '詩 經', vi: 'Thi Kinh', sub: 'Cổ thi 305 thiên', note: 'Quan quan thư cưu — phong, nhã, tụng.' },
+      { id: 'dich-kinh', cn: '易 經', vi: 'Dịch Kinh', sub: 'Chu Văn Vương', note: 'Sáu mươi tư quẻ — đạo biến dịch của trời đất.' },
+    ],
+  },
+  bi: {
+    title: 'Bí Tịch Tạp Học',
+    cn: '秘 籍 雜 學',
+    desc: 'Thiên văn — Địa lý — Y dược — Bốc phệ. Những quyển hiếm, chỉ truyền cho người có duyên.',
+    items: [
+      { cn: '黃 帝 內 經', vi: 'Hoàng Đế Nội Kinh', sub: 'Cổ y kinh', note: 'Tổ tông của Đông y — âm dương ngũ hành.' },
+      { cn: '青 囊 經', vi: 'Thanh Nang Kinh', sub: 'Quách Phác', note: 'Phong thủy địa lý — long mạch huyệt vị.' },
+      { cn: '紫 微 斗 數', vi: 'Tử Vi Đẩu Số', sub: 'Trần Đoàn', note: 'Mệnh bàn 12 cung — luận thế nhân vận.' },
+      { cn: '推 背 圖', vi: 'Thôi Bối Đồ', sub: 'Lý Thuần Phong — Viên Thiên Cang', note: 'Sáu mươi tượng — tiên tri ngàn năm.' },
+      { cn: '梅 花 易 數', vi: 'Mai Hoa Dịch Số', sub: 'Thiệu Khang Tiết', note: 'Tâm Dịch — tức cảnh đoán việc.' },
+      { cn: '奇 門 遁 甲', vi: 'Kỳ Môn Độn Giáp', sub: 'Hoàng Thạch Công', note: 'Pháp thuật binh gia — thiên thời địa lợi.' },
+    ],
+  },
+};
+
+const sections = [
+  { key: 'phat', data: sutras.phat },
+  { key: 'dao', data: sutras.dao },
+  { key: 'nho', data: sutras.nho },
+  { key: 'bi', data: sutras.bi },
+];
+---
+
+<BaseLayout title="Kinh Tạng — Tần Số Nacha 經藏">
+
+  <!-- HERO -->
+  <section class="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <img src="/images/art/img-06-wide.jpg" alt="Kinh Tạng" class="tkc-hero-art absolute inset-0 w-full h-full object-cover opacity-54" loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/58 to-ink/98"></div>
+    <div class="absolute inset-0 opacity-25" style="background: repeating-linear-gradient(90deg, transparent 0px, transparent 80px, rgba(139,111,46,0.2) 80px, rgba(139,111,46,0.2) 82px);"></div>
+    <div class="container-content relative text-center">
+      <p class="font-brush text-bronze-light text-2xl tracking-widest mb-4" data-animate="fade-in">經 藏</p>
+      <h1 class="font-display text-5xl md:text-6xl text-parchment mb-4" data-animate="fade-up">Kinh Tạng</h1>
+      <p class="font-accent italic text-parchment/70 text-lg max-w-2xl mx-auto" data-animate="fade-up">
+        Bốn gian điện lớn — Phật, Đạo, Nho, Bí. Mời quân tử chọn ngả mình muốn rẽ.
+     </p>
+   </div>
+ </section>
+
+  <!-- TOC ANCHORS -->
+  <section class="bg-parchment-warm border-b border-bronze/15 sticky top-16 md:top-20 z-40 backdrop-blur-md">
+    <div class="container-content flex flex-wrap justify-center gap-3 md:gap-6 py-4 text-sm">
+      {sections.map(s => (
+        <a href={`#${s.key}`} class="tag-bronze !text-bronze-dark hover:bg-bronze hover:!text-parchment transition-all">
+          {s.data.title}
+       </a>
+      ))}
+   </div>
+ </section>
+
+  <!-- SECTIONS -->
+  {sections.map((sec, idx) => (
+    <section id={sec.key} class={`section-padding ${idx % 2 === 0 ? 'bg-parchment' : 'bg-parchment-warm'}`}>
+      <div class="container-content">
+        <div class="section-header" data-animate="fade-up">
+          <span class="eyebrow">{sec.data.cn}</span>
+          <h2 class="font-display text-3xl md:text-4xl text-ink">{sec.data.title}</h2>
+          <div class="divider-ornament mt-6">
+            <span>經</span>
+         </div>
+          <p class="font-accent italic text-ink-light/70 max-w-2xl mx-auto mt-4">{sec.data.desc}</p>
+       </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sec.data.items.map((item, i) => (
+            <div id={item.id} class="tkc-mobile-center scroll-card menu-card hover-lift group scroll-mt-32" data-animate="fade-up" style={`animation-delay:${i * 80}ms`}>
+              <div class="flex items-start gap-4">
+                <p class="font-brush text-bronze text-2xl tracking-widest flex-shrink-0">{item.cn}</p>
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-display text-xl font-semibold mb-1 text-ink ink-stroke inline-block">{item.vi}</h3>
+                  <p class="font-accent italic text-xs text-bronze-dark/80 mt-1 mb-3">{item.sub}</p>
+                  <p class="text-sm text-ink-light leading-relaxed">{item.note}</p>
+               </div>
+             </div>
+           </div>
+          ))}
+       </div>
+     </div>
+   </section>
+  ))}
+
+  <!-- CTA -->
+  <section class="section-padding bg-ink relative overflow-hidden">
+    <div class="absolute inset-0 opacity-15" style="background: radial-gradient(circle at 50% 50%, rgba(201,166,107,0.4) 0%, transparent 70%);"></div>
+    <div class="container-content relative text-center max-w-3xl">
+      <p class="font-brush text-bronze-light text-2xl tracking-widest mb-6" data-animate="fade-in">借 經</p>
+      <h2 class="font-display text-3xl md:text-4xl text-parchment mb-6" data-animate="fade-up">
+        Tìm thấy quyển sách của duyên?
+     </h2>
+      <p class="font-accent italic text-parchment/70 text-lg mb-8" data-animate="fade-up">
+        Đăng ký mượn — thủ các sẽ chuẩn bị bản ghi rõ ràng nhất.
+     </p>
+      <a href="/booking" class="btn-primary text-lg" data-animate="fade-up">Mượn Kinh →</a>
+   </div>
+ </section>
+
+</BaseLayout>

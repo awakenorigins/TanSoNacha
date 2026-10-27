@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Mời Duyên · Tần Số Nacha" description="Gửi lời thỉnh để Người Dẫn Duyên chứng nhận.">
+<section class="min-h-[75vh] bg-ink text-parchment grid place-items-center px-4"><form id="invite-form" class="w-full max-w-md rounded-3xl border border-bronze/40 p-7 bg-white/5 text-center">
+<p class="text-4xl"></p><h1 class="font-display text-3xl mt-3">Mời Duyên</h1><p class="text-parchment/65 text-sm mt-2 mb-6">Đặt Pháp Danh và Mật Mã. Tài khoản chỉ được mở khi Người Dẫn Duyên bấm Chứng Duyên.</p>
+<input id="pd" class="w-full rounded-full bg-white/10 border border-bronze/40 px-5 py-3 mb-3" maxlength="30" placeholder="Pháp Danh" required />
+<input id="mm" type="password" class="w-full rounded-full bg-white/10 border border-bronze/40 px-5 py-3 mb-4" minlength="4" maxlength="60" placeholder="Mật Mã (ít nhất 4 ký tự)" required />
+<button class="btn-primary w-full" type="submit">Gửi lời thỉnh</button><p id="msg" class="text-sm mt-4 text-bronze-light"></p><div id="receipt-box" hidden class="mt-4"><code id="receipt" class="break-all"></code><button id="copy" type="button" class="block mx-auto mt-2 underline">Sao chép mã tra cứu</button></div>
+</form><form id="status-form" class="w-full max-w-md rounded-3xl border border-bronze/40 p-7 bg-white/5 text-center mt-4"><h2 class="font-display text-xl">Tra cứu lời thỉnh</h2><input id="lookup" class="w-full rounded-full bg-white/10 border border-bronze/40 px-5 py-3 my-3" placeholder="Mã tra cứu riêng"/><button class="btn-primary w-full">Tra cứu</button><p id="status-msg" class="text-sm mt-4 text-bronze-light"></p>
+</form></section>
+<script>
+const invite=new URLSearchParams(location.search).get('invite')||'';const form=document.querySelector('#invite-form');const msg=document.querySelector('#msg');
+form?.addEventListener('submit',async(e)=>{e.preventDefault();const phapdanh=(document.querySelector('#pd') as HTMLInputElement).value.trim(),matma=(document.querySelector('#mm') as HTMLInputElement).value;try{const r=await fetch('/pp-api/invite/request',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({invite,phapdanh,matma})});const d=await r.json();if(msg)msg.textContent=d.message||d.error||'Xin thử lại';if(d.ok){(form as HTMLFormElement).querySelectorAll('input,button').forEach((x:any)=>x.disabled=true);const box=document.querySelector('#receipt-box') as HTMLElement,el=document.querySelector('#receipt')!;el.textContent=d.receipt;box.hidden=false;try{localStorage.setItem('invite-receipt',d.receipt)}catch{}}}catch{if(msg)msg.textContent='Chưa kết nối được, xin thử lại.'}});
+document.querySelector('#copy')?.addEventListener('click',()=>navigator.clipboard.writeText(document.querySelector('#receipt')?.textContent||''));const lookup=document.querySelector('#lookup') as HTMLInputElement;try{lookup.value=localStorage.getItem('invite-receipt')||''}catch{}document.querySelector('#status-form')?.addEventListener('submit',async e=>{e.preventDefault();const r=await fetch('/pp-api/invite/status',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({receipt:lookup.value.trim()})});const d=await r.json();document.querySelector('#status-msg')!.textContent=d.message||d.error||'Xin thử lại'});
+</script>
+</BaseLayout>

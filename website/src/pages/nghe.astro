@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { artists } from '../data/amkinh';
+
+// Lấy track "ready" đầu tiên của artist Tiểu Tâm làm bài auto-phát.
+// Đây là TRANG ĐÍCH CỐ ĐỊNH cho QR Âm Kinh. Đổi bài đích chỉ cần sửa slug dưới,
+// hoặc đổi longUrl của short-url qua Shlink (QR không đổi).
+function firstReady() {
+  for (const artist of artists) {
+    for (const album of artist.albums) {
+      for (const t of album.tracks) {
+        if (t.ready && t.src) return { artist, album, track: t };
+      }
+    }
+  }
+  return null;
+}
+const pick = firstReady();
+const track = pick?.track;
+const album = pick?.album;
+const artist = pick?.artist;
+---
+
+<BaseLayout title={track ? `${track.title} — Âm Kinh | Tần Số Nacha` : 'Âm Kinh — Tần Số Nacha'} description="Chạm để nghe Âm Kinh Tần Số Nacha.">
+  <section class="nghe">
+    <div class="nghe-bg"></div>
+    <div class="nghe-card">
+      <p class="font-brush text-2xl tracking-[0.4em]" style="color:#C9A96E">音 經</p>
+      {track ? (
+        <>
+          <div class="nghe-cover">
+            {track.cover || album?.cover
+              ? <img src={track.cover || album?.cover} alt={track.title} />
+              : <span class="nghe-glyph"></span>}
+            <div class="nghe-ring" id="nghe-ring"></div>
+         </div>
+          <h1 class="nghe-title">{track.title}</h1>
+          <p class="nghe-sub">{artist?.name}{album ? ` · ${album.title}` : ''}</p>
+
+          <audio id="nghe-audio" src={track.src} preload="auto" loop></audio>
+
+          <button id="nghe-play" class="nghe-btn">
+            <span id="nghe-ico">▶</span> <span id="nghe-label">Chạm để nghe</span>
+         </button>
+          <p id="nghe-hint" class="nghe-hint">Âm Kinh sẽ ngân lên khi bạn chạm </p>
+
+          <a href="/am-kinh" class="nghe-more">Vào Thư Viện Âm Kinh →</a>
+       </>
+      ) : (
+        <>
+          <span class="nghe-glyph" style="font-size:3rem"></span>
+          <h1 class="nghe-title">Âm Kinh đang kết tập</h1>
+          <p class="nghe-sub">Xin quay lại sau — tiếng kinh sắp ngân.</p>
+          <a href="/am-kinh" class="nghe-more">Vào Thư Viện Âm Kinh →</a>
+       </>
+      )}
+   </div>
+ </section>
+
+  <style is:global>
+    .nghe { position: relative; min-height: 100vh; margin-top: -4rem; display: grid; place-items: center; padding: 1.5rem; overflow: hidden; }
+    .nghe-bg { position: absolute; inset: 0; background: linear-gradient(165deg, #2C2C2C, #1a1510); }
+    .nghe-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 36%, rgba(201,169,110,0.2), transparent 62%); }
+    .nghe-card { position: relative; z-index: 1; text-align: center; max-width: 26rem; width: 100%; }
+    .nghe-cover { position: relative; width: 200px; height: 200px; margin: 1.4rem auto 1.2rem; border-radius: 9999px; overflow: hidden; display: grid; place-items: center; background: rgba(201,169,110,0.12); border: 1px solid rgba(201,169,110,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.55); }
+    .nghe-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .nghe-glyph { font-size: 4rem; }
+    .nghe-ring { position: absolute; inset: -6px; border-radius: 9999px; border: 2px solid rgba(201,169,110,0.4); opacity: 0; }
+    .nghe-ring.spin { opacity: 1; animation: nghe-spin 8s linear infinite; }
+    @keyframes nghe-spin { to { transform: rotate(360deg); } }
+    .nghe-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #F5F0EB; margin-top: 0.4rem; line-height: 1.3; }
+    .nghe-sub { font-size: 0.85rem; color: rgba(245,240,235,0.65); margin-top: 0.4rem; }
+    .nghe-btn { margin-top: 1.6rem; border-radius: 9999px; padding: 0.9rem 2rem; font-weight: 600; font-size: 1rem; background: #C9A96E; color: #1c1710; display: inline-flex; align-items: center; gap: 0.5rem; transition: filter .2s, transform .2s; }
+    .nghe-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .nghe-play-ico { width: 1em; height: 1em; stroke: currentColor; stroke-width: 1.7; fill: none; stroke-linejoin: round; }
+    .nghe-pause { width: .82em; height: 1em; display: inline-block; border-left: 3px solid currentColor; border-right: 3px solid currentColor; }
+    .nghe-hint { font-size: 0.75rem; color: rgba(201,169,110,0.8); margin-top: 0.9rem; }
+    .nghe-more { display: inline-block; margin-top: 1.6rem; font-size: 0.8rem; color: rgba(245,240,235,0.6); text-decoration: underline; }
+    .nghe-more:hover { color: #C9A96E; }
+ </style>
+
+  <script>
+    const audio = document.getElementById('nghe-audio') as HTMLAudioElement | null;
+    const btn = document.getElementById('nghe-play');
+    const ico = document.getElementById('nghe-ico');
+    const label = document.getElementById('nghe-label');
+    const hint = document.getElementById('nghe-hint');
+    const ring = document.getElementById('nghe-ring');
+
+    function setPlaying(on: boolean) {
+      if (ico) ico.innerHTML = on ? '<span class="nghe-pause" aria-hidden="true"></span>' : '<svg class="nghe-play-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5-10-6.5Z"/></svg>';
+      if (label) label.textContent = on ? 'Đang ngân…' : 'Chạm để nghe';
+      if (ring) ring.classList.toggle('spin', on);
+      if (hint && on) hint.textContent = 'Nhắm mắt, thở, để tiếng kinh tưới tâm ';
+    }
+
+    async function tryPlay() {
+      if (!audio) return;
+      try { await audio.play(); setPlaying(true); }
+      catch { setPlaying(false); if (hint) hint.textContent = 'Chạm nút để bắt đầu nghe '; }
+    }
+
+    // Thử auto-phát ngay khi mở (nhiều máy chặn autoplay có tiếng → sẽ rơi vào nút chạm)
+    tryPlay();
+
+    btn?.addEventListener('click', () => {
+      if (!audio) return;
+      if (audio.paused) tryPlay();
+      else { audio.pause(); setPlaying(false); }
+    });
+
+    audio?.addEventListener('play', () => setPlaying(true));
+    audio?.addEventListener('pause', () => setPlaying(false));
+ </script>
+</BaseLayout>

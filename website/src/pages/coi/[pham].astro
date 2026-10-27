@@ -1,0 +1,357 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { phamList, getPham } from '../../data/phuocphieu';
+
+export function getStaticPaths() {
+  return phamList.filter((p) => p.open).map((p) => ({ params: { pham: p.slug } }));
+}
+
+const { pham: slug } = Astro.params;
+const p = getPham(slug!)!;
+
+// Vật phẩm mẫu (108 Mảnh Chuyện Như Lai) — GĐ1 demo, GĐ2 nối Sổ Duyên thật
+const khoDemo = [
+  { m: 'Mảnh 07', ten: 'Con Sông', cau: 'Nước không vội. Nó chỉ đi — và bằng cách đi, nó tới.', got: true },
+  { m: 'Mảnh 23', ten: 'Hạt Cải', cau: 'Nhỏ đến đâu, cũng đủ chứa cả một mùa.', got: true },
+  { m: 'Mảnh 41', ten: 'Ngọn Đèn', cau: 'Một ngọn thắp trăm ngọn, mình chẳng vơi đi.', got: true },
+  { m: '???', ten: 'Chưa hé lộ', cau: 'Mảnh này còn ẩn — đợi lần rút duyên sau.', got: false },
+  { m: '???', ten: 'Chưa hé lộ', cau: 'Bạn không chọn mảnh; mảnh chọn bạn.', got: false },
+  { m: '???', ten: 'Chưa hé lộ', cau: 'Còn 105 mảnh đang đợi trong tràng hạt 108.', got: false },
+];
+
+const hoatDong = [
+  { icon: '', text: 'Gieo Duyên vào Quỹ — in sách cho thư viện chùa', phuoc: '+100', khi: 'Hôm nay' },
+  { icon: '', text: 'Ấn Tống một cuốn cho lớp học vùng cao', phuoc: '+100', khi: '3 ngày trước' },
+  { icon: '', text: 'Rút mảnh "Ngọn Đèn" tại cõi ' + p.name, phuoc: '+0', khi: '5 ngày trước' },
+];
+---
+
+<BaseLayout title={`Cõi ${p.name} — Sổ Duyên | Tần Số Nacha`} description={`Cõi riêng của bạn tại phẩm ${p.name}.`}>
+  <section class="pp-coi" style={`--from:${p.hue.from};--to:${p.hue.to};--accent:${p.hue.accent};--pink:${p.hue.ink}`}>
+
+    <!-- ── HERO ACC ── -->
+    <div class="pp-coi-hero">
+      <div class="absolute inset-0">
+        <img src={p.cover} alt={p.name} class="w-full h-full object-cover opacity-25" />
+        <div class="absolute inset-0" style={`background:linear-gradient(160deg, color-mix(in srgb, ${p.hue.from} 85%, transparent), ${p.hue.to} 94%)`}></div>
+     </div>
+      <div class="relative z-10 container-content pt-24 pb-10">
+        <div class="flex items-center gap-4">
+          <a href="/nguoi" class="pp-coi-avatar" aria-label="Mở Bảng Công Đức" data-profile-avatar>{p.glyph}</a>
+          <div>
+            <p class="text-xs uppercase tracking-[0.2em]" style="color:var(--pink);opacity:.6">Cõi của bạn · Phẩm {p.rank}</p>
+            <h1 class="font-display text-3xl md:text-4xl font-bold" style="color:var(--pink)" data-phapdanh>Đạo hữu Vô Danh</h1>
+            <p class="font-brush text-xl tracking-widest mt-1" style="color:var(--accent)">{p.han} · {p.name}</p>
+            <a href="/nguoi" class="pp-profile-link">Mở Bảng Công Đức →</a>
+         </div>
+       </div>
+
+        <!-- điểm phước / duyên / mảnh -->
+        <div class="pp-coi-stats">
+          <div class="pp-stat"><span class="pp-stat-num" data-phuoc>210</span><span class="pp-stat-lbl">福 Điểm Phước</span></div>
+          <div class="pp-stat"><span class="pp-stat-num" data-duyen>147</span><span class="pp-stat-lbl">緣 Điểm Duyên</span></div>
+          <div class="pp-stat"><span class="pp-stat-num"><span data-manh>0</span><span class="pp-stat-sm">/108</span></span><span class="pp-stat-lbl">Mảnh đã rút</span></div>
+          <div class="pp-stat"><span class="pp-stat-num">{p.rank}</span><span class="pp-stat-lbl">Phẩm hiện tại</span></div>
+       </div>
+     </div>
+   </div>
+
+    <!-- ── NỘI DUNG ── -->
+    <div class="container-content max-w-4xl py-12 relative z-10">
+
+      <!-- KHO TÀNG (vật phẩm 108 mảnh) -->
+      <div class="pp-panel">
+        <div class="pp-panel-head">
+          <span class="pp-panel-han">藏</span>
+          <div><h2 class="pp-panel-title">Kho Tàng · 108 Mảnh Chuyện Như Lai</h2>
+          <p class="pp-panel-sub">Mỗi lần rút duyên, một mảnh về tay. Mảnh chọn bạn.</p></div>
+       </div>
+        <div class="pp-kho">
+          {khoDemo.map((k) => (
+            <div class={`pp-manh ${k.got ? 'pp-manh--got' : 'pp-manh--locked'}`}>
+              <span class="pp-manh-m">{k.m}</span>
+              <span class="pp-manh-ten">{k.ten}</span>
+              <span class="pp-manh-cau">"{k.cau}"</span>
+           </div>
+          ))}
+       </div>
+     </div>
+
+      <!-- SỔ DUYÊN (lịch sử Phước) -->
+      <div class="pp-panel">
+        <div class="pp-panel-head">
+          <span class="pp-panel-han">緣</span>
+          <div><h2 class="pp-panel-title">Sổ Duyên · Dấu Chân Đã Gieo</h2>
+          <p class="pp-panel-sub">Minh bạch từng hạt — Phước chỉ cộng khi bạn trao đi.</p></div>
+       </div>
+        <div class="pp-so" data-so-duyen>
+          {hoatDong.map((h) => (
+            <div class="pp-so-row">
+              <span class="pp-so-icon">{h.icon}</span>
+              <div class="flex-1 min-w-0"><p class="pp-so-text">{h.text}</p><span class="pp-so-when">{h.khi}</span></div>
+              <span class={`pp-so-phuoc ${h.phuoc === '+0' ? 'pp-so-phuoc--zero' : ''}`}>{h.phuoc}</span>
+           </div>
+          ))}
+       </div>
+     </div>
+
+      <!-- CON ĐƯỜNG (tiến trình phẩm) -->
+      <div class="pp-panel">
+        <div class="pp-panel-head">
+          <span class="pp-panel-han">道</span>
+          <div><h2 class="pp-panel-title">Con Đường · Thang Phẩm</h2>
+          <p class="pp-panel-sub">Gieo Phước để bước lên phẩm kế. Cấp lên bằng lòng trao đi.</p></div>
+       </div>
+        <div class="pp-road">
+          <div class="pp-road-fill" style={`width:${(p.rank / 15) * 100}%`}></div>
+          <span class="pp-road-label">Phẩm {p.rank}/15 · {p.name}</span>
+       </div>
+        <p class="pp-road-hint">Còn {210} điểm Phước nữa để hé mở phẩm kế. Mỗi lần Gieo Duyên hoặc Ấn Tống là một bước chân.</p>
+     </div>
+
+      <!-- TÍCH PHƯỚC · TU MỖI NGÀY -->
+      <div class="pp-panel">
+        <div class="pp-panel-head">
+          <span class="pp-panel-han">精</span>
+          <div><h2 class="pp-panel-title">Tích Phước · Tu Mỗi Ngày</h2>
+          <p class="pp-panel-sub">Không phải mua — góp mặt, sẻ chia, gieo tiếng lành đều sinh Phước.</p></div>
+       </div>
+        <div class="pp-tich-grid">
+          <button class="pp-tich" data-tich="diem-danh"><span></span><b>Điểm Danh</b><small>+10 · mỗi ngày</small></button>
+          <button class="pp-tich" data-tich="radio"><span></span><b>Nghe Radio</b><small>+20 · theo event</small></button>
+          <button class="pp-tich" data-tich="comment"><span></span><b>Góp Lời</b><small>+5 · tích cực</small></button>
+          <button class="pp-tich" data-tich="share-story"><span></span><b>Chia Sẻ Chuyện</b><small>+50 · duyệt</small></button>
+          <button class="pp-tich" data-tich="gioi-thieu"><span></span><b>Giới Thiệu</b><small>+100 · có người tới</small></button>
+          <button class="pp-tich" data-tich="dang-bai"><span></span><b>Đăng Bài</b><small>+30 · nhiều người xem</small></button>
+          <button class="pp-tich" data-tich="tao-nhac"><span></span><b>Tạo Nhạc/Podcast</b><small>+80 · được nghe</small></button>
+          <button class="pp-tich" data-tich="stream"><span></span><b>Livestream</b><small>+60 · nhiều người</small></button>
+       </div>
+        <p id="pp-tich-msg" class="pp-tich-msg" hidden></p>
+        <div class="pp-ref-box">
+          <p class="pp-ref-title"> Mời Duyên · Chứng Duyên</p>
+          <p class="pp-ref-sub">Mỗi mã dùng một lần, hết hạn sau 7 ngày. Chứng Duyên thành công: +30 Phước (tối đa 5 mã/ngày).</p>
+          <div class="pp-ref-row">
+            <input id="pp-ref-link" class="pp-ref-input" type="text" readonly value="Bấm Tạo Mời Duyên" />
+            <button id="pp-ref-copy" class="pp-ref-btn">Tạo & Chép</button>
+         </div>
+       </div>
+        <p class="pp-tich-note">Phần đăng bài / nhạc / stream là <b>tự khai</b>, Thủ Các sẽ soát lại — gian dối sẽ tổn duyên. Mỗi việc có trần trong ngày.</p>
+     </div>
+
+      <!-- 3 CÁCH GIEO -->
+      <div class="pp-panel">
+        <div class="pp-panel-head">
+          <span class="pp-panel-han">種</span>
+          <div><h2 class="pp-panel-title">Gieo Tiếp Một Hạt</h2></div>
+       </div>
+        <div class="pp-gieo-grid">
+          <a href={`/phuoc-phieu/${p.slug}`} class="pp-gieo"><span>緣</span><b>Gieo Duyên</b><small>Góp quỹ thiện</small></a>
+          <a href={`/phuoc-phieu/${p.slug}`} class="pp-gieo"><span>印</span><b>Ấn Tống</b><small>Tặng trọn cuốn</small></a>
+          <a href="/am-kinh" class="pp-gieo"><span>音</span><b>Nghe Âm Kinh</b><small>Tưới tâm mỗi ngày</small></a>
+       </div>
+     </div>
+
+      <p class="text-center text-xs mt-8" style="color:var(--pink);opacity:.5">
+        Đây là bản phác cõi {p.name}. Khi khai đàn, mọi dấu Phước của bạn sẽ hiện về đây theo thời gian thực 
+     </p>
+   </div>
+ </section>
+
+  <style is:global>
+    .pp-coi { background: var(--to); min-height: 100vh; margin-top: -4rem; }
+    .pp-coi-hero { position: relative; overflow: hidden; }
+    .pp-coi-avatar { width: 76px; height: 76px; border-radius: 9999px; display: grid; place-items: center; font-size: 2.2rem; flex-shrink: 0; background: color-mix(in srgb, var(--accent) 22%, transparent); border: 2px solid var(--accent); box-shadow: 0 8px 26px rgba(0,0,0,0.4); }
+    .pp-profile-link { display:inline-block;margin-top:.3rem;font-size:.7rem;color:var(--accent);opacity:.8;border-bottom:1px solid color-mix(in srgb,var(--accent) 45%,transparent); }
+    .pp-coi-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-top: 1.8rem; }
+    .pp-stat { background: rgba(255,255,255,0.05); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); border-radius: 0.9rem; padding: 0.8rem; text-align: center; }
+    .pp-stat-num { display: block; font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--accent); line-height: 1; }
+    .pp-stat-sm { font-size: 0.9rem; opacity: 0.6; }
+    .pp-stat-lbl { display: block; font-size: 0.62rem; margin-top: 4px; letter-spacing: 0.04em; color: var(--pink); opacity: 0.7; }
+    @media (max-width: 560px) { .pp-coi-stats { grid-template-columns: repeat(2,1fr); } }
+
+    .pp-panel { background: rgba(255,255,255,0.035); border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); border-radius: 1.1rem; padding: 1.3rem 1.4rem; margin-bottom: 1.2rem; }
+    .pp-panel-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+    .pp-panel-han { font-family: 'Noto Serif SC', serif; font-size: 1.8rem; color: var(--accent); flex-shrink: 0; }
+    .pp-panel-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--pink); font-weight: 600; }
+    .pp-panel-sub { font-size: 0.75rem; color: var(--pink); opacity: 0.6; }
+
+    .pp-kho { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+    @media (max-width: 560px) { .pp-kho { grid-template-columns: repeat(2,1fr); } }
+    .pp-manh { border-radius: 0.8rem; padding: 0.9rem; border: 1px solid; display: flex; flex-direction: column; gap: 3px; min-height: 108px; }
+    .pp-manh--got { background: color-mix(in srgb, var(--accent) 12%, transparent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+    .pp-manh--locked { background: rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.08); opacity: 0.55; }
+    .pp-manh-m { font-family: 'Noto Serif SC', serif; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.06em; }
+    .pp-manh-ten { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--pink); font-weight: 600; }
+    .pp-manh-cau { font-size: 0.72rem; font-style: italic; color: var(--pink); opacity: 0.7; line-height: 1.5; }
+
+    .pp-so { display: flex; flex-direction: column; gap: 0.6rem; }
+    .pp-so-row { display: flex; align-items: center; gap: 0.8rem; background: rgba(0,0,0,0.15); border-radius: 0.7rem; padding: 0.7rem 0.9rem; }
+    .pp-so-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .pp-so-text { font-size: 0.85rem; color: var(--pink); }
+    .pp-so-when { font-size: 0.68rem; color: var(--pink); opacity: 0.5; }
+    .pp-so-phuoc { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+    .pp-so-phuoc--zero { opacity: 0.4; }
+
+    .pp-road { position: relative; height: 12px; border-radius: 9999px; background: rgba(0,0,0,0.25); overflow: hidden; margin-bottom: 0.6rem; }
+    .pp-road-fill { position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 60%, transparent), var(--accent)); border-radius: 9999px; }
+    .pp-road-label { position: absolute; right: 8px; top: -22px; font-size: 0.7rem; color: var(--accent); }
+    .pp-road-hint { font-size: 0.75rem; color: var(--pink); opacity: 0.6; }
+
+    .pp-gieo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; }
+    .pp-gieo { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 1rem 0.6rem; border-radius: 0.9rem; background: color-mix(in srgb, var(--accent) 10%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); text-align: center; transition: transform .2s ease, background .25s ease; }
+    .pp-gieo:hover { transform: translateY(-3px); background: color-mix(in srgb, var(--accent) 20%, transparent); }
+    .pp-gieo span { font-family: 'Noto Serif SC', serif; font-size: 1.5rem; color: var(--accent); }
+    .pp-gieo b { font-size: 0.85rem; color: var(--pink); }
+    .pp-gieo small { font-size: 0.66rem; color: var(--pink); opacity: 0.6; }
+
+    .pp-tich-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.6rem; }
+    @media (max-width: 640px) { .pp-tich-grid { grid-template-columns: repeat(2,1fr); } }
+    .pp-tich { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 0.9rem 0.5rem; border-radius: 0.9rem; background: color-mix(in srgb, var(--accent) 9%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); text-align: center; cursor: pointer; transition: transform .2s ease, background .25s ease; }
+    .pp-tich:hover { transform: translateY(-3px); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+    .pp-tich:disabled { opacity: 0.45; cursor: default; transform: none; }
+    .pp-tich span { font-size: 1.4rem; }
+    .pp-tich b { font-size: 0.8rem; color: var(--pink); }
+    .pp-tich small { font-size: 0.62rem; color: var(--accent); opacity: 0.85; }
+    .pp-tich-msg { font-size: 0.8rem; color: var(--accent); margin-top: 0.8rem; text-align: center; }
+    .pp-tich-msg.err { color: #d98a8a; }
+    .pp-tich-note { font-size: 0.68rem; color: var(--pink); opacity: 0.55; margin-top: 0.8rem; line-height: 1.5; }
+    .pp-ref-box { margin-top: 1rem; padding: 0.9rem 1rem; border-radius: 0.9rem; background: color-mix(in srgb, var(--accent) 10%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); }
+    .pp-ref-title { font-size: 0.85rem; color: var(--pink); font-weight: 600; }
+    .pp-ref-sub { font-size: 0.68rem; color: var(--pink); opacity: 0.65; margin-bottom: 0.5rem; }
+    .pp-ref-row { display: flex; gap: 0.4rem; }
+    .pp-ref-input { flex: 1; min-width: 0; background: rgba(255,255,255,0.1); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 9999px; padding: 0.5rem 0.9rem; color: var(--pink); font-size: 0.72rem; }
+    .pp-ref-btn { border-radius: 9999px; padding: 0.5rem 1rem; background: var(--accent); color: #1c1710; font-weight: 600; font-size: 0.8rem; white-space: nowrap; }
+ </style>
+
+  <script>
+    // ĐỌC DATA THẬT: token từ localStorage → /pp-api/account → cập nhật Pháp Danh, Phước, Duyên, Sổ Duyên
+    const API = '/pp-api';
+    const PHAM_SLUG = location.pathname.split('/')[2] || '';
+    function timeAgo(ts: number): string {
+      const s = Math.floor((Date.now() - ts) / 1000);
+      if (s < 60) return 'vừa xong';
+      if (s < 3600) return Math.floor(s/60) + ' phút trước';
+      if (s < 86400) return Math.floor(s/3600) + ' giờ trước';
+      return Math.floor(s/86400) + ' ngày trước';
+    }
+    function esc(s: string): string { return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c] as string)); }
+
+    async function loadAccount() {
+      let token = '';
+      try { token = localStorage.getItem('pp-token') || ''; } catch {}
+      if (!token) {
+        // chưa đăng nhập → mời vào cõi
+        const h = document.querySelector('[data-phapdanh]');
+        if (h) h.textContent = 'Khách Vãng Lai';
+        return;
+      }
+      try {
+        const r = await fetch(`${API}/account?token=${encodeURIComponent(token)}`);
+        const d = await r.json();
+        if (!d.ok || !d.user) return;
+        const u = d.user;
+        const setTxt = (sel: string, val: string) => { const e = document.querySelector(sel); if (e) e.textContent = val; };
+        setTxt('[data-phapdanh]', u.phapdanh || 'Đạo hữu');
+        // nếu acc chưa có mật mã → hiện lời nhắc đặt mật mã
+        if (u.hasMatma === false) showSetMatma(token, u.phapdanh);
+        setTxt('[data-phuoc]', (u.phuoc ?? 0).toLocaleString('vi-VN'));
+        setTxt('[data-duyen]', String(u.duyen ?? 0));
+        updateRoad(u);
+        setRefLink(u);
+        curToken = token;
+        // số mảnh = số dòng rut-manh trong sổ
+        const manhCount = (d.soDuyen || []).filter((x: any) => x.kind === 'rut-manh').length;
+        setTxt('[data-manh]', String(manhCount));
+        // Sổ Duyên thật
+        const box = document.querySelector('[data-so-duyen]');
+        if (box && d.soDuyen && d.soDuyen.length) {
+          const icon: Record<string,string> = { 'khai-duyen':'','gieo-duyen':'','an-tong':'','rut-manh':'' };
+          box.innerHTML = d.soDuyen.map((s: any) => `
+            <div class="pp-so-row">
+              <span class="pp-so-icon">${icon[s.kind] || ''}</span>
+              <div class="flex-1 min-w-0"><p class="pp-so-text">${esc(s.text)}</p><span class="pp-so-when">${timeAgo(s.ts)}</span></div>
+              <span class="pp-so-phuoc ${s.phuoc ? '' : 'pp-so-phuoc--zero'}">${s.phuoc > 0 ? '+' + s.phuoc : '+0'}</span>
+           </div>`).join('');
+        }
+      } catch {}
+    }
+    // cập nhật thanh Con Đường theo ngưỡng phẩm kế
+    let curToken = '';
+    function updateRoad(u: any) {
+      const fill = document.querySelector('.pp-road-fill') as HTMLElement | null;
+      const hint = document.querySelector('.pp-road-hint');
+      const label = document.querySelector('.pp-road-label');
+      if (label) label.textContent = `Phẩm ${u.rank}/15 · ${u.phamName || ''}`;
+      if (u.nextNguong) {
+        const pct = Math.min(100, Math.round((u.phuoc / u.nextNguong) * 100));
+        if (fill) fill.style.width = pct + '%';
+        const con = Math.max(0, u.nextNguong - u.phuoc);
+        if (hint) hint.textContent = `Còn ${con.toLocaleString('vi-VN')} điểm Phước nữa để lên ${u.nextPham}. Mỗi việc lành là một bước chân.`;
+      } else {
+        if (fill) fill.style.width = '100%';
+        if (hint) hint.textContent = 'Bạn đã tới đỉnh cao nhất đạt được bằng điểm. Phẩm cao hơn xét theo công đức và sự công nhận ';
+      }
+    }
+
+    // nút TÍCH PHƯỚC
+    function bindTich() {
+      document.querySelectorAll('.pp-tich').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const kind = (btn as HTMLElement).dataset.tich || '';
+          const msg = document.getElementById('pp-tich-msg');
+          if (!curToken) { if (msg) { msg.hidden = false; msg.className = 'pp-tich-msg err'; msg.textContent = 'Xin vào cõi trước (Pháp Danh + Mật Mã hoặc quét phiếu).'; } return; }
+          (btn as HTMLButtonElement).disabled = true;
+          try {
+            const r = await fetch(`${API}/tich-phuoc`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: curToken, kind }) });
+            const d = await r.json();
+            if (d.ok && d.capped) {
+              if (msg) { msg.hidden = false; msg.className = 'pp-tich-msg'; msg.textContent = d.message || 'Hôm nay đủ duyên cho việc này rồi — mai lại tiếp nhé '; }
+            } else if (d.ok && d.user) {
+              const setTxt = (sel: string, val: string) => { const e = document.querySelector(sel); if (e) e.textContent = val; };
+              setTxt('[data-phuoc]', (d.user.phuoc ?? 0).toLocaleString('vi-VN'));
+              updateRoad(d.user);
+              const up = d.leveledTo ? ` · thăng lên ${d.leveledTo.name} ` : '';
+              if (msg) { msg.hidden = false; msg.className = 'pp-tich-msg'; msg.textContent = `+${(d.added||0).toLocaleString('vi-VN')} Phước${up}`; }
+              setTimeout(loadAccount, 400);
+            } else if (msg) { msg.hidden = false; msg.className = 'pp-tich-msg err'; msg.textContent = d.error || 'Chưa xong, xin thử lại.'; }
+          } catch { if (msg) { msg.hidden = false; msg.className = 'pp-tich-msg err'; msg.textContent = 'Không kết nối được.'; } }
+          finally { setTimeout(() => { (btn as HTMLButtonElement).disabled = false; }, 900); }
+        });
+      });
+    }
+
+    // banner đặt mật mã cho acc cũ chưa có
+    function showSetMatma(token: string, phapdanh: string) {
+      const host = document.querySelector('.pp-coi-hero .container-content');
+      if (!host || document.getElementById('pp-setmatma')) return;
+      const div = document.createElement('div');
+      div.id = 'pp-setmatma';
+      div.style.cssText = 'margin-top:1rem;background:rgba(201,169,110,0.14);border:1px solid rgba(201,169,110,0.4);border-radius:0.9rem;padding:0.9rem 1rem;';
+      div.innerHTML = `<p style="font-size:0.82rem;color:var(--pink);margin-bottom:0.5rem"> Cõi này chưa có Mật Mã. Đặt một mật mã để lần sau vào lại không cần phiếu.</p>
+        <div style="display:flex;gap:0.4rem"><input id="pp-mm-in" type="password" placeholder="Mật Mã mới…" maxlength="60" style="flex:1;background:rgba(255,255,255,0.1);border:1px solid rgba(201,169,110,0.4);border-radius:9999px;padding:0.55rem 1rem;color:var(--pink)"/>
+        <button id="pp-mm-save" style="border-radius:9999px;padding:0.55rem 1.1rem;background:var(--accent);color:#1c1710;font-weight:600">Lưu</button></div>
+        <p id="pp-mm-msg" style="font-size:0.75rem;color:var(--accent);margin-top:0.4rem"></p>`;
+      host.appendChild(div);
+      document.getElementById('pp-mm-save')?.addEventListener('click', async () => {
+        const v = (document.getElementById('pp-mm-in') as HTMLInputElement)?.value.trim() || '';
+        const msg = document.getElementById('pp-mm-msg');
+        if (v.length < 4) { if (msg) msg.textContent = 'Mật mã cần ít nhất 4 ký tự.'; return; }
+        try {
+          const r = await fetch(`${API}/set-matma`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ token, phapdanh, matma: v }) });
+          const d = await r.json();
+          if (d.ok) { if (msg) msg.textContent = 'Đã lưu mật mã  Lần sau vào bằng Pháp Danh + Mật Mã.'; setTimeout(()=>div.remove(), 2500); }
+          else if (msg) msg.textContent = d.error || 'Có lỗi, xin thử lại.';
+        } catch { if (msg) msg.textContent = 'Không kết nối được.'; }
+      });
+    }
+    // M9 opaque Mời Duyên: backend creates a fresh single-use code; raw login token never enters the link.
+    function setRefLink(_u: any) {}
+    document.getElementById('pp-ref-copy')?.addEventListener('click', async () => {
+      const inp=document.getElementById('pp-ref-link') as HTMLInputElement|null; const msg=document.getElementById('pp-tich-msg'); let token=''; try{token=localStorage.getItem('pp-token')||''}catch{}; if(!inp||!token)return;
+      try { const r=await fetch(`${API}/invites`,{method:'POST',headers:{'Content-Type':'application/json','X-PP-Token':token},body:'{}'}); const d=await r.json(); if(!d.ok)throw new Error(d.error||'Chưa tạo được Mời Duyên'); inp.value=d.invite.url; try{await navigator.clipboard.writeText(inp.value)}catch{inp.select();document.execCommand('copy')} if(msg){msg.hidden=false;msg.className='pp-tich-msg';msg.textContent='Đã tạo và chép Mời Duyên ';} } catch(e:any){if(msg){msg.hidden=false;msg.className='pp-tich-msg err';msg.textContent=e.message||'Chưa tạo được Mời Duyên';}}
+    });
+
+    bindTich();
+    loadAccount();
+ </script>
+</BaseLayout>

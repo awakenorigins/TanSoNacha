@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Cộng Duyên — Tần Số Nacha" description="Cộng một bài nhạc, pháp âm, podcast hay câu chuyện — gieo duyên tới Ta Bà.">
+  <section class="dg-wrap">
+    <div class="dg-bg"></div>
+    <div class="container-content max-w-2xl relative z-10 py-16">
+      <div class="text-center mb-8">
+        <p class="font-brush text-2xl tracking-[0.35em]" style="color:#C9A96E">共 獻</p>
+        <h1 class="font-display text-3xl md:text-4xl text-parchment mt-2">Cộng Duyên Tới Ta Bà</h1>
+        <p class="text-parchment/60 text-sm mt-3 max-w-lg mx-auto">
+          Bạn có một bài pháp nhạc, một tụng kinh, một podcast, hay câu chuyện tử tế?
+          Mỗi viên gạch bạn góp vào Tần Số Nacha là một duyên lành gieo ra Ta Bà —
+          duyên ấy cũng kết thành Phước cho chính bạn.
+       </p>
+     </div>
+
+      <!-- chưa đăng nhập -->
+      <div id="dg-guest" class="dg-card" hidden>
+        <p class="text-parchment/80 text-center">Xin vào cõi trước khi cộng duyên </p>
+        <a href="/vao-coi" class="dg-btn block text-center mt-4">Vào Cõi Của Ta →</a>
+     </div>
+
+      <!-- form đóng góp -->
+      <div id="dg-form" class="dg-card" hidden>
+        <div class="dg-types">
+          <button class="dg-type is-active" data-type="track"><span></span>Nhạc / Pháp âm</button>
+          <button class="dg-type" data-type="video"><span></span>Video / Clip</button>
+          <button class="dg-type" data-type="podcast"><span></span>Podcast</button>
+          <button class="dg-type" data-type="post"><span></span>Câu chuyện</button>
+       </div>
+
+        <label class="dg-label">Tiêu đề <span>*</span></label>
+        <input id="dg-title" class="dg-input" type="text" maxlength="120" placeholder="Tên bài / câu chuyện…" />
+
+        <div id="dg-media-wrap">
+          <label class="dg-label">Dán link <span>*</span></label>
+          <input id="dg-url" class="dg-input" type="url" maxlength="500" placeholder="Link YouTube / TikTok / Facebook / SoundCloud…" />
+          <p class="dg-hint">Dán link là đủ — hệ thống tự nhúng để nghe/xem thẳng trên Tần Số Nacha.</p>
+          <div id="dg-preview" class="dg-preview" hidden></div>
+       </div>
+
+        <label class="dg-label">Mô tả / Nội dung</label>
+        <textarea id="dg-body" class="dg-input dg-area" maxlength="2000" rows="4" placeholder="Đôi lời về bài này, ý nghĩa, nguồn gốc…"></textarea>
+
+        <label class="dg-check">
+          <input id="dg-rights" type="checkbox" />
+          <span>Tôi có quyền đăng/chia sẻ nội dung này và tự chịu trách nhiệm về nó.</span>
+       </label>
+        <label class="dg-check">
+          <input id="dg-policy" type="checkbox" />
+          <span>Tôi đã đọc và đồng ý <a href="/noi-quy" target="_blank">Nội Quy &amp; Điều Khoản</a> của Tần Số Nacha.</span>
+       </label>
+
+        <button id="dg-submit" class="dg-btn">Cộng Duyên · Cộng Phước </button>
+        <p id="dg-msg" class="dg-msg" hidden></p>
+
+        <a href="/dong-gop/cua-toi" class="dg-mine">Xem duyên tôi đã cộng →</a>
+     </div>
+   </div>
+ </section>
+
+  <style is:global>
+    .dg-wrap { position: relative; min-height: 100vh; margin-top: -4rem; overflow: hidden; }
+    .dg-bg { position: absolute; inset: 0; background: linear-gradient(165deg, #2C2C2C, #1a1510); }
+    .dg-bg::after { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 50% 30%, rgba(201,169,110,0.16), transparent 60%); }
+    .dg-card { background: rgba(255,255,255,0.045); border: 1px solid rgba(201,169,110,0.3); border-radius: 1.3rem; padding: 1.8rem 1.6rem; box-shadow: 0 24px 64px rgba(0,0,0,0.45); }
+    .dg-types { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.5rem; margin-bottom: 1.4rem; }
+    @media (max-width:560px){ .dg-types { grid-template-columns: repeat(2,1fr); } }
+    .dg-type { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 0.7rem 0.4rem; border-radius: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(201,169,110,0.25); color: rgba(245,240,235,0.75); font-size: 0.75rem; transition: all .2s; }
+    .dg-type span { font-size: 1.3rem; }
+    .dg-type.is-active { background: rgba(201,169,110,0.18); border-color: #C9A96E; color: #F5F0EB; }
+    .dg-label { display: block; font-size: 0.78rem; color: rgba(245,240,235,0.7); margin: 0.9rem 0 0.35rem; }
+    .dg-label span { color: #C9A96E; }
+    .dg-input { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(201,169,110,0.35); border-radius: 0.8rem; padding: 0.7rem 1rem; color: #F5F0EB; font-size: 0.9rem; }
+    .dg-input:focus { outline: none; border-color: #C9A96E; }
+    .dg-input::placeholder { color: rgba(245,240,235,0.4); }
+    .dg-area { resize: vertical; line-height: 1.6; }
+    .dg-hint { font-size: 0.68rem; color: rgba(201,169,110,0.8); margin-top: 0.4rem; }
+    .dg-preview { margin-top: 0.9rem; border-radius: 0.8rem; overflow: hidden; border: 1px solid rgba(201,169,110,0.3); }
+    .dg-preview iframe { width: 100%; aspect-ratio: 16/9; border: 0; display: block; }
+    .dg-preview.audio iframe { aspect-ratio: auto; height: 120px; }
+    .dg-check { display: flex; gap: 0.5rem; align-items: flex-start; margin-top: 0.9rem; font-size: 0.75rem; color: rgba(245,240,235,0.7); line-height: 1.5; }
+    .dg-check input { margin-top: 3px; accent-color: #C9A96E; }
+    .dg-check a { color: #C9A96E; text-decoration: underline; }
+    .dg-btn { width: 100%; margin-top: 1.4rem; border-radius: 9999px; padding: 0.85rem; font-weight: 600; background: #C9A96E; color: #1c1710; transition: filter .2s, transform .2s; }
+    .dg-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .dg-msg { font-size: 0.82rem; color: #C9A96E; margin-top: 0.9rem; text-align: center; }
+    .dg-msg.err { color: #d98a8a; }
+    .dg-mine { display: block; text-align: center; margin-top: 1.2rem; font-size: 0.78rem; color: rgba(245,240,235,0.55); text-decoration: underline; }
+    .dg-mine:hover { color: #C9A96E; }
+ </style>
+
+  <script>
+    const API = '/pp-api';
+    const $ = (id: string) => document.getElementById(id);
+    let ctype = 'track';
+
+    let token = '';
+    try { token = localStorage.getItem('pp-token') || ''; } catch {}
+    if (token) { const f = $('dg-form'); if (f) f.hidden = false; }
+    else { const g = $('dg-guest'); if (g) g.hidden = false; }
+
+    // chọn loại
+    document.querySelectorAll('.dg-type').forEach((b) => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.dg-type').forEach((x) => x.classList.remove('is-active'));
+        b.classList.add('is-active');
+        ctype = (b as HTMLElement).dataset.type || 'track';
+        const mw = $('dg-media-wrap');
+        if (mw) mw.hidden = (ctype === 'post'); // câu chuyện: không bắt buộc link
+      });
+    });
+
+    // preview nhúng khi dán link (client tự nhận diện đơn giản để xem trước)
+    function toEmbed(url: string): { html: string; audio: boolean } | null {
+      try {
+        const u = new URL(url);
+        const h = u.hostname.replace(/^www\./, '');
+        if (h.includes('youtube.com') || h === 'youtu.be') {
+          let id = h === 'youtu.be' ? u.pathname.slice(1) : (u.pathname.startsWith('/shorts/') ? u.pathname.split('/')[2] : u.searchParams.get('v') || '');
+          id = (id || '').split(/[?&/]/)[0];
+          if (id) return { html: `<iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>`, audio: false };
+        }
+        if (h.includes('soundcloud.com')) return { html: `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&show_comments=false" allow="autoplay"></iframe>`, audio: true };
+        if (h.includes('tiktok.com')) { const m = u.pathname.match(/\/video\/(\d+)/); if (m) return { html: `<iframe src="https://www.tiktok.com/embed/v2/${m[1]}"></iframe>`, audio: false }; }
+        if (h.includes('facebook.com') || h === 'fb.watch') return { html: `<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false"></iframe>`, audio: false };
+      } catch {}
+      return null;
+    }
+    $('dg-url')?.addEventListener('input', () => {
+      const url = ($('dg-url') as HTMLInputElement).value.trim();
+      const box = $('dg-preview');
+      if (!box) return;
+      const e = url ? toEmbed(url) : null;
+      if (e) { box.innerHTML = e.html; box.className = 'dg-preview' + (e.audio ? ' audio' : ''); box.hidden = false; }
+      else { box.hidden = true; box.innerHTML = ''; }
+    });
+
+    $('dg-submit')?.addEventListener('click', async () => {
+      const msg = $('dg-msg');
+      const title = ($('dg-title') as HTMLInputElement).value.trim();
+      const body = ($('dg-body') as HTMLTextAreaElement).value.trim();
+      const mediaUrl = ($('dg-url') as HTMLInputElement).value.trim();
+      const rights = ($('dg-rights') as HTMLInputElement).checked;
+      const policy = ($('dg-policy') as HTMLInputElement).checked;
+      function err(t: string) { if (msg) { msg.hidden = false; msg.className = 'dg-msg err'; msg.textContent = t; } }
+      if (!title) return err('Xin đặt tiêu đề.');
+      if (ctype !== 'post' && !mediaUrl) return err('Xin dán link nhạc/video.');
+      if (!rights || !policy) return err('Xin tích cả hai ô cam kết & đồng ý nội quy.');
+      try {
+        const r = await fetch(`${API}/contribute`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, ctype, title, body, mediaUrl }),
+        });
+        const d = await r.json();
+        if (d.ok) {
+          if (msg) { msg.hidden = false; msg.className = 'dg-msg'; msg.textContent = d.message || 'Đã dâng lên, chờ duyệt '; }
+          (['dg-title','dg-url','dg-body'] as string[]).forEach((i) => { const e = $(i) as HTMLInputElement; if (e) e.value = ''; });
+          const box = $('dg-preview'); if (box) { box.hidden = true; box.innerHTML = ''; }
+        } else if (d.blocked) { err(d.error || 'Nội dung chưa phù hợp với tinh thần Tần Số Nacha.'); }
+        else { err(d.error || 'Chưa gửi được, xin thử lại.'); }
+      } catch { err('Không kết nối được.'); }
+    });
+ </script>
+</BaseLayout>

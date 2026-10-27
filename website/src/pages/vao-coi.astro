@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Vào Cõi — Phước Phiếu | Tần Số Nacha" description="Đăng nhập vào cõi Tần Số Nacha của bạn.">
+  <section class="vc-wrap">
+    <div class="vc-bg"></div>
+    <div class="vc-card">
+      <p class="font-brush text-bronze-light text-2xl tracking-[0.35em]">入 界</p>
+      <h1 class="font-display text-3xl text-parchment mt-2">Vào Cõi Của Ta</h1>
+      <p class="text-parchment/60 text-sm mt-2 mb-6">Nhập Pháp Danh &amp; Mật Mã, hoặc quét Phước Phiếu để trở lại.</p>
+
+      <!-- form Pháp Danh + Mật Mã -->
+      <div class="vc-form">
+        <input id="vc-phapdanh" class="vc-input" type="text" maxlength="30" placeholder="Pháp Danh…" autocomplete="username" />
+        <input id="vc-matma" class="vc-input" type="password" maxlength="60" placeholder="Mật Mã…" autocomplete="current-password" />
+        <button id="vc-enter" class="vc-btn">Vào Cõi <svg class="vc-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 4.5v7.2c0 3.6 2.1 6.2 3.5 7.8 1.4-1.6 3.5-4.2 3.5-7.8V4.5M6.5 10.5c1.8 1.5 3.2 3.4 5.5 3.4s3.7-1.9 5.5-3.4"/></svg></button>
+     </div>
+      <p id="vc-msg" class="vc-msg" hidden></p>
+
+      <div class="vc-or"><span>hoặc</span></div>
+
+      <!-- quét QR -->
+      <button id="vc-scan" class="vc-scan-btn"><svg class="vc-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 8.2l1.3-2h6.4l1.3 2h2.2a2 2 0 0 1 2 2v6.8a2 2 0 0 1-2 2H5.3a2 2 0 0 1-2-2v-6.8a2 2 0 0 1 2-2h2.2Z"/><circle cx="12" cy="13.7" r="3.2"/></svg> Quét Phước Phiếu</button>
+      <div id="vc-cam" class="vc-cam" hidden>
+        <video id="vc-video" playsinline></video>
+        <p class="vc-cam-hint">Đưa mã QR trên Phước Phiếu vào khung…</p>
+        <button id="vc-cam-close" class="vc-cam-close">Đóng camera</button>
+     </div>
+
+      <!-- dự phòng: phiếu không quét được → gõ mã tay -->
+      <button id="vc-manual-toggle" class="vc-manual-toggle">Phiếu không quét được? Nhập mã tay</button>
+      <div id="vc-manual" class="vc-manual" hidden>
+        <input id="vc-code" class="vc-input" type="text" maxlength="24" placeholder="Mã dưới Phước Phiếu…" autocomplete="off" />
+        <button id="vc-code-go" class="vc-btn" style="margin-top:0.5rem">Bước Vào <svg class="vc-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 4.5v7.2c0 3.6 2.1 6.2 3.5 7.8 1.4-1.6 3.5-4.2 3.5-7.8V4.5M6.5 10.5c1.8 1.5 3.2 3.4 5.5 3.4s3.7-1.9 5.5-3.4"/></svg></button>
+     </div>
+
+      <p class="text-[11px] text-parchment/45 mt-6">Chưa có cõi? Mỗi cuốn sách Tần Số Nacha mở một Phước Phiếu.</p>
+   </div>
+ </section>
+
+  <style is:global>
+    .vc-wrap { position: relative; min-height: 100vh; margin-top: -4rem; display: grid; place-items: center; padding: 1.5rem; overflow: hidden; }
+    .vc-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #2C2C2C, #1a1510); }
+    .vc-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 38%, rgba(201,169,110,0.16), transparent 60%); }
+    .vc-card { position: relative; z-index: 1; text-align: center; background: rgba(255,255,255,0.045); border: 1px solid rgba(201,169,110,0.3); border-radius: 1.3rem; padding: 2.4rem 1.8rem; max-width: 27rem; width: 100%; box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
+    .vc-form { display: flex; flex-direction: column; gap: 0.6rem; }
+    .vc-input { background: rgba(255,255,255,0.08); border: 1px solid rgba(201,169,110,0.4); border-radius: 9999px; padding: 0.8rem 1.2rem; color: #F5F0EB; text-align: center; }
+    .vc-input:focus { outline: none; border-color: #C9A96E; }
+    .vc-input::placeholder { color: rgba(245,240,235,0.4); }
+    .vc-ico { width:1.08em; height:1.08em; display:inline-block; vertical-align:-0.18em; margin-left:.25rem; stroke:currentColor; stroke-width:1.55; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    .vc-scan-btn .vc-ico { margin-left:0; margin-right:.35rem; }
+    .vc-btn { border-radius: 9999px; padding: 0.85rem 1.4rem; font-weight: 600; background: #C9A96E; color: #1c1710; transition: filter .2s, transform .2s; }
+    .vc-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .vc-msg { font-size: 0.8rem; color: #C9A96E; margin-top: 0.9rem; }
+    .vc-msg.err { color: #d98a8a; }
+    .vc-or { display: flex; align-items: center; gap: 0.8rem; margin: 1.4rem 0 1rem; color: rgba(245,240,235,0.4); font-size: 0.8rem; }
+    .vc-or::before, .vc-or::after { content: ''; flex: 1; height: 1px; background: rgba(201,169,110,0.2); }
+    .vc-scan-btn { width: 100%; border-radius: 9999px; padding: 0.8rem; border: 1px solid rgba(201,169,110,0.4); color: #F5F0EB; background: rgba(255,255,255,0.05); transition: background .2s; }
+    .vc-scan-btn:hover { background: rgba(201,169,110,0.15); }
+    .vc-cam { margin-top: 1rem; }
+    .vc-cam[hidden] { display: none; }
+    #vc-video { width: 100%; border-radius: 0.9rem; background: #000; aspect-ratio: 1/1; object-fit: cover; }
+    .vc-cam-hint { font-size: 0.75rem; color: rgba(245,240,235,0.6); margin-top: 0.6rem; }
+    .vc-cam-close { margin-top: 0.6rem; font-size: 0.8rem; color: #C9A96E; text-decoration: underline; }
+    .vc-manual-toggle { margin-top: 1rem; font-size: 0.78rem; color: rgba(245,240,235,0.55); text-decoration: underline; background: none; }
+    .vc-manual-toggle:hover { color: #C9A96E; }
+    .vc-manual { margin-top: 0.8rem; }
+    .vc-manual[hidden] { display: none; }
+ </style>
+
+  <!-- BarcodeDetector (Chrome/Android) fallback: jsQR nhẹ không có → dùng BarcodeDetector native -->
+  <script>
+    const API = '/pp-api';
+
+    // ĐÃ LOGIN SẴN? → vào thẳng cõi, không bắt đăng nhập lại (anh Nấng chỉ thị 10/07)
+    (async () => {
+      let t = '';
+      try { t = localStorage.getItem('pp-token') || ''; } catch {}
+      if (!t) return;
+      try {
+        const r = await fetch(`${API}/account?token=${encodeURIComponent(t)}`);
+        const d = await r.json();
+        if (d.ok && d.user) {
+          showMsg(`Mừng ${d.user.phapdanh} trở lại. Đang vào cõi…`);
+          setTimeout(() => { location.href = `/coi/${d.user.pham}`; }, 600);
+        } else {
+          // token cũ hỏng → dọn để login lại sạch
+          try { localStorage.removeItem('pp-token'); localStorage.removeItem('pp-phapdanh'); } catch {}
+        }
+      } catch {}
+    })();
+
+    const $ = (id: string) => document.getElementById(id);
+    const msg = $('vc-msg');
+    function showMsg(t: string, err = false) { if (msg) { msg.hidden = false; msg.className = err ? 'vc-msg err' : 'vc-msg'; msg.textContent = t; } }
+
+    async function loginPass() {
+      const pd = ($('vc-phapdanh') as HTMLInputElement)?.value.trim() || '';
+      const mm = ($('vc-matma') as HTMLInputElement)?.value.trim() || '';
+      if (!pd || !mm) { showMsg('Xin nhập Pháp Danh và Mật Mã.', true); return; }
+      try {
+        const r = await fetch(`${API}/login-pass`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phapdanh: pd, matma: mm }),
+        });
+        const d = await r.json();
+        if (d.ok && d.user) {
+          try { localStorage.setItem('pp-token', d.user.token); localStorage.setItem('pp-phapdanh', d.user.phapdanh); } catch {}
+          showMsg(`Mừng ${d.user.phapdanh} trở lại.`);
+          setTimeout(() => { location.href = `/coi/${d.user.pham}`; }, 900);
+        } else { showMsg(d.error || 'Chưa đúng, xin thử lại.', true); }
+      } catch { showMsg('Không kết nối được.', true); }
+    }
+    $('vc-enter')?.addEventListener('click', loginPass);
+    $('vc-matma')?.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Enter') loginPass(); });
+
+    // ── QUÉT QR bằng camera (BarcodeDetector native) ──
+    let stream: MediaStream | null = null;
+    let scanning = false;
+    async function startScan() {
+      const cam = $('vc-cam'); const video = $('vc-video') as HTMLVideoElement | null;
+      if (!('BarcodeDetector' in window)) {
+        showMsg('Thiết bị không hỗ trợ quét trong web — xin dùng app camera quét mã QR trên phiếu.', true);
+        return;
+      }
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        if (video) { video.srcObject = stream; await video.play(); }
+        if (cam) cam.hidden = false;
+        scanning = true;
+        // @ts-ignore
+        const detector = new window.BarcodeDetector({ formats: ['qr_code'] });
+        const tick = async () => {
+          if (!scanning || !video) return;
+          try {
+            const codes = await detector.detect(video);
+            if (codes.length) {
+              const raw = codes[0].rawValue as string;
+              // raw = https://qr.../CODE  → lấy phần cuối
+              const m = raw.replace(/\/+$/, '').split('/').pop() || '';
+              if (m) { stopScan(); goCode(m); return; }
+            }
+          } catch {}
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      } catch {
+        showMsg('Không mở được camera. Xin cấp quyền hoặc dùng app quét QR.', true);
+      }
+    }
+    function stopScan() {
+      scanning = false;
+      if (stream) { stream.getTracks().forEach((t) => t.stop()); stream = null; }
+      const cam = $('vc-cam'); if (cam) cam.hidden = true;
+    }
+    function goCode(code: string) {
+      // đưa về trang /pp/<code> để login/khai duyên
+      location.href = `/pp/${encodeURIComponent(code)}`;
+    }
+    $('vc-scan')?.addEventListener('click', startScan);
+    $('vc-cam-close')?.addEventListener('click', stopScan);
+
+    // ── NHẬP MÃ TAY (dự phòng) ──
+    $('vc-manual-toggle')?.addEventListener('click', () => {
+      const m = $('vc-manual'); if (m) m.hidden = !m.hidden;
+      if (m && !m.hidden) ($('vc-code') as HTMLInputElement)?.focus();
+    });
+    function goManualCode() {
+      const c = ($('vc-code') as HTMLInputElement)?.value.trim() || '';
+      if (!c) { showMsg('Xin nhập mã dưới Phước Phiếu.', true); return; }
+      goCode(c);
+    }
+    $('vc-code-go')?.addEventListener('click', goManualCode);
+    $('vc-code')?.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Enter') goManualCode(); });
+ </script>
+</BaseLayout>

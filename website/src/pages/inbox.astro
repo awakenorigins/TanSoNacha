@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Hộp Thư — Tần Số Nacha" description="Tin nhắn của bạn tại Tần Số Nacha.">
+  <section class="ib-wrap">
+    <div class="ib-bg"></div>
+    <div class="container-content max-w-2xl relative z-10 py-16">
+      <div class="text-center mb-6">
+        <p class="font-brush text-2xl tracking-[0.35em]" style="color:#C9A96E">信 匣</p>
+        <h1 class="font-display text-3xl text-parchment mt-2">Hộp Thư</h1>
+     </div>
+
+      <div id="ib-guest" class="ib-card" hidden>
+        <p class="text-parchment/80 text-center">Xin vào cõi để xem hộp thư </p>
+        <a href="/vao-coi" class="ib-btn block text-center mt-4">Vào Cõi Của Ta →</a>
+     </div>
+
+      <!-- danh sách hội thoại -->
+      <div id="ib-threads" class="ib-card" hidden>
+        <div id="ib-thread-list"><p class="text-center text-parchment/50 text-sm">Đang tải…</p></div>
+     </div>
+
+      <!-- khung chat 1 hội thoại -->
+      <div id="ib-chat" class="ib-card" hidden>
+        <div class="ib-chat-head">
+          <button id="ib-back" class="ib-back">←</button>
+          <span id="ib-chat-name" class="ib-chat-name">—</span>
+       </div>
+        <div id="ib-msgs" class="ib-msgs"></div>
+        <div id="ib-compose" class="ib-compose">
+          <input id="ib-input" class="ib-input" type="text" maxlength="1000" placeholder="Nhắn đôi lời…" />
+          <button id="ib-send" class="ib-send">Gửi</button>
+       </div>
+        <p id="ib-chat-msg" class="ib-chat-msg" hidden></p>
+     </div>
+   </div>
+ </section>
+
+  <style is:global>
+    .ib-wrap { position: relative; min-height: 100vh; margin-top: -4rem; overflow: hidden; }
+    .ib-bg { position: absolute; inset: 0; background: linear-gradient(165deg, #2C2C2C, #1a1510); }
+    .ib-card { background: rgba(255,255,255,0.045); border: 1px solid rgba(201,169,110,0.3); border-radius: 1.2rem; padding: 1.2rem; box-shadow: 0 20px 56px rgba(0,0,0,0.4); }
+    .ib-btn { background:#C9A96E; color:#1c1710; border-radius:9999px; padding:0.7rem 1.2rem; font-weight:600; }
+    .ib-thread { display:flex; align-items:center; gap:0.7rem; padding:0.8rem 0.6rem; border-radius:0.8rem; cursor:pointer; transition:background .2s; border-bottom:1px solid rgba(201,169,110,0.12); }
+    .ib-thread:hover { background:rgba(201,169,110,0.1); }
+    .ib-ava { width:44px; height:44px; border-radius:9999px; flex:none; display:grid; place-items:center; font-size:1.3rem; background:rgba(201,169,110,0.18); border:1px solid rgba(201,169,110,0.4); }
+    .ib-tinfo { flex:1; min-width:0; }
+    .ib-tname { color:#F5F0EB; font-weight:600; font-size:0.92rem; }
+    .ib-tlast { color:rgba(245,240,235,0.5); font-size:0.78rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ib-dot { width:9px; height:9px; border-radius:9999px; background:#C9A96E; flex:none; }
+    .ib-chat-head { display:flex; align-items:center; gap:0.6rem; padding-bottom:0.8rem; border-bottom:1px solid rgba(201,169,110,0.2); margin-bottom:0.8rem; }
+    .ib-back { font-size:1.3rem; color:#C9A96E; }
+    .ib-chat-name { color:#F5F0EB; font-weight:600; }
+    .ib-msgs { display:flex; flex-direction:column; gap:0.5rem; min-height:240px; max-height:52vh; overflow-y:auto; padding:0.3rem; }
+    .ib-msg { max-width:78%; padding:0.55rem 0.85rem; border-radius:1rem; font-size:0.88rem; line-height:1.5; word-break:break-word; }
+    .ib-msg.me { align-self:flex-end; background:#C9A96E; color:#1c1710; border-bottom-right-radius:0.3rem; }
+    .ib-msg.them { align-self:flex-start; background:rgba(255,255,255,0.08); color:#F5F0EB; border-bottom-left-radius:0.3rem; }
+    .ib-msg.sys { align-self:center; background:rgba(201,169,110,0.14); color:#e6d3a8; font-size:0.82rem; text-align:center; max-width:92%; border:1px solid rgba(201,169,110,0.3); }
+    .ib-msg .who { font-size:0.66rem; opacity:0.7; display:block; margin-bottom:2px; }
+    .ib-compose { display:flex; gap:0.5rem; margin-top:0.8rem; }
+    .ib-input { flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(201,169,110,0.35); border-radius:9999px; padding:0.65rem 1rem; color:#F5F0EB; }
+    .ib-input:focus { outline:none; border-color:#C9A96E; }
+    .ib-send { border-radius:9999px; padding:0.65rem 1.3rem; background:#C9A96E; color:#1c1710; font-weight:600; }
+    .ib-chat-msg { font-size:0.78rem; color:#d98a8a; margin-top:0.5rem; text-align:center; }
+ </style>
+
+  <script>
+    const API = '/pp-api';
+    const $ = (id: string) => document.getElementById(id);
+    function esc(s: string): string { return String(s||'').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c] as string)); }
+    let token = '';
+    try { token = localStorage.getItem('pp-token') || ''; } catch {}
+    if (!token) { const g = $('ib-guest'); if (g) g.hidden = false; }
+    else { const t = $('ib-threads'); if (t) t.hidden = false; loadThreads(); }
+
+    let curThreadId = 0;
+
+    async function loadThreads() {
+      try {
+        const r = await fetch(`${API}/inbox/threads?token=${encodeURIComponent(token)}`);
+        const d = await r.json();
+        const box = $('ib-thread-list');
+        if (!box) return;
+        if (!d.ok || !d.threads.length) { box.innerHTML = '<p class="text-center text-parchment/50 text-sm py-6">Chưa có tin nhắn nào.</p>'; return; }
+        box.innerHTML = d.threads.map((t: any) => `
+          <div class="ib-thread" data-id="${t.id}" data-name="${esc(t.otherName)}">
+            <span class="ib-ava">${t.system ? '' : ''}</span>
+            <div class="ib-tinfo"><p class="ib-tname">${esc(t.otherName)}${t.system ? ' · Thủ Các' : ''}</p><p class="ib-tlast">${esc(t.lastBody||'')}</p></div>
+         </div>`).join('');
+        box.querySelectorAll('.ib-thread').forEach((el) => {
+          el.addEventListener('click', () => openThread(parseInt((el as HTMLElement).dataset.id||'0',10), (el as HTMLElement).dataset.name||''));
+        });
+      } catch {}
+    }
+
+    function renderMsgs(msgs: any[]) {
+      const box = $('ib-msgs'); if (!box) return;
+      box.innerHTML = msgs.map((m: any) => {
+        if (m.from_token === 'SYSTEM') return `<div class="ib-msg sys">${esc(m.body)}</div>`;
+        const mine = m.from_token === token;
+        return `<div class="ib-msg ${mine ? 'me' : 'them'}">${mine ? '' : `<span class="who">${esc(m.from_name)}</span>`}${esc(m.body)}</div>`;
+      }).join('');
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function openThread(id: number, name: string) {
+      curThreadId = id;
+      const tn = $('ib-chat-name'); if (tn) tn.textContent = name;
+      $('ib-threads')!.hidden = true; $('ib-chat')!.hidden = false;
+      try {
+        const r = await fetch(`${API}/inbox/thread?token=${encodeURIComponent(token)}&id=${id}`);
+        const d = await r.json();
+        if (d.ok) renderMsgs(d.messages);
+      } catch {}
+    }
+
+    $('ib-back')?.addEventListener('click', () => { $('ib-chat')!.hidden = true; $('ib-threads')!.hidden = false; curThreadId = 0; loadThreads(); });
+
+    async function sendMsg() {
+      const inp = $('ib-input') as HTMLInputElement;
+      const body = inp.value.trim();
+      const msg = $('ib-chat-msg');
+      if (!body || !curThreadId) return;
+      try {
+        const r = await fetch(`${API}/inbox/send`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ token, id: curThreadId, body }) });
+        const d = await r.json();
+        if (d.ok) { inp.value = ''; renderMsgs(d.messages); if (msg) msg.hidden = true; }
+        else if (msg) { msg.hidden = false; msg.textContent = d.error || 'Không gửi được.'; }
+      } catch { if (msg) { msg.hidden = false; msg.textContent = 'Không kết nối được.'; } }
+    }
+    $('ib-send')?.addEventListener('click', sendMsg);
+    $('ib-input')?.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Enter') sendMsg(); });
+ </script>
+</BaseLayout>

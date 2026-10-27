@@ -1,0 +1,272 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+// Trang đích khi quét QR Phước Phiếu: /pp/<mã>
+// Site tĩnh → trang này đọc <mã> từ URL (client-side) rồi gọi backend.
+// Caddy rewrite /pp/* → trang này.
+---
+
+<BaseLayout title="Khai Duyên — Phước Phiếu | Tần Số Nacha" description="Kích hoạt Phước Phiếu của bạn.">
+  <section class="pp-scan" id="pp-scan">
+    <div class="pp-scan-bg"></div>
+
+    <!-- LOADING -->
+    <div id="pp-loading" class="pp-scan-card">
+      <div class="pp-scan-beads"><span></span><span></span><span></span></div>
+      <p class="font-brush text-bronze-light text-xl tracking-widest mt-4">開 緣</p>
+      <p class="text-parchment/70 text-sm mt-2">Đang mở Phước Phiếu của bạn…</p>
+   </div>
+
+    <!-- CHỌN NHÁNH (phiếu mới → khai duyên hay nạp vào cõi cũ) -->
+    <div id="pp-choose" class="pp-scan-card" hidden>
+      <p class="pp-scan-glyph" data-glyph3></p>
+      <p class="font-brush text-2xl tracking-[0.3em]" data-accent-han style="color:#C9A96E">開 緣</p>
+      <h1 class="font-display text-2xl text-parchment mt-2">Phước Phiếu <b data-pham-name2>—</b></h1>
+      <p class="text-parchment/65 text-sm mt-2 mb-1">Phiếu này mang <b data-add-phuoc>—</b> điểm Phước.</p>
+      <p class="text-parchment/55 text-xs mb-5">Bạn muốn mở một cõi mới, hay nạp phiếu này vào cõi đã có?</p>
+      <div class="pp-scan-fields">
+        <button id="pp-go-khai" class="pp-scan-btn full"> Khai Duyên · tạo Pháp Danh mới</button>
+        <button id="pp-go-cong" class="pp-scan-btn full ghost"> Đã có cõi? Nạp phiếu vào Pháp Danh</button>
+     </div>
+   </div>
+
+    <!-- CỨ XÁC NHẬN CỘNG (khi đang đăng nhập sẵn) -->
+    <div id="pp-cong-confirm" class="pp-scan-card" hidden>
+      <p class="pp-scan-glyph"></p>
+      <h1 class="font-display text-2xl text-parchment mt-2">Nạp phiếu vào cõi của bạn?</h1>
+      <p class="text-parchment/70 text-sm mt-2 mb-5">Nạp <b data-add-phuoc2>—</b> Phước từ phiếu <b data-pham-name3>—</b> vào cõi <b data-cur-name>đạo hữu</b>.</p>
+      <div class="pp-scan-fields">
+        <button id="pp-cong-yes" class="pp-scan-btn full"> Nạp phiếu </button>
+        <button id="pp-cong-other" class="pp-scan-btn full ghost">Không, để tạo cõi mới</button>
+     </div>
+      <p id="pp-cong-msg" class="pp-scan-msg" hidden></p>
+   </div>
+
+    <!-- FORM CỘNG DUYÊN (nhập Pháp Danh + Mật Mã acc cũ) -->
+    <div id="pp-cong-form" class="pp-scan-card" hidden>
+      <p class="pp-scan-glyph"></p>
+      <h1 class="font-display text-2xl text-parchment mt-2">Nạp Phiếu Vào Cõi</h1>
+      <p class="text-parchment/60 text-xs mt-2 mb-4">Nhập Pháp Danh &amp; Mật Mã cõi đã có để nạp <b data-add-phuoc3>—</b> Phước vào.</p>
+      <div class="pp-scan-fields">
+        <input id="pp-cf-pd" class="pp-scan-input full" type="text" maxlength="30" placeholder="Pháp Danh…" autocomplete="username" />
+        <input id="pp-cf-mm" class="pp-scan-input full" type="password" maxlength="60" placeholder="Mật Mã…" autocomplete="current-password" />
+        <button id="pp-cf-go" class="pp-scan-btn full">Nạp phiếu </button>
+     </div>
+      <p id="pp-cf-msg" class="pp-scan-msg" hidden></p>
+   </div>
+
+    <!-- KHAI DUYÊN (phiếu mới → đặt Pháp Danh + Mật Mã) -->
+    <div id="pp-new" class="pp-scan-card" hidden>
+      <p class="pp-scan-glyph" data-glyph></p>
+      <p class="font-brush text-2xl tracking-[0.3em]" data-accent-han style="color:#C9A96E">開 緣</p>
+      <h1 class="font-display text-3xl text-parchment mt-2" data-title>Khai Duyên</h1>
+      <p class="text-parchment/70 text-sm mt-2 mb-1">Chào mừng bạn đến với cõi <b data-pham-name>—</b>.</p>
+      <p class="text-parchment/55 text-xs mb-5">Đặt một <b>Pháp Danh</b> và một <b>Mật Mã</b> để bước vào cõi.</p>
+      <div class="pp-scan-fields">
+        <input id="pp-phapdanh" class="pp-scan-input full" type="text" maxlength="30" placeholder="Pháp Danh của bạn…" autocomplete="off" />
+        <input id="pp-matma" class="pp-scan-input full" type="password" maxlength="60" placeholder="Mật Mã (ít nhất 4 ký tự)…" autocomplete="new-password" />
+        <button id="pp-khai" class="pp-scan-btn full">Khai Duyên · Bước Vào </button>
+     </div>
+      <p class="pp-scan-note"> Xin <b>ghi nhớ Pháp Danh &amp; Mật Mã</b> — để vào lại cõi lần sau mà không cần phiếu.</p>
+      <p id="pp-new-msg" class="pp-scan-msg" hidden></p>
+   </div>
+
+    <!-- ĐÃ CÓ CHỦ (login thẳng) -->
+    <div id="pp-welcome" class="pp-scan-card" hidden>
+      <p class="pp-scan-glyph" data-glyph2></p>
+      <h1 class="font-display text-2xl text-parchment mt-2">Mừng <span data-welcome-name>đạo hữu</span> trở lại</h1>
+      <p class="text-parchment/65 text-sm mt-2 mb-5">Đang đưa bạn vào Pháp Hội…</p>
+      <div class="pp-scan-beads sm"><span></span><span></span><span></span></div>
+   </div>
+
+    <!-- LỖI -->
+    <div id="pp-error" class="pp-scan-card" hidden>
+      <p class="pp-scan-glyph"></p>
+      <h1 class="font-display text-2xl text-parchment mt-2">Phiếu chưa nhận ra</h1>
+      <p id="pp-error-msg" class="text-parchment/65 text-sm mt-2 mb-5">Chìa khoá này chưa có trong Sổ. Xin kiểm tra lại tấm Phước Phiếu.</p>
+      <a href="/phuoc-phieu" class="pp-scan-btn inline-block">Về Phước Phiếu</a>
+   </div>
+ </section>
+
+  <style is:global>
+    .pp-scan { position: relative; min-height: 100vh; margin-top: -4rem; display: grid; place-items: center; padding: 1.5rem; overflow: hidden; }
+    .pp-scan-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #2C2C2C, #1a1510); }
+    .pp-scan-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(201,169,110,0.18), transparent 60%); }
+    .pp-scan-card { position: relative; z-index: 1; text-align: center; background: rgba(255,255,255,0.045); border: 1px solid rgba(201,169,110,0.3); border-radius: 1.3rem; padding: 2.4rem 1.8rem; max-width: 27rem; width: 100%; box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
+    .pp-scan-glyph { font-size: 3rem; }
+    .pp-scan-form { display: flex; gap: 0.5rem; }
+    .pp-scan-fields { display: flex; flex-direction: column; gap: 0.6rem; }
+    .pp-scan-input.full { width: 100%; }
+    .pp-scan-btn.full { width: 100%; }
+    .pp-scan-note { font-size: 0.72rem; color: rgba(201,169,110,0.85); margin-top: 0.9rem; line-height: 1.5; background: rgba(201,169,110,0.1); border-radius: 0.6rem; padding: 0.6rem 0.8rem; }
+    .pp-scan-input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(201,169,110,0.4); border-radius: 9999px; padding: 0.8rem 1.2rem; color: #F5F0EB; text-align: center; }
+    .pp-scan-input:focus { outline: none; border-color: #C9A96E; }
+    .pp-scan-input::placeholder { color: rgba(245,240,235,0.4); }
+    .pp-scan-btn { border-radius: 9999px; padding: 0.8rem 1.4rem; font-weight: 600; background: #C9A96E; color: #1c1710; white-space: nowrap; transition: filter .2s, transform .2s; }
+    .pp-scan-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .pp-scan-btn.ghost { background: transparent; border: 1px solid rgba(201,169,110,0.5); color: #F5F0EB; }
+    .pp-scan-btn.ghost:hover { background: rgba(201,169,110,0.14); }
+    .pp-scan-msg { font-size: 0.8rem; color: #C9A96E; margin-top: 0.9rem; }
+    .pp-scan-msg.err { color: #d98a8a; }
+    .pp-scan-beads { display: flex; gap: 8px; justify-content: center; }
+    .pp-scan-beads span { width: 12px; height: 12px; border-radius: 9999px; background: #C9A96E; animation: pp-bead 1.2s ease-in-out infinite; }
+    .pp-scan-beads span:nth-child(2) { animation-delay: 0.2s; } .pp-scan-beads span:nth-child(3) { animation-delay: 0.4s; }
+    .pp-scan-beads.sm span { width: 9px; height: 9px; }
+    @keyframes pp-bead { 0%,100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
+ </style>
+
+  <script>
+    const API = '/pp-api';
+    const PHAM_META: Record<string, { glyph: string; from: string; to: string; accent: string }> = {
+      'truc-duyen': { glyph: '', from: '#3d5a4a', to: '#2c3a33', accent: '#B8C9C0' },
+      'kim-tam':    { glyph: '', from: '#8B6F2E', to: '#3a2c12', accent: '#C9A96E' },
+      'nguyen-niem':{ glyph: '', from: '#2e4b5a', to: '#16242c', accent: '#9fc4d4' },
+    };
+
+    // lấy mã từ path /pp/<code> (hoặc ?c=)
+    function getCode(): string {
+      const parts = location.pathname.replace(/\/+$/, '').split('/');
+      const last = parts[parts.length - 1];
+      if (last && last !== 'pp') return decodeURIComponent(last);
+      const q = new URLSearchParams(location.search).get('c');
+      return q ? decodeURIComponent(q) : '';
+    }
+
+    const $ = (id: string) => document.getElementById(id);
+    const PANELS = ['pp-loading', 'pp-choose', 'pp-cong-confirm', 'pp-cong-form', 'pp-new', 'pp-welcome', 'pp-error'];
+    function show(id: string) {
+      PANELS.forEach((x) => { const el = $(x); if (el) el.hidden = x !== id; });
+    }
+    function tint(pham: string) {
+      const m = PHAM_META[pham]; if (!m) return;
+      const bg = document.querySelector('.pp-scan-bg') as HTMLElement | null;
+      if (bg) bg.style.background = `linear-gradient(160deg, ${m.from}, ${m.to})`;
+      document.querySelectorAll('[data-glyph],[data-glyph2],[data-glyph3]').forEach((g) => (g.textContent = m.glyph));
+      document.querySelectorAll('[data-accent-han]').forEach((e) => ((e as HTMLElement).style.color = m.accent));
+    }
+    function setText(sel: string, val: string) {
+      document.querySelectorAll(sel).forEach((e) => (e.textContent = val));
+    }
+
+    const code = getCode();
+    const token = code; // token = mã phiếu
+    // M9: opaque Mời Duyên only. Legacy ?ref is ignored gracefully and never forwarded.
+    let inviteCode = new URLSearchParams(location.search).get('invite') || '';
+    try { if (inviteCode) localStorage.setItem('pp-invite', inviteCode); else inviteCode = localStorage.getItem('pp-invite') || ''; localStorage.removeItem('pp-ref'); } catch {}
+    let phieuPham = '';   // slug phẩm của phiếu mới
+    let phieuName = '';   // tên phẩm
+    let phieuPhuoc = 0;   // điểm Phước phiếu mang
+
+    async function init() {
+      if (!code) { show('pp-error'); return; }
+      try {
+        const r = await fetch(`${API}/voucher?code=${encodeURIComponent(code)}`);
+        const d = await r.json();
+        if (!d.ok) {
+          if ($('pp-error-msg')) $('pp-error-msg')!.textContent = d.error || 'Phiếu chưa nhận ra.';
+          show('pp-error'); return;
+        }
+        tint(d.pham);
+        if (d.status === 'activated') {
+          // đã có chủ → chào + vào pháp hội (nguyên tắc: quét = vào thẳng)
+          if (d.user) setText('[data-welcome-name]', d.user.phapdanh || 'đạo hữu');
+          try { localStorage.setItem('pp-token', token); if (d.user?.phapdanh) localStorage.setItem('pp-phapdanh', d.user.phapdanh); } catch {}
+          show('pp-welcome');
+          setTimeout(() => { location.href = `/coi/${d.pham}/event`; }, 1400);
+          return;
+        }
+        // ── phiếu MỚI ──
+        phieuPham = d.pham; phieuName = d.name || d.pham; phieuPhuoc = d.startPhuoc || 0;
+        setText('[data-pham-name]', phieuName);
+        setText('[data-pham-name2]', phieuName);
+        setText('[data-pham-name3]', phieuName);
+        const pStr = phieuPhuoc ? phieuPhuoc.toLocaleString('vi-VN') : '';
+        setText('[data-add-phuoc]', pStr); setText('[data-add-phuoc2]', pStr); setText('[data-add-phuoc3]', pStr);
+
+        // đang đăng nhập sẵn? → hỏi cộng thẳng vào cõi đó
+        let curTok = ''; let curName = '';
+        try { curTok = localStorage.getItem('pp-token') || ''; curName = localStorage.getItem('pp-phapdanh') || ''; } catch {}
+        if (curTok) {
+          setText('[data-cur-name]', curName || 'đạo hữu');
+          show('pp-cong-confirm');
+        } else {
+          show('pp-choose');
+        }
+      } catch {
+        show('pp-error');
+      }
+    }
+
+    // gọi /cong-duyen với token acc đích
+    async function doCong(destTok: string, msgEl: HTMLElement | null) {
+      try {
+        const r = await fetch(`${API}/cong-duyen`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: destTok, code }),
+        });
+        const d = await r.json();
+        if (d.ok && d.user) {
+          try { localStorage.setItem('pp-token', d.user.token); localStorage.setItem('pp-phapdanh', d.user.phapdanh); } catch {}
+          const up = d.leveledTo ? ` · thăng lên ${d.leveledTo.name} ` : '';
+          if (msgEl) { msgEl.hidden = false; msgEl.className = 'pp-scan-msg'; msgEl.textContent = `Đã nạp +${(d.added||0).toLocaleString('vi-VN')} Phước${up}`; }
+          setTimeout(() => { location.href = `/coi/${d.user.pham}`; }, 1300);
+        } else if (msgEl) { msgEl.hidden = false; msgEl.className = 'pp-scan-msg err'; msgEl.textContent = d.error || 'Không nạp được, xin thử lại.'; }
+      } catch {
+        if (msgEl) { msgEl.hidden = false; msgEl.className = 'pp-scan-msg err'; msgEl.textContent = 'Không kết nối được.'; }
+      }
+    }
+
+    // nhánh chọn
+    $('pp-go-khai')?.addEventListener('click', () => { setText('[data-pham-name]', phieuName); show('pp-new'); });
+    $('pp-go-cong')?.addEventListener('click', () => show('pp-cong-form'));
+    // củ xác nhận (đang login)
+    $('pp-cong-yes')?.addEventListener('click', () => {
+      let t = ''; try { t = localStorage.getItem('pp-token') || ''; } catch {}
+      if (!t) { show('pp-cong-form'); return; }
+      doCong(t, $('pp-cong-msg'));
+    });
+    $('pp-cong-other')?.addEventListener('click', () => show('pp-choose'));
+    // form cộng: login-pass trước để lấy token rồi cộng
+    $('pp-cf-go')?.addEventListener('click', async () => {
+      const pd = ($('pp-cf-pd') as HTMLInputElement)?.value.trim() || '';
+      const mm = ($('pp-cf-mm') as HTMLInputElement)?.value.trim() || '';
+      const msg = $('pp-cf-msg');
+      if (!pd || !mm) { if (msg) { msg.hidden = false; msg.className = 'pp-scan-msg err'; msg.textContent = 'Xin nhập Pháp Danh và Mật Mã.'; } return; }
+      try {
+        const r = await fetch(`${API}/login-pass`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phapdanh: pd, matma: mm }) });
+        const d = await r.json();
+        if (!d.ok || !d.user) { if (msg) { msg.hidden = false; msg.className = 'pp-scan-msg err'; msg.textContent = d.error || 'Pháp Danh hoặc Mật Mã chưa đúng.'; } return; }
+        await doCong(d.user.token, msg);
+      } catch { if (msg) { msg.hidden = false; msg.className = 'pp-scan-msg err'; msg.textContent = 'Không kết nối được.'; } }
+    });
+
+    $('pp-khai')?.addEventListener('click', async () => {
+      const inp = $('pp-phapdanh') as HTMLInputElement | null;
+      const mm = $('pp-matma') as HTMLInputElement | null;
+      const msg = $('pp-new-msg');
+      const v = (inp?.value || '').trim();
+      const matma = (mm?.value || '').trim();
+      if (!v) { if (msg) { msg.hidden = false; msg.className = 'pp-scan-msg err'; msg.textContent = 'Xin đặt một Pháp Danh.'; } inp?.focus(); return; }
+      if (matma.length < 4) { if (msg) { msg.hidden = false; msg.className = 'pp-scan-msg err'; msg.textContent = 'Mật mã cần ít nhất 4 ký tự.'; } mm?.focus(); return; }
+      try {
+        const r = await fetch(`${API}/activate`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, phapdanh: v, matma, invite: inviteCode }),
+        });
+        const d = await r.json();
+        if (d.ok && d.user) {
+          try { localStorage.setItem('pp-token', token); localStorage.setItem('pp-phapdanh', d.user.phapdanh); } catch {}
+          if (msg) { msg.hidden = false; msg.className = 'pp-scan-msg'; msg.textContent = `Mừng ${d.user.phapdanh} khai duyên `; }
+          setTimeout(() => { location.href = `/coi/${d.user.pham}/event`; }, 1100);
+        } else if (msg) {
+          msg.hidden = false; msg.className = 'pp-scan-msg err';
+          msg.textContent = d.dupe ? (d.error || 'Pháp Danh này đã có người dùng, xin chọn tên khác.') : (d.error || 'Có trục trặc, xin thử lại.');
+          if (d.dupe) inp?.focus();
+        }
+      } catch {
+        if (msg) { msg.hidden = false; msg.className = 'pp-scan-msg err'; msg.textContent = 'Không kết nối được, xin thử lại.'; }
+      }
+    });
+
+    init();
+ </script>
+</BaseLayout>

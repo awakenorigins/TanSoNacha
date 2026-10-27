@@ -1,0 +1,290 @@
+---
+import BaseLayout from '../layouts/LobbyLayout.astro';
+
+const featuredSutras = [
+  {
+    cn: '心 經',
+    vi: 'Tâm Kinh',
+    fr: 'Le Sūtra du Cœur',
+    desc: 'Tinh hoa Bát-nhã, 260 chữ — soi tỏ Ngũ Uẩn giai Không.',
+    kind: 'lotus',
+    img: '/images/art/img-03-square.jpg',
+    href: '/menu#tam-kinh',
+  },
+  {
+    cn: '金 剛 經',
+    vi: 'Kim Cương Kinh',
+    fr: 'Le Sūtra du Diamant',
+    desc: 'Phá chấp về ngã, nhân, chúng sinh, thọ giả — kim cương chặt đứt vọng tướng.',
+    kind: 'diamond',
+    img: '/images/art/img-02-square.jpg',
+    href: '/menu#kim-cuong-kinh',
+  },
+  {
+    cn: '那 迦 頻',
+    vi: 'Tần Số Nacha',
+    fr: 'Fréquence Nacha',
+    desc: 'Cánh cửa âm ba — nơi cổ thư, năng lượng và trực giác giao nhau.',
+    kind: 'circle',
+    img: '/images/art/img-07-square.jpg',
+    href: '/menu#nacha',
+  },
+  {
+    cn: '道 德 經',
+    vi: 'Đạo Đức Kinh',
+    fr: 'Le Tao Te King',
+    desc: 'Lão Tử ngũ thiên ngôn — Đạo khả đạo, phi thường đạo.',
+    kind: 'circle',
+    img: '/images/art/img-13-square.jpg',
+    href: '/menu#dao-duc-kinh',
+  },
+  {
+    cn: '易 經',
+    vi: 'Dịch Kinh',
+    fr: 'Le Livre des Mutations',
+    desc: 'Sáu mươi tư quẻ — biến dịch của trời đất nhân sinh.',
+    kind: 'hexagram',
+    img: '/images/art/img-12-square.jpg',
+    href: '/menu#dich-kinh',
+  },
+];
+
+const halls = [
+  { cn: '經 藏', vi: 'Kinh Tạng', desc: 'Pháp âm chư Phật, lời dạy của bậc giác ngộ.', img: '/images/art/img-10-wide.jpg', href: '/menu#phat' },
+  { cn: '律 藏', vi: 'Luật Tạng', desc: 'Giới hạnh thanh tịnh, đường về thánh thiện.', img: '/images/art/img-22-wide.jpg', href: '/floors#tang-hai' },
+  { cn: '論 藏', vi: 'Luận Tạng', desc: 'Biện giải vi diệu, suy tư của tổ sư.', img: '/images/art/img-11-wide.jpg', href: '/menu#nho' },
+  { cn: '秘 籍', vi: 'Bí Tịch', desc: 'Mật pháp truyền thừa, ẩn tàng nơi thâm sơn.', img: '/images/art/img-14-wide.jpg', href: '/floors#tang-bon' },
+];
+---
+
+<BaseLayout title="Tần Số Nacha 那迦頻 — Nơi Mỗi Duyên Lành Ngân Thành Tần Số" isHero={true}>
+
+  <!-- HERO -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden -mt-16 md:-mt-20">
+    <div class="absolute inset-0 bg-ink">
+      <img src="/images/art/img-09-wide.jpg" alt="Tần Số Nacha huyền thoại" class="w-full h-full object-cover opacity-52" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/58 to-ink/98"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 18%, rgba(31,26,20,0.88) 100%);"></div>
+      <div class="absolute inset-0 opacity-40" style="background: linear-gradient(90deg, rgba(0,0,0,.72), transparent 35%, transparent 65%, rgba(0,0,0,.72));"></div>
+   </div>
+
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <p class="font-brush text-bronze-light text-2xl md:text-3xl tracking-widest mb-6" data-animate="fade-in">
+        那 迦 頻
+     </p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl text-parchment font-bold mb-6" data-animate="fade-up">
+        Tần Số Nacha
+     </h1>
+      <p class="font-accent italic text-parchment/90 text-lg md:text-2xl mb-3 max-w-2xl mx-auto" data-animate="fade-up">
+        Nơi mỗi duyên lành ngân thành tần số.
+     </p>
+      <p class="text-parchment/70 text-sm md:text-base mb-10 max-w-xl mx-auto drop-shadow" data-animate="fade-up">
+        Cõi Phật tử an tịnh tâm, tu duyên, cộng phước — kinh tạng ngàn năm vẫn thắp đèn chờ người.
+     </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" data-animate="fade-up">
+        <a href="/menu" class="btn-primary btn-pulse text-lg">Bước Vào Kinh Tạng</a>
+        <a href="/booking" class="btn-secondary text-lg !text-parchment !border-parchment/60 hover:!bg-parchment hover:!text-ink">Mượn Kinh</a>
+     </div>
+   </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-parchment/50 animate-bounce">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+     </svg>
+   </div>
+ </section>
+
+  <!-- FOUR HALLS -->
+  <section class="section-padding bg-parchment">
+    <div class="container-content">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow">四 大 寶 殿</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink">Tứ Đại Bảo Điện</h2>
+        <div class="divider-ornament mt-6">
+          <span>藏經閣</span>
+       </div>
+        <p class="font-accent italic text-ink-light/70 max-w-2xl mx-auto mt-4">
+          Bốn gian điện lớn cất giữ tinh hoa của ba ngàn pháp môn.
+       </p>
+     </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-6">
+        {halls.map((hall, i) => (
+          <a href={hall.href} data-drawer data-title={hall.vi} data-cn={hall.cn} data-img={hall.img} data-desc={hall.desc} data-href={hall.href} class="scroll-card text-center group overflow-hidden !p-0 block no-underline" data-animate="fade-up" style={`animation-delay:${i * 100}ms`}>
+            <div class="relative h-44 overflow-hidden">
+              <img src={hall.img} alt={hall.vi} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/10 to-transparent"></div>
+              <p class="absolute bottom-4 left-0 right-0 font-brush text-bronze-light text-3xl tracking-widest">{hall.cn}</p>
+           </div>
+            <div class="p-6">
+              <h3 class="font-display text-xl font-semibold mb-3 text-ink">{hall.vi}</h3>
+              <p class="text-sm text-ink-light leading-relaxed">{hall.desc}</p>
+           </div>
+         </a>
+        ))}
+     </div>
+
+      <div class="text-center mt-12" data-animate="fade-up">
+        <a href="/menu" class="btn-secondary">Xem toàn bộ Kinh Tạng →</a>
+     </div>
+   </div>
+ </section>
+
+  <!-- FEATURED SUTRAS -->
+  <section class="section-padding section-dark relative">
+    <div class="container-content relative">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow text-bronze-light">精 選 經 典</span>
+        <h2 class="font-display text-3xl md:text-4xl text-parchment">Kinh Điển Tinh Tuyển</h2>
+        <div class="divider-ornament mt-6">
+          <span style="color:#C9A66B">經 典</span>
+       </div>
+        <p class="font-accent italic text-parchment/60 max-w-2xl mx-auto mt-4">
+          Bốn quyển đầu giường — đọc một đời chưa hết ý.
+       </p>
+     </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-6">
+        {featuredSutras.map((s, i) => (
+          <a href={s.href} data-drawer data-title={s.vi} data-cn={s.cn} data-img={s.img} data-desc={s.desc} data-href={s.href} class="card-dark text-center hover-lift group overflow-hidden !p-0 block no-underline" data-animate="fade-up" style={`animation-delay:${i * 120}ms`}>
+            <div class="relative h-48 overflow-hidden">
+              <img src={s.img} alt={s.vi} class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent"></div>
+              <div class="absolute bottom-4 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full border border-bronze-light/45 bg-ink/45 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 group-hover:border-bronze-light transition-all duration-400">
+              {s.kind === 'lotus' && (
+                <svg class="w-10 h-10 text-bronze-light" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M32 48c-8-7-14-14-14-24 7 2 11 7 14 16 3-9 7-14 14-16 0 10-6 17-14 24Z"/>
+                  <path d="M32 48c-10-2-18-7-22-17 8 0 15 4 22 17Z"/>
+                  <path d="M32 48c10-2 18-7 22-17-8 0-15 4-22 17Z"/>
+                  <path d="M14 50h36"/>
+               </svg>
+              )}
+              {s.kind === 'diamond' && (
+                <svg class="w-10 h-10 text-bronze-light" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 26 24 12h16l12 14-20 26L12 26Z"/>
+                  <path d="M24 12 32 52 40 12"/>
+                  <path d="M12 26h40"/>
+                  <path d="M22 26 32 12l10 14"/>
+               </svg>
+              )}
+              {s.kind === 'circle' && (
+                <svg class="w-10 h-10 text-bronze-light" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="32" cy="32" r="22"/>
+                  <path d="M32 10c9 9 9 19 0 22s-9 13 0 22"/>
+                  <circle cx="32" cy="22" r="3" fill="currentColor" stroke="none"/>
+                  <circle cx="32" cy="42" r="3" fill="currentColor" stroke="none"/>
+               </svg>
+              )}
+              {s.kind === 'hexagram' && (
+                <svg class="w-10 h-10 text-bronze-light" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                  <path d="M18 18h28"/><path d="M18 26h28"/><path d="M18 34h12"/><path d="M36 34h10"/><path d="M18 42h28"/><path d="M18 50h12"/><path d="M36 50h10"/>
+               </svg>
+              )}
+           </div>
+           </div>
+            <div class="p-6 pt-5">
+              <p class="font-brush text-bronze-light text-2xl tracking-widest mb-2">{s.cn}</p>
+              <h3 class="font-display text-lg font-semibold mb-1 text-parchment">{s.vi}</h3>
+              <p class="font-accent italic text-xs text-parchment/50 mb-3">{s.fr}</p>
+              <p class="text-sm text-parchment/70 leading-relaxed">{s.desc}</p>
+           </div>
+         </a>
+        ))}
+     </div>
+   </div>
+ </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="section-padding bg-parchment-warm">
+    <div class="container-content max-w-4xl">
+      <div class="text-center" data-animate="fade-up">
+        <span class="seal-stamp mb-6">藏 經 之 道</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink mt-6 mb-8">Đạo của người giữ kinh</h2>
+     </div>
+
+      <div class="prose-story text-lg md:text-xl text-ink-light leading-loose" data-animate="fade-up">
+        <p>
+          Tần Số Nacha không phải là nơi để khoe quyển. Là chốn để khi đêm sâu, kẻ lữ hành mỏi mệt vẫn còn một ngọn đèn dầu thắp lên, mở ra trang giấy đã ngả vàng vì nhang khói. Là nơi để vạn lời nói được giữ trong im lặng — chỉ chờ một đôi mắt đủ tĩnh tới đọc.
+       </p>
+        <p>
+          Sách ở đây không phân biệt Đông Tây, Nam Bắc. Có kinh Phật, có Đạo Đức Kinh của Lão Tử, có Luận Ngữ của Khổng Tử, có Áo Nghĩa Thư của Bà-la-môn, có sấm ký của thầy địa lý, có cả mấy tập thơ Đường nhuốm bụi thời gian. Chữ nào cũng quý — nếu gặp được người biết đọc.
+       </p>
+        <p>
+          Người giữ Tần Số Nacha chỉ làm hai việc: phủi bụi, và mở cửa.
+       </p>
+     </div>
+
+      <div class="divider-ornament mt-12" data-animate="fade-up">
+        <span>無 言</span>
+     </div>
+
+      <div class="text-center" data-animate="fade-up">
+        <a href="/about" class="btn-secondary">Đọc Bí Sử của Tàng →</a>
+     </div>
+   </div>
+ </section>
+
+  <!-- CTA -->
+  <section class="section-padding bg-ink relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20" style="background: radial-gradient(circle at 50% 50%, rgba(201,166,107,0.3) 0%, transparent 70%);"></div>
+    <div class="container-content relative text-center max-w-3xl">
+      <p class="font-brush text-bronze-light text-3xl tracking-widest mb-6" data-animate="fade-in">
+        請 君 入 閣
+     </p>
+      <h2 class="font-display text-3xl md:text-5xl text-parchment mb-6" data-animate="fade-up">
+        Mời quân tử bước vào
+     </h2>
+      <p class="font-accent italic text-parchment/70 text-lg mb-10 max-w-xl mx-auto" data-animate="fade-up">
+        Một lần lật trang, là một lần gặp lại tiền nhân.
+     </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" data-animate="fade-up">
+        <a href="/booking" class="btn-primary text-lg">Đăng ký Mượn Kinh</a>
+        <a href="/contact" class="btn-secondary text-lg !text-parchment !border-parchment/60 hover:!bg-parchment hover:!text-ink">Liên Lạc Thủ Các</a>
+     </div>
+   </div>
+ </section>
+
+
+  <div id="tkc-drawer-backdrop" class="tkc-drawer-backdrop" aria-hidden="true"></div>
+  <aside id="tkc-drawer" class="tkc-drawer" aria-hidden="true">
+    <button id="tkc-drawer-close" class="tkc-drawer-close" aria-label="Đóng">×</button>
+    <img id="tkc-drawer-img" class="tkc-drawer-img" src="" alt="" />
+    <div class="tkc-drawer-body">
+      <p id="tkc-drawer-cn" class="font-brush text-bronze-light text-3xl tracking-widest mb-3"></p>
+      <h3 id="tkc-drawer-title" class="font-display text-3xl text-parchment mb-4"></h3>
+      <p id="tkc-drawer-desc" class="text-parchment/90 leading-loose mb-6"></p>
+      <div class="scroll-card !bg-parchment/95">
+        <h4 class="font-display text-xl text-ink mb-2">Nơi này để làm gì?</h4>
+        <p class="text-sm text-ink-light leading-relaxed">Đây là cửa thông tin nhanh. Bấm “đi tới chi tiết” để vào đúng tầng, đúng kệ kinh, hoặc đúng phòng lưu trữ liên quan.</p>
+     </div>
+      <a id="tkc-drawer-link" href="#" class="btn-primary mt-6 w-full">Đi tới chi tiết</a>
+   </div>
+ </aside>
+
+  <script>
+    const drawer = document.getElementById('tkc-drawer');
+    const backdrop = document.getElementById('tkc-drawer-backdrop');
+    const closeBtn = document.getElementById('tkc-drawer-close');
+    const img = document.getElementById('tkc-drawer-img');
+    const cn = document.getElementById('tkc-drawer-cn');
+    const title = document.getElementById('tkc-drawer-title');
+    const desc = document.getElementById('tkc-drawer-desc');
+    const link = document.getElementById('tkc-drawer-link');
+    function openDrawer(el){
+      img.src = el.dataset.img || '';
+      img.alt = el.dataset.title || '';
+      cn.textContent = el.dataset.cn || '';
+      title.textContent = el.dataset.title || '';
+      desc.textContent = el.dataset.desc || '';
+      link.href = el.dataset.href || '#';
+      drawer?.classList.add('open'); backdrop?.classList.add('open');
+      drawer?.setAttribute('aria-hidden','false'); backdrop?.setAttribute('aria-hidden','false');
+    }
+    function closeDrawer(){ drawer?.classList.remove('open'); backdrop?.classList.remove('open'); drawer?.setAttribute('aria-hidden','true'); backdrop?.setAttribute('aria-hidden','true'); }
+    document.querySelectorAll('[data-drawer]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); openDrawer(el); }));
+    closeBtn?.addEventListener('click', closeDrawer); backdrop?.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+ </script>
+
+</BaseLayout>

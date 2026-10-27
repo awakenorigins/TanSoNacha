@@ -1,0 +1,343 @@
+---
+import MobileBottomNav from '../components/MobileBottomNav.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  isHero?: boolean;
+}
+
+const {
+  title,
+  description = 'Tần Số Nacha — Nơi mỗi duyên lành ngân thành tần số. Cõi Phật tử an tịnh tâm, tu duyên, cộng phước. 那迦頻',
+  ogImage = '/og-image.jpg',
+  isHero = false,
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Sảnh Chính' },
+  { href: '/menu', label: 'Kinh Tạng' },
+  { href: '/am-kinh', label: 'Âm Kinh' },
+  { href: '/radio', label: 'Radio' },
+  { href: '/phuoc-phieu', label: 'Phước Phiếu' },
+];
+
+const navGroups = [
+  { label: 'Nhân Duyên', items: [
+    { href: '/bang-nhan-duyen', label: 'Bảng Nhân Duyên' },
+    { href: '/dong-gop/cong-dong', label: 'Cộng Duyên' },
+  ] },
+  { label: 'Cõi Của Ta', items: [
+    { href: '/vao-coi', label: 'Vào Cõi Của Ta' },
+    { href: '/inbox', label: 'Hộp Thư' },
+    { href: '/chuong-duyen', label: 'Chuông Duyên' },
+  ] },
+  { label: 'Về Tàng Kinh Các', items: [
+    { href: '/story', label: 'Pháp Bảo' },
+    { href: '/about', label: 'Bí Sử' },
+    { href: '/floors', label: 'Ngũ Tầng' },
+    { href: '/contact', label: 'Liên Lạc' },
+  ] },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#8B6F2E" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="vi_VN" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <!-- Fonts (SINGLE SOURCE — no duplicate @import) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Ma+Shan+Zheng&display=swap" rel="stylesheet" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Schema.org Library -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tần Số Nacha",
+    "alternateName": "那迦頻",
+    "description": "Nền tảng xã hội Phật giáo — nơi Phật tử an tịnh tâm, tu duyên, cộng phước. Kinh tạng, âm kinh, pháp bảo.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "VN"
+    },
+    "openingHours": "Mo-Su 08:00-22:00"
+  }
+ </script>
+
+  <title>{title}</title>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header>
+    <nav id="main-nav" class={`fixed top-0 w-full z-50 transition-all duration-300 ${isHero ? 'nav-transparent' : 'bg-parchment/95 backdrop-blur-md border-b border-bronze/15'}`}>
+      <div class="container-content flex items-center justify-between h-16 md:h-20">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 no-underline">
+          <span class="nav-logo font-display text-xl md:text-2xl font-bold text-ink">Tần Số Nacha</span>
+          <span class="font-chinese text-sm text-bronze hidden sm:inline tracking-widest">那迦頻</span>
+       </a>
+
+        <!-- Desktop Nav -->
+        <ul class="hidden md:flex items-center gap-8 font-body text-sm font-medium uppercase tracking-wide">
+          {navLinks.map(link => (
+            <li>
+              <a href={link.href}
+                 class={`nav-link transition-colors duration-300 pb-1 ${isActive(link.href) ? 'text-bronze border-b-2 border-bronze' : 'text-ink hover:text-bronze'}`}>
+                {link.label}
+             </a>
+           </li>
+          ))}
+          {navGroups.map(g => (
+            <li class="relative group">
+              <span class={`nav-link cursor-pointer inline-flex items-center gap-1 pb-1 transition-colors duration-300 ${g.items.some(it => isActive(it.href)) ? 'text-bronze border-b-2 border-bronze' : 'text-ink group-hover:text-bronze'}`}>
+                {g.label}
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg>
+              </span>
+              <ul class="hidden group-hover:block absolute left-0 top-full bg-parchment border border-bronze/20 rounded-xl shadow-xl py-2 min-w-52 normal-case tracking-normal z-50">
+                {g.items.map(it => (
+                  <li>
+                    <a href={it.href} class={`block px-4 py-2 text-sm ${isActive(it.href) ? 'text-bronze font-semibold' : 'text-ink hover:text-bronze'}`}>
+                      {it.label}{it.href === '/inbox' && (<span data-inbox-badge hidden style="display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:5px;border-radius:9999px;background:#8B1A2F;color:#fff;font-size:0.65rem;font-weight:700;vertical-align:middle">0</span>)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+          <li><a href="/booking" class="btn-primary text-sm !py-2 !px-5">Mượn Kinh</a></li>
+       </ul>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-ink transition-colors duration-300" aria-label="Menu" aria-expanded="false">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+         </svg>
+       </button>
+     </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden bg-parchment border-t border-bronze/15">
+        <ul class="flex flex-col py-4 px-6 gap-4 font-body text-base">
+          {navLinks.map(link => (
+            <li>
+              <a href={link.href}
+                 class={`block py-2 transition-colors ${isActive(link.href) ? 'text-bronze font-semibold' : 'text-ink hover:text-bronze'}`}>
+                {link.label}
+             </a>
+           </li>
+          ))}
+          {navGroups.map(g => (
+            <li>
+              <details class="nav-group-acc">
+                <summary class={`flex items-center justify-between py-2 cursor-pointer list-none ${g.items.some(it => isActive(it.href)) ? 'text-bronze font-semibold' : 'text-ink'}`}>
+                  {g.label}
+                  <svg class="w-4 h-4 nav-acc-chev transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg>
+                </summary>
+                <ul class="flex flex-col gap-1 pl-4 pb-2 ml-1 border-l border-bronze/20">
+                  {g.items.map(it => (
+                    <li>
+                      <a href={it.href} class={`block py-1.5 ${isActive(it.href) ? 'text-bronze font-semibold' : 'text-ink/85 hover:text-bronze'}`}>
+                        {it.label}{it.href === '/inbox' && (<span data-inbox-badge hidden style="display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:5px;border-radius:9999px;background:#8B1A2F;color:#fff;font-size:0.65rem;font-weight:700;vertical-align:middle">0</span>)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ))}
+          <li><a href="/booking" class="btn-primary text-center mt-2">Mượn Kinh</a></li>
+       </ul>
+     </div>
+   </nav>
+   <style>
+    details.nav-group-acc summary::-webkit-details-marker { display: none; }
+    details.nav-group-acc[open] .nav-acc-chev { transform: rotate(180deg); }
+  </style>
+</header>
+
+  <main class="flex-1 pt-16 md:pt-20">
+    <slot />
+ </main>
+
+  <footer class="bg-ink text-parchment/85">
+    <div class="container-content py-12 md:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <!-- Brand -->
+        <div>
+          <h3 class="font-display text-2xl text-parchment mb-2">Tần Số Nacha</h3>
+          <p class="font-chinese text-bronze-light text-sm mb-4 tracking-widest">那 迦 頻</p>
+          <p class="text-sm leading-relaxed text-parchment/60">
+            Mỗi duyên lành là một tần số.<br />
+            Mỗi trang kinh là một cánh cửa.
+         </p>
+       </div>
+
+        <!-- Links -->
+        <div>
+          <h4 class="font-display text-lg text-parchment mb-4">Khám Phá</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/menu" class="hover:text-bronze-light transition-colors">Kinh Tạng</a></li>
+            <li><a href="/am-kinh" class="hover:text-bronze-light transition-colors">Âm Kinh</a></li>
+            <li><a href="/phuoc-phieu" class="hover:text-bronze-light transition-colors">Phước Phiếu</a></li>
+            <li><a href="/story" class="hover:text-bronze-light transition-colors">Pháp Bảo</a></li>
+            <li><a href="/booking" class="hover:text-bronze-light transition-colors">Mượn Kinh</a></li>
+            <li><a href="/about" class="hover:text-bronze-light transition-colors">Bí Sử</a></li>
+         </ul>
+       </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-display text-lg text-parchment mb-4">Tìm Đến</h4>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-bronze-light flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              Phương Trượng Sơn Môn
+           </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-bronze-light flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Tý — Hợi (mở cửa quanh năm)
+           </li>
+         </ul>
+       </div>
+     </div>
+
+      <div class="mt-12 pt-8 border-t border-parchment/10 text-center text-xs text-parchment/40">
+        <p>&copy; 2026 Tần Số Nacha 那迦頻 — Nơi mỗi duyên lành ngân thành tần số.</p>
+        <p class="mt-1 text-parchment/20 text-xs">v1.0</p>
+        <p class="mt-1 font-accent italic">"Vạn quyển trong tay, một niệm liễu ngộ"</p>
+     </div>
+   </div>
+ </footer>
+
+  <!-- Unified Mobile Bottom Navigation -->
+  <MobileBottomNav />
+
+  <!-- Mobile menu toggle -->
+  <script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn?.addEventListener('click', () => {
+      const isOpen = menu?.classList.toggle('open');
+      btn?.setAttribute('aria-expanded', String(!!isOpen));
+    });
+    document.addEventListener('click', (e) => {
+      if (menu?.classList.contains('open') && !menu.contains(e.target as Node) && !btn?.contains(e.target as Node)) {
+        menu.classList.remove('open');
+        btn?.setAttribute('aria-expanded', 'false');
+      }
+    });
+ </script>
+
+  <!-- Navbar scroll effect -->
+  <script>
+    const nav = document.getElementById('main-nav');
+    const bottomNav = document.getElementById('bottom-nav');
+    const isHomePage = window.location.pathname === '/';
+    let lastScrollY = 0;
+    let ticking = false;
+
+    function updateNav() {
+      const currentY = window.scrollY;
+      const scrollingDown = currentY > lastScrollY;
+      const pastThreshold = currentY > 100;
+
+      if (!nav) return;
+
+      if (scrollingDown && pastThreshold) {
+        nav.classList.add('nav-hidden');
+        bottomNav?.classList.add('nav-bottom-hidden');
+      } else {
+        nav.classList.remove('nav-hidden');
+        bottomNav?.classList.remove('nav-bottom-hidden');
+      }
+
+      if (currentY > 60) {
+        nav.classList.add('shadow-md');
+      } else {
+        nav.classList.remove('shadow-md');
+      }
+
+      if (isHomePage) {
+        if (currentY > window.innerHeight * 0.6) {
+          nav.classList.remove('nav-transparent');
+          nav.classList.add('bg-parchment/95', 'backdrop-blur-md');
+        } else {
+          nav.classList.add('nav-transparent');
+          nav.classList.remove('bg-parchment/95', 'backdrop-blur-md');
+        }
+      }
+
+      lastScrollY = currentY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateNav);
+        ticking = true;
+      }
+    }, { passive: true });
+ </script>
+
+  <!-- Scroll animation observer -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('[data-animate]').forEach((el) => observer.observe(el));
+ </script>
+
+  <script>
+    // Bắt mã giới thiệu (?ref=) trên mọi trang, lưu để khi người mới khai duyên thì cộng Phước cho người giới thiệu.
+    try { const rf = new URLSearchParams(location.search).get('ref'); if (rf) localStorage.setItem('pp-ref', rf); } catch {}
+
+    // Badge số tin chưa đọc trên nút Hộp Thư
+    (async () => {
+      let tk = ''; try { tk = localStorage.getItem('pp-token') || ''; } catch {}
+      if (!tk) return;
+      try {
+        const r = await fetch(`/pp-api/inbox/unread?token=${encodeURIComponent(tk)}`);
+        const d = await r.json();
+        if (d.ok && d.unread > 0) {
+          document.querySelectorAll('[data-inbox-badge]').forEach((b) => { const el = b as HTMLElement; el.textContent = String(d.unread); el.hidden = false; });
+        }
+      } catch {}
+    })();
+ </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const floors = [
+  { id:'tang-mot', lv:'一', cn:'接 客 廳', title:'Tầng Một — Tiếp Khách Sảnh', img:'/images/art/img-23-wide.jpg', purpose:'Cửa nhập môn. Nơi khách ngồi uống trà, đọc bản đồ Tàng, chọn tuyến đọc phù hợp.', content:'Ở đây đặt các bảng chỉ dẫn, quy tắc mượn kinh, danh mục nhập môn và những cuốn dễ bắt đầu. Tầng này dành cho người mới, người ghé thăm, hoặc người chưa biết mình cần tìm gì.', cta:'Dùng để định hướng, tiếp nhận, dẫn khách vào đúng tầng.' },
+  { id:'tang-hai', lv:'二', cn:'佛 經 殿', title:'Tầng Hai — Phật Kinh Điện', img:'/images/art/img-02-wide.jpg', purpose:'Kho Phật học: Kinh, Luật, Luận, chú giải, nghi quỹ và pháp môn tu tập.', content:'Tầng này lưu Tâm Kinh, Pháp Hoa, Hoa Nghiêm, Lăng Nghiêm, A-di-đà, các bộ luận nền tảng và hồ sơ chú giải. Đây là tim Phật giáo của Tần Số Nacha.', cta:'Dùng để học Phật, đối chiếu kinh văn, tìm pháp môn, đọc chú giải.' },
+  { id:'tang-ba', lv:'三', cn:'道 儒 堂', title:'Tầng Ba — Đạo Nho Đường', img:'/images/art/img-17-wide.jpg', purpose:'Kho Đạo gia và Nho gia: Lão, Trang, Khổng, Mạnh, Dịch, Thi, Lễ.', content:'Tầng này dành cho người nghiên cứu đạo trị thân và đạo trị thế. Một bên là vô vi tiêu dao, một bên là tu thân tề gia. Hai dòng tưởng như trái, nhưng gặp nhau ở chỗ làm người cho sáng.', cta:'Dùng để đọc triết học Đông phương, tu thân, luận đạo, đối chiếu kinh điển.' },
+  { id:'tang-bon', lv:'四', cn:'秘 籍 樓', title:'Tầng Bốn — Bí Tịch Lầu', img:'/images/art/img-14-wide.jpg', purpose:'Kho bí tịch: phong thủy, tử vi, kỳ môn, y kinh, chú âm, tần số Nacha.', content:'Không phải ai cũng vào tầng này ngay. Đây là nơi cất các văn bản huyền học, bảng sao hiếm, hệ thống biểu tượng, các pháp môn khó và những hồ sơ chưa được công bố đầy đủ.', cta:'Dùng để lưu huyền học, pháp bảo hiếm, hệ thống tần số, tư liệu cần thẩm định.' },
+  { id:'tang-nam', lv:'五', cn:'觀 星 臺', title:'Tầng Năm — Quan Tinh Đài', img:'/images/art/img-20-wide.jpg', purpose:'Tầng quan sát: thiên văn, lịch pháp, vận hạn, bản đồ sao và mô hình vũ trụ.', content:'Đứng ở tầng năm không phải để nhìn xuống đời, mà để nhìn rộng hơn đời. Nơi đây kết nối Dịch, lịch, thiên tượng, thời vận và các chu kỳ lớn.', cta:'Dùng để xem chu kỳ, thiết kế lịch nghiên cứu, đọc vận hội và cấu trúc vũ trụ.' },
+];
+---
+
+<BaseLayout title="Ngũ Tầng — Tần Số Nacha 五層樓閣">
+  <section class="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <img src="/images/art/img-06-wide.jpg" alt="Ngũ Tầng Tàng Kinh Các" class="tkc-hero-art absolute inset-0 w-full h-full object-cover opacity-50" loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/60 to-ink/98"></div>
+    <div class="container-content relative text-center">
+      <p class="font-brush text-bronze-light text-2xl tracking-widest mb-4" data-animate="fade-in">五 層 樓 閣</p>
+      <h1 class="font-display text-5xl md:text-6xl text-parchment mb-4" data-animate="fade-up">Ngũ Tầng Tàng Kinh Các</h1>
+      <p class="font-accent italic text-parchment/90 text-lg max-w-2xl mx-auto" data-animate="fade-up">Không chỉ là kiến trúc. Đây là bản đồ tri thức: từ cửa nhập môn đến đài quan tinh.</p>
+   </div>
+ </section>
+
+
+
+  <section class="section-padding bg-ink section-dark">
+    <div class="container-content relative">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow text-bronze-light">互 動 樓 圖</span>
+        <h2 class="font-display text-3xl md:text-4xl text-parchment">Bản Đồ Ngũ Tầng</h2>
+        <p class="font-accent italic text-parchment/80 max-w-2xl mx-auto mt-4">Chạm vào từng tầng để mở khu tri thức tương ứng. Luồng sáng đồng cổ chạy qua từng tầng như mạch kinh văn.</p>
+     </div>
+      <div class="tkc-floor-map" data-animate="fade-up">
+        {floors.slice().reverse().map((f, i) => (
+          <a href={`#${f.id}`} class="tkc-floor-level no-underline" style={`--delay:${i * .28}s`}>
+            <div class="tkc-floor-num">{f.lv}</div>
+            <div class="tkc-floor-info">
+              <p class="font-chinese text-bronze-light text-xs tracking-widest mb-1">{f.cn}</p>
+              <h3 class="font-display text-xl text-parchment mb-1">{f.title.replace(/^Tầng [^—]+ — /,'')}</h3>
+              <p class="text-sm text-parchment/80">{f.purpose}</p>
+           </div>
+         </a>
+        ))}
+     </div>
+   </div>
+ </section>
+
+  <section class="bg-parchment-warm border-b border-bronze/15 sticky top-16 md:top-20 z-40 backdrop-blur-md">
+    <div class="tkc-floor-tabs container-content flex flex-wrap justify-center gap-3 md:gap-4 py-4 text-sm">
+      {floors.map(f => <a href={`#${f.id}`} class="tag-bronze !text-bronze-dark hover:bg-bronze hover:!text-parchment transition-all">Tầng {f.lv}</a>)}
+   </div>
+ </section>
+
+  {floors.map((f, i) => (
+    <section id={f.id} class={`scroll-mt-32 section-padding ${i % 2 === 0 ? 'bg-parchment' : 'bg-parchment-warm'}`}>
+      <div class="container-content grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div class={`relative overflow-hidden rounded-2xl shadow-elevated border border-bronze/20 ${i % 2 ? 'lg:order-2' : ''}`} data-animate="fade-up">
+          <img src={f.img} alt={f.title} class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
+          <p class="absolute bottom-5 left-6 font-brush text-bronze-light text-5xl">{f.lv}</p>
+          <p class="absolute bottom-6 right-6 font-chinese text-bronze-light text-sm tracking-widest">{f.cn}</p>
+       </div>
+        <div data-animate="fade-up">
+          <span class="seal-stamp mb-6">第 {f.lv} 層</span>
+          <h2 class="font-display text-3xl md:text-4xl text-ink mt-6 mb-5">{f.title}</h2>
+          <p class="font-accent italic text-xl text-bronze-dark mb-5">{f.purpose}</p>
+          <p class="text-ink-light leading-loose mb-6">{f.content}</p>
+          <div class="scroll-card">
+            <h3 class="font-display text-xl text-ink mb-2">Tầng này để làm gì?</h3>
+            <p class="text-sm text-ink-light leading-relaxed">{f.cta}</p>
+         </div>
+       </div>
+     </div>
+   </section>
+  ))}
+  <script>
+    const floorLinks = Array.from(document.querySelectorAll('.tkc-floor-level'));
+    const floorSections = floorLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const floorObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          floorLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -45% 0px', threshold: 0 });
+    floorSections.forEach(s => floorObserver.observe(s));
+ </script>
+
+</BaseLayout>

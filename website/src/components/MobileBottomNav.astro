@@ -1,0 +1,30 @@
+---
+const currentPath = Astro.url.pathname;
+const frequencyOpen = currentPath.startsWith('/am-kinh') || currentPath.startsWith('/radio');
+---
+<nav id="bottom-nav" aria-label="Điều hướng di động" class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-parchment/95 backdrop-blur-md border-t border-bronze/15 transition-transform duration-300" style="padding-bottom: env(safe-area-inset-bottom)">
+  <div id="frequency-popover" class={`absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 flex gap-2 rounded-xl border border-bronze/20 bg-parchment/95 p-2 shadow-xl backdrop-blur-md transition-all duration-200 ${frequencyOpen ? '' : 'hidden'}`}>
+    <a href="/am-kinh" class={`min-w-[96px] rounded-lg px-4 py-3 text-center font-serif text-sm ${currentPath.startsWith('/am-kinh') ? 'bg-bronze text-white' : 'text-ink hover:bg-bronze/10'}`}>Âm Kinh</a>
+    <a href="/radio" class={`min-w-[96px] rounded-lg px-4 py-3 text-center font-serif text-sm ${currentPath.startsWith('/radio') ? 'bg-bronze text-white' : 'text-ink hover:bg-bronze/10'}`}>Radio</a>
+ </div>
+  <div class="grid h-14 grid-cols-4">
+    <a href="/" class={`flex flex-col items-center justify-center gap-0.5 text-[11px] ${currentPath === '/' ? 'text-bronze' : 'text-ink-light hover:text-bronze'}`}>
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M3.5 11.5 12 4l8.5 7.5M5.5 10v10h13V10M9.5 20v-6h5v6"/></svg><span>Sảnh Chính</span>
+   </a>
+    <a href="/menu" class={`flex flex-col items-center justify-center gap-0.5 text-[11px] ${currentPath.startsWith('/menu') ? 'text-bronze' : 'text-ink-light hover:text-bronze'}`}>
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35" d="M12 6.5c-2.2-1.6-5.4-1.7-8-.3v12.2c2.6-1.4 5.8-1.3 8 .3m0-12.2c2.2-1.6 5.4-1.7 8-.3v12.2c-2.6-1.4-5.8-1.3-8 .3m0-12.2v12.2"/></svg><span>Kinh Tạng</span>
+   </a>
+    <button id="frequency-trigger" type="button" aria-expanded={frequencyOpen ? 'true' : 'false'} aria-controls="frequency-popover" class={`flex flex-col items-center justify-center gap-0.5 text-[11px] ${frequencyOpen ? 'text-bronze' : 'text-ink-light hover:text-bronze'}`}>
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.3" d="M12 5v14M8.8 8.2a5.4 5.4 0 0 0 0 7.6m6.4-7.6a5.4 5.4 0 0 1 0 7.6M5.8 5.4a9.3 9.3 0 0 0 0 13.2m12.4-13.2a9.3 9.3 0 0 1 0 13.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg><span>Tần Số</span>
+   </button>
+    <a href="/phuoc-phieu" class={`flex flex-col items-center justify-center gap-0.5 text-[11px] ${currentPath.startsWith('/phuoc-phieu') ? 'bg-bronze-dark text-white' : 'text-ink-light hover:text-bronze'}`}>
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" stroke-width="1.3"/><path stroke-linecap="round" stroke-width="1.3" d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1m8.8 8.8 2.1 2.1m0-13-2.1 2.1m-8.8 8.8-2.1 2.1"/></svg><span>Phước Phiếu</span>
+   </a>
+ </div>
+</nav>
+<script>
+  const trigger = document.getElementById('frequency-trigger');
+  const popover = document.getElementById('frequency-popover');
+  trigger?.addEventListener('click', (event) => { event.stopPropagation(); const opening = popover?.classList.contains('hidden'); popover?.classList.toggle('hidden'); trigger.setAttribute('aria-expanded', String(opening)); });
+  document.addEventListener('click', (event) => { if (popover && !popover.contains(event.target as Node) && !trigger?.contains(event.target as Node)) { popover.classList.add('hidden'); trigger?.setAttribute('aria-expanded', 'false'); } });
+</script>

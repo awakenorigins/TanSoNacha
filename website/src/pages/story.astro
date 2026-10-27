@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const treasures = [
+  {
+    cn: '心 經 真 本',
+    vi: 'Tâm Kinh Chân Bản',
+    era: 'Đường — Trinh Quán năm thứ 7',
+    desc: 'Bản viết tay của ngài Huyền Trang sau khi từ Tây Trúc trở về. Mực còn thấm vào giấy, vài chỗ nhoè vì nước mắt người chép.',
+    note: 'Tầng Bốn — Hộp gỗ tử đàn. Mở phải lễ ba lạy.',
+    img: '/images/art/img-01-square.jpg',
+  },
+  {
+    cn: '道 德 經 帛 書',
+    vi: 'Đạo Đức Kinh Bạch Thư',
+    era: 'Hán — đào ở mộ Mã Vương Đôi',
+    desc: 'Bản chép trên lụa, niên đại trước Vương Bật một thế kỷ. Thứ tự "Đức" trước "Đạo" — khác với bản phổ biến.',
+    note: 'Tầng Bốn — Tủ kính bọc gấm. Cấm sờ tay trần.',
+    img: '/images/art/img-02-square.jpg',
+  },
+  {
+    cn: '永 樂 大 典 殘 卷',
+    vi: 'Vĩnh Lạc Đại Điển — Tàn Quyển',
+    era: 'Minh — Vĩnh Lạc năm thứ 5',
+    desc: 'Bộ bách khoa lớn nhất thời cổ. Tàng giữ được mười bảy quyển sót lại sau loạn binh. Mỗi quyển dày như viên gạch.',
+    note: 'Tầng Bốn — Giá đứng. Cần hai người mới mở được.',
+    img: '/images/art/img-15-square.jpg',
+  },
+  {
+    cn: '青 囊 經',
+    vi: 'Thanh Nang Kinh — Bản Quách Phác',
+    era: 'Tấn — chú giải của Quách Phác',
+    desc: 'Tổ kinh phong thủy. Trong sách có vẽ tay sáu mươi tám hình long mạch. Một trang bị mất, đến nay chưa tìm lại được.',
+    note: 'Tầng Bốn — Khoá đồng. Chìa do Trưởng Lão giữ.',
+    img: '/images/art/img-16-square.jpg',
+  },
+  {
+    cn: '梅 花 易 數 真 訣',
+    vi: 'Mai Hoa Dịch Số Chân Quyết',
+    era: 'Tống — Thiệu Khang Tiết tự chép',
+    desc: 'Chú giải bằng chữ thảo, lề có ghi chú chỉnh sửa của chính tác giả. Mở ra như nghe ông đang nói chuyện.',
+    note: 'Tầng Bốn — Kệ riêng sát cửa sổ phía Bắc.',
+    img: '/images/art/img-17-square.jpg',
+  },
+  {
+    cn: '推 背 圖 古 本',
+    vi: 'Thôi Bối Đồ Cổ Bản',
+    era: 'Đường — Lý Thuần Phong, Viên Thiên Cang',
+    desc: 'Sáu mươi tượng tiên tri, mỗi tượng kèm sấm. Tranh vẽ thuốc nước, đến nay màu vẫn chưa phai.',
+    note: 'Tầng Bốn — Cuộn lụa dài bốn trượng. Mở ra cần năm người trải.',
+    img: '/images/art/img-20-square.jpg',
+  },
+];
+
+const lessons = [
+  { cn: '讀', vi: 'Đọc chậm', desc: 'Một trang một ngày còn hơn một quyển một đêm. Chữ thấm như nước thấm vào giấy.' },
+  { cn: '抄', vi: 'Chép tay', desc: 'Chép một lần bằng đọc mười lần. Tay viết, mắt nhìn, tâm khắc.' },
+  { cn: '問', vi: 'Hỏi', desc: 'Chỗ không hiểu phải hỏi. Không hỏi thì cả đời lầm tưởng mình đã hiểu.' },
+  { cn: '行', vi: 'Hành', desc: 'Đọc mà không hành — như cầm gương soi cho người khác. Sách là bản đồ, đường vẫn phải đi.' },
+];
+---
+
+<BaseLayout title="Pháp Bảo — Tần Số Nacha 法寶">
+
+  <!-- HERO -->
+  <section class="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <img src="/images/art/img-07-wide.jpg" alt="Pháp Bảo" class="absolute inset-0 w-full h-full object-cover opacity-54" loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/56 to-ink/98"></div>
+    <div class="absolute inset-0 opacity-22" style="background: repeating-linear-gradient(45deg, transparent 0px, transparent 50px, rgba(139,111,46,0.15) 50px, rgba(139,111,46,0.15) 52px);"></div>
+    <div class="container-content relative text-center">
+      <p class="font-brush text-bronze-light text-2xl tracking-widest mb-4" data-animate="fade-in">法 寶</p>
+      <h1 class="font-display text-5xl md:text-6xl text-parchment mb-4" data-animate="fade-up">Pháp Bảo</h1>
+      <p class="font-accent italic text-parchment/70 text-lg max-w-2xl mx-auto" data-animate="fade-up">
+        Sáu bảo vật trấn các — những quyển không lưu hành, chỉ chiêm bái.
+     </p>
+   </div>
+ </section>
+
+  <!-- TREASURES -->
+  <section class="section-padding bg-parchment">
+    <div class="container-content max-w-6xl">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow">鎮 閣 之 寶</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink">Trấn Các Chi Bảo</h2>
+        <div class="divider-ornament mt-6"><span>寶</span></div>
+     </div>
+
+      <div class="space-y-10">
+        {treasures.map((t, i) => (
+          <div class="scroll-card hover-lift grid md:grid-cols-[220px_1fr] gap-0 md:gap-7 items-stretch !p-0 overflow-hidden" data-animate="fade-up" style={`animation-delay:${i * 100}ms`}>
+            <div class="relative min-h-56 md:min-h-full overflow-hidden">
+              <img src={t.img} alt={t.vi} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/15 to-transparent"></div>
+              <p class="absolute bottom-4 left-0 right-0 text-center font-brush text-bronze-light text-3xl md:text-4xl tracking-widest leading-tight">{t.cn}</p>
+           </div>
+            <div class="p-6 md:p-8 flex flex-col justify-center">
+              <p class="seal-stamp mb-4 text-xs self-start">{`第 ${['一','二','三','四','五','六'][i]}`}</p>
+              <h3 class="font-display text-xl md:text-2xl text-ink mb-2 ink-stroke inline-block self-start">{t.vi}</h3>
+              <p class="font-accent italic text-sm text-bronze-dark mb-3">{t.era}</p>
+              <p class="text-ink leading-relaxed mb-3">{t.desc}</p>
+              <p class="text-xs text-ink-light/85 border-l-2 border-bronze/40 pl-3 italic">
+                {t.note}
+             </p>
+           </div>
+         </div>
+        ))}
+     </div>
+   </div>
+ </section>
+
+  <!-- HOW TO READ -->
+  <section class="section-padding bg-parchment-warm">
+    <div class="container-content max-w-5xl">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow">讀 經 四 法</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink">Tứ Pháp Đọc Kinh</h2>
+        <div class="divider-ornament mt-6"><span>法</span></div>
+        <p class="font-accent italic text-ink-light/70 max-w-2xl mx-auto mt-4">
+          Bốn lối vào kinh điển — thiếu một, sách chỉ là giấy mực.
+       </p>
+     </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {lessons.map((l, i) => (
+          <div class="card hover-lift text-center" data-animate="fade-up" style={`animation-delay:${i * 100}ms`}>
+            <p class="font-brush text-bronze text-5xl mb-4">{l.cn}</p>
+            <h3 class="font-display text-xl mb-3 text-ink">{l.vi}</h3>
+            <p class="text-sm text-ink leading-relaxed">{l.desc}</p>
+         </div>
+        ))}
+     </div>
+   </div>
+ </section>
+
+  <!-- CLOSING STORY -->
+  <section class="section-padding bg-ink section-dark">
+    <div class="container-content max-w-3xl relative">
+      <div class="text-center mb-10" data-animate="fade-up">
+        <p class="font-brush text-bronze-light text-2xl tracking-widest mb-3">夜 讀</p>
+        <h2 class="font-display text-3xl md:text-4xl text-parchment">Đêm Đọc</h2>
+     </div>
+
+      <div class="tkc-night-panel prose-story text-parchment text-lg leading-loose bg-ink/78 border border-bronze-light/20 rounded-2xl p-6 md:p-10 shadow-elevated backdrop-blur-sm" data-animate="fade-up">
+        <p>
+          Có người hỏi vị thủ các đời thứ ba mươi sáu: "Đêm khuya một mình ở Tàng, không sợ sao?"
+       </p>
+        <p>
+          Ông đáp: "Một quyển sách hay, bên ngoài là chữ, bên trong là một con người. Tôi ngồi đây, là ngồi với Khổng Tử, Lão Tử, Đức Phật, Trang Chu, Quách Phác, Thiệu Khang Tiết... Đêm nào tôi cũng có khách, sao có thể gọi là một mình?"
+       </p>
+        <p>
+          "Người sống có khi còn vắng. Sách giữ đủ — chưa từng bỏ tôi đi."
+       </p>
+     </div>
+
+      <div class="divider-ornament mt-12" data-animate="fade-up">
+        <span style="color:#C9A66B">終</span>
+     </div>
+   </div>
+ </section>
+
+</BaseLayout>

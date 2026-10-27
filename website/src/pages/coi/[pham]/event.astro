@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { phamList, getPham } from '../../../data/phuocphieu';
+
+export function getStaticPaths() {
+  return phamList.filter((p) => p.open).map((p) => ({ params: { pham: p.slug } }));
+}
+
+const { pham: slug } = Astro.params;
+const p = getPham(slug!)!;
+
+// 2 khung giờ vàng cố định
+const khungGio = [
+  { icon: '', gio: '07:00', ten: 'Công Phu Sáng', mo: 'Mở đầu ngày bằng một mảnh kinh, một lời nguyện an lành.' },
+  { icon: '', gio: '21:00', ten: 'Tịnh Niệm Tối', mo: 'Khép ngày trong tiếng Âm Kinh, gieo một hạt trước khi ngủ.' },
+];
+---
+
+<BaseLayout title={`Pháp Hội — Cõi ${p.name} | Tần Số Nacha`} description={`Pháp hội mỗi ngày tại cõi ${p.name}.`}>
+  <section class="pp-ev" style={`--from:${p.hue.from};--to:${p.hue.to};--accent:${p.hue.accent};--pink:${p.hue.ink}`}>
+    <div class="pp-ev-hero">
+      <div class="absolute inset-0">
+        <img src={p.cover} alt={p.name} class="w-full h-full object-cover opacity-20" />
+        <div class="absolute inset-0" style={`background:linear-gradient(160deg, color-mix(in srgb, ${p.hue.from} 88%, transparent), ${p.hue.to} 95%)`}></div>
+     </div>
+      <div class="relative z-10 container-content pt-24 pb-8 text-center">
+        <p class="pp-ev-glyph"></p>
+        <p class="font-brush text-2xl tracking-[0.3em]" style="color:var(--accent)">法 會</p>
+        <h1 class="font-display text-4xl md:text-5xl font-bold mt-1" style="color:var(--pink)">Pháp Hội Hôm Nay</h1>
+        <p class="text-sm mt-3" style="color:var(--pink);opacity:.7">Cõi {p.name} · {p.han}</p>
+     </div>
+   </div>
+
+    <div class="container-content max-w-2xl py-10 relative z-10">
+
+      <!-- CHƯA ĐĂNG KÝ (GĐ1: hiện lời mời đặt Pháp Danh) -->
+      <div class="pp-ev-join" id="pp-ev-join">
+        <span class="pp-panel-han" style="font-size:2rem">緣</span>
+        <h2 class="font-display text-xl mt-2" style="color:var(--pink)">Bước vào Pháp Hội</h2>
+        <p class="text-sm mt-2 mb-4" style="color:var(--pink);opacity:.7">Xin đặt một <b>Pháp Danh</b> để cùng dự pháp hội và nhận Pháp Bảo hôm nay.</p>
+        <div class="pp-ev-form">
+          <input id="pp-phapdanh" class="pp-ev-input" type="text" maxlength="30" placeholder="Pháp Danh của bạn…" />
+          <button id="pp-ev-enter" class="pp-ev-btn" style="background:var(--accent)">Nhập Hội </button>
+       </div>
+        <p class="text-[11px] mt-3" style="color:var(--pink);opacity:.5">Nhanh gọn — chỉ cần một tên gọi. Email có thể bổ sung sau.</p>
+     </div>
+
+      <!-- 2 KHUNG GIỜ VÀNG -->
+      <h2 class="pp-ev-section">Hai Thời Khắc Vàng Mỗi Ngày</h2>
+      <div class="pp-ev-slots">
+        {khungGio.map((k) => (
+          <div class="pp-ev-slot">
+            <span class="pp-ev-slot-icon">{k.icon}</span>
+            <div class="flex-1">
+              <div class="flex items-baseline gap-2">
+                <span class="pp-ev-slot-gio">{k.gio}</span>
+                <span class="pp-ev-slot-ten">{k.ten}</span>
+             </div>
+              <p class="pp-ev-slot-mo">{k.mo}</p>
+           </div>
+            <span class="pp-ev-slot-badge" data-slot={k.gio}>Sắp diễn ra</span>
+         </div>
+        ))}
+     </div>
+
+      <!-- EVENT HÔM NAY (demo) -->
+      <h2 class="pp-ev-section">Pháp Bảo Hôm Nay</h2>
+      <div class="pp-ev-today">
+        <div class="pp-ev-today-badge">緣 Duyên hôm nay</div>
+        <h3 class="font-display text-2xl mt-2" style="color:var(--pink)">Mảnh 86 · Con Sông</h3>
+        <p class="font-accent italic text-base mt-2" style="color:var(--pink);opacity:.85">"Nước không vội. Nó chỉ đi — và bằng cách đi, nó tới."</p>
+        <p class="text-xs mt-4" style="color:var(--pink);opacity:.55">Dự pháp hội hôm nay để thỉnh mảnh này về Sổ Duyên + nghe bản Âm Kinh tương ứng.</p>
+        <div class="pp-ev-today-actions">
+          <a href="/am-kinh" class="pp-ev-mini" style="border-color:var(--accent);color:var(--accent)"> Nghe Âm Kinh</a>
+          <a href={`/coi/${p.slug}`} class="pp-ev-mini" style="border-color:var(--accent);color:var(--accent)"> Sổ Duyên</a>
+       </div>
+     </div>
+
+      <p class="text-center text-xs mt-8" style="color:var(--pink);opacity:.5">
+        Pháp hội cập nhật liên tục. Hai thời khắc 7 giờ sáng và 9 giờ tối luôn có pháp bảo mới 
+     </p>
+   </div>
+ </section>
+
+  <style is:global>
+    .pp-ev { background: var(--to); min-height: 100vh; margin-top: -4rem; }
+    .pp-ev-hero { position: relative; overflow: hidden; }
+    .pp-ev-glyph { font-size: 2.6rem; margin-bottom: 0.4rem; }
+    .pp-ev-join { text-align: center; background: rgba(255,255,255,0.05); border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); border-radius: 1.1rem; padding: 1.6rem 1.4rem; margin-bottom: 2rem; }
+    .pp-ev-form { display: flex; gap: 0.5rem; max-width: 24rem; margin: 0 auto; }
+    .pp-ev-input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 9999px; padding: 0.75rem 1.1rem; color: var(--pink); text-align: center; font-size: 0.9rem; }
+    .pp-ev-input:focus { outline: none; border-color: var(--accent); }
+    .pp-ev-input::placeholder { color: color-mix(in srgb, var(--pink) 45%, transparent); }
+    .pp-ev-btn { border-radius: 9999px; padding: 0.75rem 1.3rem; font-weight: 600; font-size: 0.88rem; color: #1c1710; white-space: nowrap; transition: transform .2s ease, filter .2s; }
+    .pp-ev-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .pp-ev-section { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent); margin: 1.8rem 0 0.8rem; text-align: center; }
+    .pp-ev-slots { display: flex; flex-direction: column; gap: 0.7rem; }
+    .pp-ev-slot { display: flex; align-items: center; gap: 0.9rem; background: rgba(255,255,255,0.04); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-radius: 1rem; padding: 1rem 1.1rem; }
+    .pp-ev-slot-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .pp-ev-slot-gio { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+    .pp-ev-slot-ten { font-size: 0.95rem; color: var(--pink); }
+    .pp-ev-slot-mo { font-size: 0.75rem; color: var(--pink); opacity: 0.65; margin-top: 2px; }
+    .pp-ev-slot-badge { font-size: 0.66rem; padding: 3px 9px; border-radius: 9999px; border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); color: var(--accent); flex-shrink: 0; }
+    .pp-ev-slot-badge.live { background: var(--accent); color: #1c1710; font-weight: 700; }
+    .pp-ev-today { background: color-mix(in srgb, var(--accent) 10%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent); border-radius: 1.1rem; padding: 1.4rem; text-align: center; }
+    .pp-ev-today-badge { display: inline-block; font-size: 0.7rem; padding: 3px 12px; border-radius: 9999px; background: var(--accent); color: #1c1710; font-weight: 700; letter-spacing: 0.05em; }
+    .pp-ev-today-actions { display: flex; gap: 0.6rem; justify-content: center; margin-top: 1.1rem; }
+    .pp-ev-mini { padding: 0.5rem 1rem; border-radius: 9999px; border: 1px solid; font-size: 0.8rem; transition: transform .2s; }
+    .pp-ev-mini:hover { transform: translateY(-2px); }
+ </style>
+
+  <script>
+    // đánh dấu khung giờ nào đang tới gần (7h / 21h)
+    const h = new Date().getHours();
+    document.querySelectorAll('.pp-ev-slot-badge').forEach((b) => {
+      const el = b as HTMLElement;
+      const gio = parseInt((el.dataset.slot || '0').split(':')[0], 10);
+      if (h === gio) { el.textContent = 'Đang diễn ra'; el.classList.add('live'); }
+      else if ((gio === 7 && h < 7) || (gio === 21 && h >= 7 && h < 21)) { el.textContent = 'Sắp tới'; }
+      else { el.textContent = 'Đã qua hôm nay'; }
+    });
+    // Nếu ĐÃ ĐĂNG NHẬP (có pp-token) → auto dùng Pháp Danh, không hỏi lại
+    const join = document.getElementById('pp-ev-join');
+    let phapdanh = '';
+    try { phapdanh = localStorage.getItem('pp-phapdanh') || ''; } catch {}
+    if (phapdanh && join) {
+      join.innerHTML = `<span class="pp-panel-han" style="font-size:2rem;color:var(--accent)"></span>` +
+        `<h2 class="font-display text-xl mt-2" style="color:var(--pink)">Mừng ${phapdanh} về Pháp Hội </h2>` +
+        `<p class="text-sm mt-2" style="color:var(--pink);opacity:.7">Bạn đã ở trong cõi. Dự pháp hội hôm nay để thỉnh Pháp Bảo về Sổ Duyên.</p>` +
+        `<a href="/coi/${location.pathname.split('/')[2]}" class="pp-ev-btn inline-block mt-3" style="background:var(--accent);text-decoration:none;display:inline-block">Vào Cõi Của Ta →</a>`;
+    } else {
+      // chưa đăng nhập → mời đặt Pháp Danh (dẫn tới trang vào cõi / hoặc quét phiếu)
+      const btn = document.getElementById('pp-ev-enter');
+      const inp = document.getElementById('pp-phapdanh') as HTMLInputElement | null;
+      btn?.addEventListener('click', () => {
+        const v = (inp?.value || '').trim();
+        if (!v) { inp?.focus(); return; }
+        // chưa có phiếu/mật mã → hướng dẫn tới trang vào cõi
+        location.href = '/vao-coi';
+      });
+    }
+ </script>
+</BaseLayout>

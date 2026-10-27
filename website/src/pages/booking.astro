@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Mượn Kinh — Tần Số Nacha 借經">
+
+  <!-- HERO -->
+  <section class="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <img src="/images/art/img-18-wide.jpg" alt="Mượn kinh" class="tkc-hero-art absolute inset-0 w-full h-full object-cover opacity-52" loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/60 to-ink/98"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(circle at 50% 30%, rgba(139,111,46,0.25) 0%, transparent 60%);"></div>
+    <div class="container-content relative text-center">
+      <p class="font-brush text-bronze-light text-2xl tracking-widest mb-4" data-animate="fade-in">借 經</p>
+      <h1 class="font-display text-5xl md:text-6xl text-parchment mb-4" data-animate="fade-up">Mượn Kinh</h1>
+      <p class="font-accent italic text-parchment/70 text-lg max-w-2xl mx-auto" data-animate="fade-up">
+        Để lại một dòng — thủ các sẽ chuẩn bị quyển sách hợp duyên nhất.
+     </p>
+   </div>
+ </section>
+
+  <!-- RULES -->
+  <section class="section-padding bg-parchment-warm">
+    <div class="container-content max-w-5xl">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow">借 書 規 則</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink">Lệ Mượn Kinh</h2>
+        <div class="divider-ornament mt-6"><span>規</span></div>
+     </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="scroll-card" data-animate="fade-up">
+          <p class="font-brush text-bronze text-2xl mb-3">一</p>
+          <h3 class="font-display text-lg mb-2 text-ink">Một tháng</h3>
+          <p class="text-sm text-ink-light">Mỗi quyển mượn không quá ba mươi ngày. Đọc xong mang trả, người sau còn chờ.</p>
+       </div>
+        <div class="scroll-card" data-animate="fade-up" style="animation-delay:120ms">
+          <p class="font-brush text-bronze text-2xl mb-3">二</p>
+          <h3 class="font-display text-lg mb-2 text-ink">Giữ sạch</h3>
+          <p class="text-sm text-ink-light">Không gấp mép, không tô vẽ, không để gần nước trà. Chữ tiền nhân đáng được kính trọng.</p>
+       </div>
+        <div class="scroll-card" data-animate="fade-up" style="animation-delay:240ms">
+          <p class="font-brush text-bronze text-2xl mb-3">三</p>
+          <h3 class="font-display text-lg mb-2 text-ink">Bí Tịch</h3>
+          <p class="text-sm text-ink-light">Sách tầng bốn cần giới thiệu của tiền bối. Người mới ghi rõ pháp danh hoặc duyên cớ.</p>
+       </div>
+     </div>
+
+      <!-- FORM -->
+      <div class="card-glass max-w-2xl mx-auto" data-animate="fade-up">
+        <h3 class="font-display text-2xl text-ink mb-2 text-center">Đăng Ký Mượn</h3>
+        <p class="font-accent italic text-ink-light/70 text-center mb-8 text-sm">
+          Một lá thư gửi tới thủ các. Sẽ có hồi âm trong vòng một ngày.
+       </p>
+
+        <form class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-ink mb-2">Pháp danh / Tên hiệu</label>
+            <input type="text" class="w-full px-4 py-3 bg-parchment border border-bronze/30 rounded-md focus:outline-none focus:border-bronze focus:ring-2 focus:ring-bronze/20 text-ink" placeholder="Mặc Vân Đạo Nhân..." />
+         </div>
+
+          <div>
+            <label class="block text-sm font-medium text-ink mb-2">Cánh hạc / Liên lạc</label>
+            <input type="text" class="w-full px-4 py-3 bg-parchment border border-bronze/30 rounded-md focus:outline-none focus:border-bronze focus:ring-2 focus:ring-bronze/20 text-ink" placeholder="Email hoặc số gọi..." />
+         </div>
+
+          <div>
+            <label class="block text-sm font-medium text-ink mb-2">Tầng muốn vào</label>
+            <select class="w-full px-4 py-3 bg-parchment border border-bronze/30 rounded-md focus:outline-none focus:border-bronze focus:ring-2 focus:ring-bronze/20 text-ink">
+              <option>Tầng Hai — Phật Kinh Điện</option>
+              <option>Tầng Ba — Đạo Nho Đường</option>
+              <option>Tầng Bốn — Bí Tịch Lầu (cần giới thiệu)</option>
+              <option>Tầng Năm — Quan Tinh Đài</option>
+              <option>Chưa rõ, mong thủ các tư vấn</option>
+           </select>
+         </div>
+
+          <div>
+            <label class="block text-sm font-medium text-ink mb-2">Quyển muốn tìm</label>
+            <input type="text" class="w-full px-4 py-3 bg-parchment border border-bronze/30 rounded-md focus:outline-none focus:border-bronze focus:ring-2 focus:ring-bronze/20 text-ink" placeholder="Tâm Kinh, Đạo Đức Kinh, hay một quyển nào khác..." />
+         </div>
+
+          <div>
+            <label class="block text-sm font-medium text-ink mb-2">Đôi lời (tùy duyên)</label>
+            <textarea rows="4" class="w-full px-4 py-3 bg-parchment border border-bronze/30 rounded-md focus:outline-none focus:border-bronze focus:ring-2 focus:ring-bronze/20 text-ink resize-none" placeholder="Vì sao quân tử muốn đọc quyển này..."></textarea>
+         </div>
+
+          <div class="text-center pt-4">
+            <button type="submit" class="btn-primary text-base !px-10">Gửi Lá Thư</button>
+            <p class="mt-4 text-xs text-ink-light/60 font-accent italic">
+              "Sách không tìm người, người tự tìm sách."
+           </p>
+         </div>
+       </form>
+     </div>
+   </div>
+ </section>
+
+</BaseLayout>

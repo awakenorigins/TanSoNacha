@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { phamList, PATHS, cachDung } from '../../data/phuocphieu';
+
+const paths = ['tu-than', 'phung-su', 'song-dinh'] as const;
+---
+
+<BaseLayout
+  title="Phước Phiếu 福票 — Tần Số Nacha"
+  description="Phước Phiếu không bán phước. Nó ghi nhận một lần bạn chọn gieo điều tử tế. 15 Phẩm Tần Số — mỗi cuốn sách mở một dấu ấn gieo duyên."
+>
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden -mt-16 md:-mt-20">
+    <div class="absolute inset-0 bg-ink">
+      <img src="/images/phuoc-phieu/kim-tam-board1.jpg" alt="Phước Phiếu" class="w-full h-full object-cover opacity-30" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/92 via-ink/78 to-ink"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 42%, rgba(201,169,110,0.18) 0%, transparent 62%);"></div>
+   </div>
+    <div class="pp-beads" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="relative z-10 text-center px-4 max-w-3xl mx-auto pt-16">
+      <p class="font-brush text-bronze-light text-2xl md:text-3xl tracking-[0.4em] mb-5">福 票</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl text-parchment font-bold mb-6">Phước Phiếu</h1>
+      <p class="font-accent italic text-parchment/90 text-lg md:text-2xl mb-5 leading-relaxed">
+        "Phước Phiếu không bán phước.<br/>Nó ghi nhận một lần bạn chọn gieo điều tử tế."
+     </p>
+      <p class="text-parchment/60 text-sm md:text-base max-w-xl mx-auto">
+        Mỗi cuốn sách mở ra một dấu ấn gieo duyên. Phiếu giấy là món chính; tần số là món quà.
+     </p>
+   </div>
+ </section>
+
+  <!-- ═══════════ PHƯỚC PHIẾU LÀ GÌ ═══════════ -->
+  <section class="section-padding bg-parchment">
+    <div class="container-content max-w-3xl">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow">緣 起</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink">Duyên Khởi</h2>
+        <div class="divider-ornament mt-6"><span>福 票 之 心</span></div>
+     </div>
+      <div class="mt-8 space-y-4 text-ink-light/85 leading-relaxed text-center max-w-2xl mx-auto" data-animate="fade-up">
+        <p>Phước Phiếu <b>không phải</b> đầu tư, <b>không</b> lãi, <b>không</b> quy đổi tiền mặt. Mỗi tấm là một lời nhắc: bạn từng chọn gieo một điều lành, và điều đó được ghi nhận minh bạch.</p>
+        <p>Người cầm phiếu tự chọn cách dùng — gieo vào quỹ, tặng trọn một cuốn, hay giữ làm ưu đãi. Mỗi lựa chọn là một hạt giống.</p>
+     </div>
+
+      <!-- 3 cách dùng -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10" data-animate="fade-up">
+        {cachDung.map((c) => (
+          <div class="pp-use-card">
+            <span class="pp-use-han">{c.han}</span>
+            <h3 class="font-display text-lg text-ink mt-1">{c.label}</h3>
+            <p class="text-[11px] uppercase tracking-widest text-bronze-dark mb-2">{c.sub}</p>
+            <p class="text-xs text-ink-light/70 leading-relaxed">{c.desc}</p>
+         </div>
+        ))}
+     </div>
+   </div>
+ </section>
+
+  <!-- ═══════════ THANG 15 PHẨM ═══════════ -->
+  <section class="section-dark relative overflow-hidden">
+    <div class="absolute inset-0 opacity-25" style="background: radial-gradient(circle at 15% 15%, rgba(201,169,110,0.25), transparent 55%), radial-gradient(circle at 85% 80%, rgba(74,107,92,0.2), transparent 55%);"></div>
+    <div class="container-content relative py-16 max-w-4xl">
+      <div class="text-center mb-4" data-animate="fade-up">
+        <span class="eyebrow text-bronze-light">十 五 品</span>
+        <h2 class="font-display text-3xl md:text-4xl text-parchment mt-1">Thang Mười Lăm Phẩm</h2>
+        <p class="font-accent italic text-parchment/65 mt-4 max-w-xl mx-auto text-sm">
+          "Mười ba phẩm để leo · hai đỉnh để tan · tràng hạt 108 khép thành vòng."
+       </p>
+     </div>
+
+      {paths.map((pk) => (
+        <div class="mt-10" data-animate="fade-up">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="font-brush text-bronze-light text-lg tracking-widest">{PATHS[pk].han}</span>
+            <div>
+              <h3 class="font-display text-xl text-parchment leading-none">{PATHS[pk].label}</h3>
+              <p class="text-xs text-parchment/50 mt-1">{PATHS[pk].desc}</p>
+           </div>
+         </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {phamList.filter((p) => p.path === pk).map((p) => (
+              <a
+                href={p.open ? `/phuoc-phieu/${p.slug}` : '#'}
+                class={`pp-pham ${p.open ? 'pp-pham--open' : 'pp-pham--soon'}`}
+                style={`--from:${p.hue.from};--to:${p.hue.to};--accent:${p.hue.accent}`}
+                aria-disabled={!p.open}
+              >
+                <span class="pp-pham-rank">{p.rank}</span>
+                <span class="pp-pham-glyph">{p.glyph}</span>
+                <div class="min-w-0">
+                  <p class="pp-pham-han">{p.han}</p>
+                  <h4 class="pp-pham-name">{p.name}</h4>
+                  {p.open
+                    ? <span class="pp-pham-badge">Đã khai mở</span>
+                    : <span class="pp-pham-badge pp-pham-badge--soon">Còn ẩn trong sương</span>}
+               </div>
+             </a>
+            ))}
+         </div>
+       </div>
+      ))}
+
+      <p class="text-center text-xs text-parchment/45 mt-12 max-w-lg mx-auto" data-animate="fade-up">
+        Ba phẩm đầu đã khai mở. Các phẩm sau còn ẩn trong sương — đợi đủ duyên sẽ hiển. Cấp lên bằng gieo Phước; mỗi tấm phiếu là một bước chân.
+     </p>
+   </div>
+ </section>
+
+  <style is:global>
+    .pp-beads { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+    .pp-beads span { position: absolute; width: 240px; height: 240px; border-radius: 9999px; border: 1px solid rgba(201,169,110,0.18); animation: pp-ripple 6s ease-out infinite; }
+    .pp-beads span:nth-child(2) { animation-delay: 2s; } .pp-beads span:nth-child(3) { animation-delay: 4s; }
+    @keyframes pp-ripple { 0% { transform: scale(0.5); opacity: 0.7; } 100% { transform: scale(2.8); opacity: 0; } }
+
+    .pp-use-card { background: var(--parchment-warm,#F2E8D5); border: 1px solid rgba(201,169,110,0.2); border-radius: 1rem; padding: 1.2rem; text-align: center; transition: transform .3s ease, border-color .3s ease; }
+    .pp-use-card:hover { transform: translateY(-4px); border-color: rgba(201,169,110,0.5); }
+    .pp-use-han { font-family: 'Noto Serif SC', serif; font-size: 2rem; color: var(--bronze,#C9A96E); display: block; }
+
+    .pp-pham { display: flex; align-items: center; gap: 0.75rem; position: relative; border-radius: 0.9rem; padding: 0.9rem 1rem; border: 1px solid rgba(201,169,110,0.2); overflow: hidden; transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease; background: linear-gradient(140deg, var(--from), var(--to)); }
+    .pp-pham--open:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 14px 34px rgba(0,0,0,0.4); }
+    .pp-pham--soon { opacity: 0.55; cursor: not-allowed; pointer-events: none; filter: grayscale(0.3); }
+    .pp-pham-rank { position: absolute; top: 6px; right: 10px; font-family: 'Noto Serif SC', serif; font-size: 0.85rem; color: var(--accent); opacity: 0.6; }
+    .pp-pham-glyph { font-size: 1.7rem; flex-shrink: 0; }
+    .pp-pham-han { font-family: 'Noto Serif SC', serif; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--accent); opacity: 0.85; }
+    .pp-pham-name { font-family: 'Playfair Display','Cormorant Garamond',serif; font-size: 1.02rem; color: #F5F0EB; font-weight: 600; line-height: 1.2; }
+    .pp-pham-badge { display: inline-block; margin-top: 4px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); border: 1px solid; border-color: color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 9999px; padding: 1px 7px; }
+    .pp-pham-badge--soon { color: rgba(245,240,235,0.5); border-color: rgba(245,240,235,0.2); }
+ </style>
+</BaseLayout>

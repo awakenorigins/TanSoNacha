@@ -1,0 +1,4317 @@
+{
+ "groups": {
+  "opus": {
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "voice": "trí thức/đạo — quan điểm, tranh biện, bình lời bài hát, thiền vị sâu",
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  "sonnet5": {
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "voice": "đời thường ấm — kể chuyện nhà, tán thán mộc, cô chú trung niên",
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  "sonnet46": {
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "voice": "cân bằng — tán thán, thiền vị nhẹ, niệm Phật, nhận xét vừa",
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  "gpt": {
+   "model": "gptplus4/cx/gpt-5.5",
+   "voice": "trẻ/mạng — nhí nhố, hook, icon-only, lú lú, teencode",
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  }
+ },
+ "nicks": [
+  {
+   "name": "Tâm Không",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dương Bảo Huy",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Nguyên Bảo",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Thanh Tín",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Phan Bảo Lam",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Nguyễn Tấn Thành",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Tịnh Hoà",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Từ Nguyệt",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Thiện Hiền",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đỗ Tuệ Tùng",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Phan Giang",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đức Nguyệt",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Diệu Tín",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Liên Tường",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Tâm Bảo",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Thiện Nhiên",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Tịnh Nhã",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Tâm Tín",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Trần Dung",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đức Tường",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Nguyên Lạc",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Liên Nhã",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Trí Lâm",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lê Mai",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Vũ Như",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Trí Hiền",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đỗ Văn Khánh",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Tịnh Hoà2",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Liên Nghiêm",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Quảng Ngộ",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Hạnh Tín",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Thiện Không",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Hồ Quang Giang",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đỗ Hoàng My",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Trần Đức Giang",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dương Lộc",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Diệu Tường",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đức Không",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Hương Duyên",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Liên Sơn",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Huệ Nhã",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bùi Gia Nga",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Tâm Lạc",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Thiện Bảo",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Hồ Nam",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bùi Bảo Duyên",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Trần Thị Thảo",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đặng Phong",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ngô Bích Kiên",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lý Văn Đạt",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Nguyễn Vinh",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Quảng Duyên",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Hạnh Hải",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lý Tuệ Nga",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Tịnh Không",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Chân Quang",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đặng Mỹ Mai",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bùi Hồng Lộc",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Thiện Nghiêm",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đức Nhiên",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Vũ Văn Sen",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Thanh Bảo",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lý Hương",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Chân Tâm",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Thu Thành",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Tuệ Đăng",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lê Văn Trang",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Hạnh Bảo",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Liên Lâm",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Hồ Bích Thu",
+   "group": "opus",
+   "model": "claudekkg/cc/claude-opus-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "quandiem",
+    "loibaihat",
+    "thienvi",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Phan Đạt",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Mẹ Hoa Miền Tây",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Chi Nghĩa",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ba Trang Bến Tre",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Nam Tâm",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bùi Gia Lam",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đặng Kim Vy",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Mai Tâm",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Cậu Long Vũng Tàu",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Anh Trúc Sài Gòn",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Phan Công Duyên",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lý Công Thành",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đặng Bảo Tuấn",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bùi Huy",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ông Hương Cà Mau",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Phan Thị Phúc",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ba Quyên Nam Định",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Huỳnh Bá Thảo",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Cô Việt Sài Gòn",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bác Hà Nam Định",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Chú Sơn Cà Mau",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Nguyễn Bình",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Huỳnh Ngọc Giang",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lý Anh Thảo",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dì Việt Huế",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ngô Tùng",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đặng Hạnh",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đặng Long",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bùi Phúc",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Nguyễn Nhi",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lam Hoa",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Nguyễn Gia Trang",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dì Tâm quê",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bác Nam Sài Gòn",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Chị Khoa Cần Thơ",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ngô Đức Dung",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bùi Bá Duyên",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ba Trúc Cà Mau",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dì Hiền Bến Tre",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Long Bình",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ba Lộc Cần Thơ",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Đỗ Thành Tùng",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bà Trâm Bến Tre",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Mẹ Tùng Vũng Tàu",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dì Vy Hà Nội",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Cô Quân Cần Thơ",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ba Trâm quê",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Võ Gia Mai",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Phan Anh Thành",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bà Khánh quê",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Chú Mai Nam Định",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ông Bình Miền Tây",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Ông Giang Hà Nội",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dì Thảo Miền Tây",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bùi Anh Linh",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dì Phúc xóm nhỏ",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Cậu Kiên Đà Nẵng",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bà Trâm Bến Tre2",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Anh Khoa Đà Nẵng",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Chú Tùng Cà Mau",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Dì Việt Bến Tre",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bác Thu Hà Nội",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Phan Tuệ Trúc",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Hồ Bảo Linh",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bác Hương Cần Thơ",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Lý Bảo Sơn",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Chú Kiên Đà Nẵng",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bác Lộc Vũng Tàu",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Bà Long Miền Tây",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Vinh Quân",
+   "group": "sonnet5",
+   "model": "claudekkg/cc/claude-sonnet-5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "doithuong",
+    "tanthan",
+    "niem",
+    "nhanxet"
+   ]
+  },
+  {
+   "name": "Minh Tường",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Thiện Tâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Thiện Nhiên2",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Pháp Tín",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Thiện Tâm2",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Đạo Nhiên",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Lê Hoàng Hải",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Hồ Kiên",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Nguyên Hải",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Ngô Hải",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Tuệ Không",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Trí Hải",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Chân Tường",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Ngô Trang",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Vy Quyên",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Phạm My",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Dương Ngọc Trâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Từ Nguyệt2",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Võ Uyên",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Tuệ Tâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Dương Quang Hà",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Ngô Mai",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Diệu Hương",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Pháp Nguyệt",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Giác Lâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "An Đăng",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Ngô Hồng Mai",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Đạo Hương",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Tâm Nhã",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Võ Thu",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Phan Minh Long",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Phan Tấn Lộc",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Thảo Giang",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Bùi Thanh Thu",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Hạnh Quang",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Hạnh Không",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Quảng Nhã",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Minh Lâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Lê Phương Nghĩa",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Tịnh Hoà3",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Quảng Tín",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Minh Lạc",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Đỗ Mỹ Duyên",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Giác Tín",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Nguyên Hải2",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Từ Lâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Tâm Không2",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Bùi Văn Huy",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Bùi Dung",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Trâm Nga",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Lê Tấn Thu",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Pháp Quang",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Giác Lâm2",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Nguyễn Anh Trâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Dương Minh Trang",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Đạo Nhiên2",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Minh Hải",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Từ Tâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Trần Hữu Oanh",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Nguyễn Dung",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Bùi Hoàng Phúc",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Giác Hương",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Diệu Đăng",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Quảng Nguyệt",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Lý Hải",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Đỗ Hồng Oanh",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Diệu Lâm",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Tuệ Sơn",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Vũ Yến",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Diệu Lạc",
+   "group": "sonnet46",
+   "model": "claudekkg/cc/claude-sonnet-4-6",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "tanthan",
+    "thienvi",
+    "niem",
+    "doithuong"
+   ]
+  },
+  {
+   "name": "Lê Bích Hải",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "cỏ_",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "sen_biển",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "sen_chill99",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "kinh_chill_hn",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Lý Hồng Lộc",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "cỏ_cỏ99",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "an",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Phan Tấn Tâm",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "trăng",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "kinh_biển93",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "cỏ_hn",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Dương Bá Tuấn",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Phan Hiền",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "gió99",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Huỳnh Uyên",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Dương Như",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Thảo Như",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "kinh_music",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "an_sen",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Lý Trang",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "sen",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Phạm Diệu Phúc",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "An Việt",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "tịnh_mưa_lofi",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Dương Bình",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Long Tùng",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Vũ Gia Hạnh",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Phan Quang Sen",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "nghe_lofi",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "phố2k1",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "kinh_music2",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Phan Tuấn",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Vũ Bảo Quân",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "mây",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "nắng_sg",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "núi_mây_vn",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "sương_vn",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Trần Anh Nam",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Ngô My",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "sương_music",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "mây_mâyxx",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "an_sen2k1",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Phan Bảo Quân",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Lý Kim Sen",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    8,
+    18
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Vũ Diệu Vy",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "nắngxx",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "nắng99",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "biển93",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Hạnh Vinh",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "phố_lofi",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Trần Minh Khoa",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    21,
+    27
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Phan Thu",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "cỏ07",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    12
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Đỗ Uyên",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Linh Nhi",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    6,
+    11
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Long Vy",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "phố_sương",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    9,
+    19
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "mây_",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Ngô Công Trâm",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Yến Tùng",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    20,
+    26
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "cỏ_2",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    15,
+    22
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Mai Nhi",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Vũ Lam",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Đặng Tấn An",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    16,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Lý Bảo Tâm",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    10
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "sương93",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Nguyễn Dung2",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    17,
+    23
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "Lý Nam",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    5,
+    9
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  },
+  {
+   "name": "phố",
+   "group": "gpt",
+   "model": "gptplus4/cx/gpt-5.5",
+   "khung": [
+    7,
+    17
+   ],
+   "tones": [
+    "nhinho",
+    "hook",
+    "iconly",
+    "lulu",
+    "reply"
+   ]
+  }
+ ]
+}

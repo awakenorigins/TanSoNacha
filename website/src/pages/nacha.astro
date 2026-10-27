@@ -1,0 +1,1191 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// ─────────────────────────────────────────────────────────────
+// TẦN SỐ NACHA · ÂM KINH — Buddhist music sanctuary
+// First category: Lofi Âm Kinh
+// First song: Dạ Nam Mô Bổn Sư Thích Ca Mâu Ni Phật
+// ─────────────────────────────────────────────────────────────
+
+const categories = [
+  { id: 'lofi',   cn: '低 音', label: 'Lofi Âm Kinh',   desc: 'Nhịp trầm, mưa cửa sổ, kinh văn thì thầm.', active: true },
+  { id: 'tung',   cn: '誦 經', label: 'Tụng Kinh',       desc: 'Giọng tụng nguyên bản, chuông mõ trang nghiêm.', active: false },
+  { id: 'thien',  cn: '禪 定', label: 'Thiền Định',       desc: 'Âm nền tĩnh lặng cho toạ thiền, hơi thở.', active: false },
+  { id: 'mantra', cn: '真 言', label: 'Mantra · Chú',     desc: 'Om — thần chú, tần số chữa lành.', active: false },
+];
+
+// Lofi Âm Kinh track list (first song is playable; rest are "sắp mở")
+const tracks = [
+  {
+    id: 'da-nam-mo',
+    title: 'Dạ Nam Mô Bổn Sư Thích Ca Mâu Ni Phật',
+    author: 'Bất Không Already Phật',
+    cn: '本 師 釋 迦',
+    cover: '/images/art/nacha-tiger.jpg',
+    src: '/audio/da-nam-mo-bon-su-thich-ca-mau-ni-phat.mp3',
+    duration: '5:23',
+    tag: 'Lofi · Chill',
+    ready: true,
+  },
+];
+
+// Auto-scroll synced lyrics (brackets removed to keep the mood).
+// Timings ALIGNED to real audio via Whisper transcription (word/segment timestamps).
+// Track ≈ 323s.
+const lyrics = [
+  { t: 0.0,   text: 'Dạ Nam mô Bổn Sư' },
+  { t: 2.8,   text: 'Thích Ca Mâu Ni Phật' },
+  { t: 6.6,   text: 'Dạ Nam mô Bổn Sư' },
+  { t: 9.8,   text: 'Thích Ca Mâu Ni Phật' },
+  { t: 13.3,  text: 'Nhặt một câu kinh' },
+  { t: 14.9,  text: 'Nhặt một chữ bình' },
+  { t: 16.6,  text: 'Nhặt một câu kinh' },
+  { t: 18.2,  text: 'Nhặt một chữ tâm' },
+  { t: 19.9,  text: 'Nhặt một câu kinh' },
+  { t: 21.8,  text: 'Nhặt một chữ bình' },
+  { t: 23.7,  text: 'Nhặt một chữ tâm' },
+  { t: 25.6,  text: 'Rơi vào tim con' },
+  { t: 29.7,  text: 'Đấng Đại Giác' },
+  { t: 31.7,  text: 'Sáng hơn sao trời' },
+  { t: 35.9,  text: 'Bậc Đạo Sư' },
+  { t: 38.2,  text: 'Của khắp muôn loài' },
+  { t: 42.9,  text: 'Đại Bi ôm' },
+  { t: 44.8,  text: 'Trọn miền pháp giới' },
+  { t: 47.9,  text: 'Đại Trí soi' },
+  { t: 50.3,  text: 'Mười phương không phai' },
+  { t: 52.8,  text: 'Từ vô lượng kiếp' },
+  { t: 56.0,  text: 'Ngài gieo phước lành' },
+  { t: 59.3,  text: 'Đi qua sinh tử' },
+  { t: 62.5,  text: 'Vì thương chúng sinh' },
+  { t: 66.4,  text: 'Không cầu danh vọng' },
+  { t: 69.0,  text: 'Không giữ riêng mình' },
+  { t: 71.8,  text: 'Chỉ mong muôn loài' },
+  { t: 74.7,  text: 'Thoát khỏi điêu linh' },
+  { t: 78.8,  text: 'Vì thương chúng sinh' },
+  { t: 81.3,  text: 'Trôi trong sinh tử' },
+  { t: 84.8,  text: 'Ngài rời cung vàng' },
+  { t: 87.6,  text: 'Bước vào rừng sâu' },
+  { t: 90.5,  text: 'Khoác áo ca-sa' },
+  { t: 93.7,  text: 'Qua miền gió bụi' },
+  { t: 97.7,  text: 'Tìm một con đường' },
+  { t: 100.4, text: 'Chấm dứt khổ đau' },
+  { t: 103.9, text: 'Dạ Nam mô Bổn Sư' },
+  { t: 106.3, text: 'Thích Ca Mâu Ni Phật' },
+  { t: 108.8, text: 'Om... a... ha... om...' },
+  { t: 111.5, text: 'Dạ Nam mô Bổn Sư' },
+  { t: 113.4, text: 'Thích Ca Mâu Ni Phật' },
+  { t: 116.7, text: 'Giáng sinh Ta-bà' },
+  { t: 118.3, text: 'Giữa đời mộng huyễn' },
+  { t: 119.8, text: 'Làm bậc Thái tử' },
+  { t: 121.5, text: 'Đầy đủ vinh hoa' },
+  { t: 123.2, text: 'Nhưng nhìn thế gian' },
+  { t: 124.7, text: 'Vô thường tan biến' },
+  { t: 126.1, text: 'Ngài bỏ cung vàng' },
+  { t: 127.9, text: 'Tìm lối vượt qua' },
+  { t: 130.1, text: 'Trong rừng sâu vắng' },
+  { t: 133.1, text: 'Dưới trời sao mai' },
+  { t: 137.0, text: 'Ngài ngồi bất động' },
+  { t: 139.5, text: 'Tâm không đổi thay' },
+  { t: 142.0, text: 'Ma chướng tan rã' },
+  { t: 145.4, text: 'Đêm dài mở sáng' },
+  { t: 148.8, text: 'Vô Thượng Chánh Giác' },
+  { t: 151.7, text: 'Bừng khắp mười phương' },
+  { t: 154.7, text: 'Vì thương chúng sinh' },
+  { t: 157.8, text: 'Trôi trong sinh tử' },
+  { t: 161.7, text: 'Ngài rời cung vàng' },
+  { t: 164.5, text: 'Bước vào rừng sâu' },
+  { t: 167.4, text: 'Khoác áo ca-sa' },
+  { t: 170.6, text: 'Qua miền gió bụi' },
+  { t: 173.8, text: 'Tìm một con đường' },
+  { t: 176.9, text: 'Chấm dứt khổ đau' },
+  { t: 179.9, text: 'Ngài đi vì thương' },
+  { t: 183.3, text: 'Ngài sáng vì thương' },
+  { t: 186.6, text: 'Ngài gọi muôn loài' },
+  { t: 189.7, text: 'Trở về tỉnh thức' },
+  { t: 192.8, text: 'Dạ Nam mô Bổn Sư' },
+  { t: 195.6, text: 'Thích Ca Mâu Ni Phật' },
+  { t: 199.6, text: 'Dạ Nam mô Bổn Sư' },
+  { t: 202.2, text: 'Thích Ca Mâu Ni Phật' },
+  { t: 205.8, text: 'Giới Ngài thanh tịnh' },
+  { t: 207.6, text: 'Như trời không mây' },
+  { t: 209.4, text: 'Định Ngài vững chãi' },
+  { t: 211.1, text: 'Như núi Tu-di' },
+  { t: 212.7, text: 'Trí Ngài sâu rộng' },
+  { t: 214.3, text: 'Như biển không bờ' },
+  { t: 215.8, text: 'Từ Bi của Ngài' },
+  { t: 217.8, text: 'Che khắp bến mê' },
+  { t: 219.8, text: 'Xin cho ánh sáng' },
+  { t: 222.6, text: 'Chánh Pháp còn mãi' },
+  { t: 225.5, text: 'Soi khắp thế gian' },
+  { t: 228.7, text: 'Đang nhiều thương đau' },
+  { t: 231.9, text: 'Xin cho chiến tranh' },
+  { t: 235.1, text: 'Hận thù lắng xuống' },
+  { t: 238.4, text: 'Muôn loài nhìn nhau' },
+  { t: 241.4, text: 'Bằng mắt nhiệm màu' },
+  { t: 245.0, text: 'Vì thương chúng sinh' },
+  { t: 247.7, text: 'Trôi trong sinh tử' },
+  { t: 251.3, text: 'Ngài rời cung vàng' },
+  { t: 254.0, text: 'Bước vào rừng sâu' },
+  { t: 257.6, text: 'Khoác áo ca-sa' },
+  { t: 260.5, text: 'Qua miền gió bụi' },
+  { t: 263.4, text: 'Tìm một con đường' },
+  { t: 266.6, text: 'Chấm dứt khổ đau' },
+  { t: 269.7, text: 'Dạ Nam mô Bổn Sư' },
+  { t: 272.6, text: 'Thích Ca Mâu Ni Phật' },
+  { t: 275.4, text: 'Ánh sáng Như Lai' },
+  { t: 277.0, text: 'Soi vào tâm con' },
+  { t: 278.6, text: 'Dạ Nam mô Bổn Sư' },
+  { t: 282.4, text: 'Thích Ca Mâu Ni Phật' },
+  { t: 285.9, text: 'Nguyện khắp muôn loài' },
+  { t: 289.6, text: 'Đồng thành Phật đạo' },
+  { t: 293.1, text: 'Nhặt một câu kinh' },
+  { t: 294.2, text: 'Nhặt một chữ bình' },
+  { t: 295.8, text: 'Nhặt một câu kinh' },
+  { t: 297.5, text: 'Nhặt một chữ tâm' },
+  { t: 299.0, text: 'Nhặt một câu kinh' },
+  { t: 300.6, text: 'Nhặt một chữ bình' },
+  { t: 302.2, text: 'Nhặt một chữ tâm' },
+  { t: 304.7, text: 'Rơi vào tim con' },
+  { t: 308.6, text: 'Nhặt một câu kinh' },
+  { t: 312.6, text: 'Nhặt một chữ tâm' },
+  { t: 316.6, text: 'Rơi vào tim con...' },
+];
+
+const song = tracks[0];
+
+// Nội dung Hoằng Dương (share) mặc định
+const SHARE_URL = 'https://tangkinhcac.62.146.238.213.sslip.io/nacha';
+const SHARE_HASHTAGS = '#Phat #Phatphap #Minhtue #Nacha #Natra #xuhuong #giacngo #tieuthegioi #nacharium #nachaism #tansonacha #earth #mars #nacha #buddha #vodienphat #ॐ';
+const SHARE_DEFAULT = `Pháp hay vốn chẳng tụ đây, Pháp hay là để share chung ta bà.
+
+ Đang nghe Âm Kinh: “${song.title}” tại Tần Số Nacha.
+${SHARE_URL}
+
+${SHARE_HASHTAGS}`;
+---
+
+<BaseLayout
+  title="Âm Kinh 音經 — Tần Số Nacha"
+  description="Tần Số Nacha — Âm Kinh: nơi lưu giữ các bài hát về Phật. Nghe miễn phí, tải tự do. Khởi đầu với Lofi Âm Kinh."
+>
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="relative min-h-[62vh] flex items-center justify-center overflow-hidden -mt-16 md:-mt-20">
+    <div class="absolute inset-0 bg-ink">
+      <img src="/images/art/img-07-wide.jpg" alt="Tần Số Nacha" class="w-full h-full object-cover opacity-40" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/92 via-ink/70 to-ink"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 40%, rgba(201,166,107,0.16) 0%, transparent 60%);"></div>
+   </div>
+
+    <!-- floating sound rings -->
+    <div class="nacha-rings" aria-hidden="true">
+      <span></span><span></span><span></span>
+   </div>
+
+    <div class="relative z-10 text-center px-4 max-w-3xl mx-auto pt-16">
+      <p class="font-brush text-bronze-light text-2xl md:text-3xl tracking-[0.4em] mb-5" data-animate="fade-in">那 迦 頻</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl text-parchment font-bold mb-5" data-animate="fade-up">Tần Số Nacha</h1>
+      <p class="font-accent italic text-parchment/85 text-lg md:text-2xl mb-4" data-animate="fade-up">
+        Âm Kinh — nơi lời Phật hoá thành thanh âm.
+     </p>
+      <p class="text-parchment/60 text-sm md:text-base max-w-xl mx-auto" data-animate="fade-up">
+        Tất cả mọi người đều có thể vào nghe, tải về tự do. Nhặt một câu kinh, một chữ tâm — rơi vào tim con.
+     </p>
+   </div>
+ </section>
+
+  <!-- ═══════════════ CATEGORY TABS ═══════════════ -->
+  <section class="bg-ink border-t border-bronze/15 relative z-20">
+    <div class="container-content py-8">
+      <div class="text-center mb-8" data-animate="fade-up">
+        <span class="font-chinese text-bronze-light text-sm tracking-[0.3em] block mb-1">音 經 分 類</span>
+        <h2 class="font-display text-2xl md:text-3xl text-parchment">Phân Loại Âm Kinh</h2>
+     </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {categories.map((c) => (
+          <button
+            class={`nacha-cat text-left rounded-xl p-5 border transition-all duration-300 ${c.active ? 'nacha-cat--active' : 'nacha-cat--soon'}`}
+            data-cat={c.id}
+            disabled={!c.active}
+          >
+            <p class="font-brush text-bronze-light text-xl tracking-widest mb-2">{c.cn}</p>
+            <h3 class="font-display text-lg text-parchment mb-1">{c.label}</h3>
+            <p class="text-xs text-parchment/55 leading-relaxed">{c.desc}</p>
+            {!c.active && <span class="inline-block mt-3 text-[10px] uppercase tracking-widest text-bronze-light/70 border border-bronze-light/30 rounded-full px-2 py-0.5">Sắp mở</span>}
+         </button>
+        ))}
+     </div>
+   </div>
+ </section>
+
+  <!-- ═══════════════ NOW PLAYING — ÂM KINH PLAYER ═══════════════ -->
+  <section class="section-dark relative overflow-hidden">
+    <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 20% 20%, rgba(201,166,107,0.22), transparent 55%), radial-gradient(circle at 85% 75%, rgba(74,107,92,0.18), transparent 55%);"></div>
+
+    <div class="container-content relative py-14 md:py-20">
+      <div class="text-center mb-10" data-animate="fade-up">
+        <span class="eyebrow text-bronze-light">正 在 播 放</span>
+        <h2 class="font-display text-3xl md:text-4xl text-parchment mt-1">Âm Kinh đang phát</h2>
+        <div class="divider-ornament mt-5 max-w-md mx-auto"><span style="color:#C9A66B">低 音 音 經</span></div>
+     </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto items-start">
+
+        <!-- LEFT: cover + controls -->
+        <div class="flex flex-col items-center" data-animate="fade-up">
+          <div class="nacha-cover-wrap relative w-64 h-64 md:w-80 md:h-80">
+            <div id="nacha-vinyl" class="nacha-vinyl">
+              <img src={song.cover} alt={song.title} class="w-full h-full object-cover rounded-full" />
+              <span class="nacha-vinyl-hole"></span>
+           </div>
+            <div class="nacha-glow" aria-hidden="true"></div>
+         </div>
+
+          <p class="font-brush text-bronze-light text-2xl tracking-widest mt-8 mb-1">{song.cn}</p>
+          <h3 class="font-display text-xl md:text-2xl text-parchment text-center px-4">{song.title}</h3>
+          <p class="text-parchment/60 text-sm mt-1">Tác giả: <span class="text-bronze-light">{song.author}</span></p>
+          <span class="tag-bronze mt-3 !bg-bronze/15 !text-bronze-light !border-bronze-light/25">{song.tag}</span>
+
+          <!-- audio element (autoplay attempt on load) -->
+          <audio id="nacha-audio" preload="auto" autoplay src={song.src}></audio>
+
+          <!-- tap-to-play hint (shown only if browser blocks autoplay) -->
+          <button id="nacha-tap" class="nacha-tap hidden" aria-label="Chạm để phát Âm Kinh">
+            <span class="nacha-tap-ring"></span>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <span class="nacha-tap-text">Chạm để nghe Âm Kinh</span>
+         </button>
+
+          <!-- progress -->
+          <div class="w-full max-w-sm mt-8">
+            <div id="nacha-seek" class="nacha-seek">
+              <div id="nacha-seek-fill" class="nacha-seek-fill"></div>
+           </div>
+            <div class="flex justify-between text-xs text-parchment/50 mt-2 font-body">
+              <span id="nacha-cur">0:00</span>
+              <span id="nacha-dur">{song.duration}</span>
+           </div>
+         </div>
+
+          <!-- controls -->
+          <div class="flex items-center gap-6 mt-6">
+            <button id="nacha-back" class="nacha-ctrl-mini" aria-label="Tua lại 10 giây">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
+           </button>
+            <button id="nacha-play" class="nacha-play" aria-label="Phát / Dừng">
+              <svg id="nacha-icon-play" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg id="nacha-icon-pause" class="w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+           </button>
+            <button id="nacha-fwd" class="nacha-ctrl-mini" aria-label="Tua tới 10 giây">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+           </button>
+         </div>
+
+          <!-- download (free) -->
+          <a href={song.src} download="Da-Nam-Mo-Bon-Su-Thich-Ca-Mau-Ni-Phat.mp3" class="btn-secondary mt-8 !text-parchment !border-parchment/50 hover:!bg-parchment hover:!text-ink text-sm">
+            ⤓ Tải về tự do
+         </a>
+
+          <!-- ══ TƯƠNG TÁC: Kính(reaction) · Hoằng Dương · Comment · Lượt nghe (public) ══ -->
+          <div class="nacha-actions w-full max-w-sm mt-9" data-track={song.id}>
+            <div class="grid grid-cols-3 gap-2">
+              <!-- Kính = reaction chính, đè (long-press / hover) để chọn cảm xúc khác -->
+              <div class="nacha-react-wrap">
+                <button class="nacha-act nacha-react-main" data-act="react" aria-label="Kính — đè để chọn cảm xúc">
+                  <span class="nacha-act-ico" data-react-ico></span>
+                  <span class="nacha-act-label" data-react-label>Kính</span>
+                  <span class="nacha-act-num" data-num="react">0</span>
+               </button>
+                <!-- bảng chọn reaction (đè mới hiện) -->
+                <div class="nacha-react-tray" hidden>
+                  <button data-react="kinh" title="Kính"><span></span><em data-rnum="kinh">0</em></button>
+                  <button data-react="like" title="Thích"><span></span><em data-rnum="like">0</em></button>
+                  <button data-react="sen" title="Sen"><span></span><em data-rnum="sen">0</em></button>
+                  <button data-react="sang" title="Hào quang"><span></span><em data-rnum="sang">0</em></button>
+                  <button data-react="tue" title="An lạc"><span></span><em data-rnum="tue">0</em></button>
+                  <button data-react="tym" title="Thương"><span></span><em data-rnum="tym">0</em></button>
+               </div>
+             </div>
+              <!-- Hoằng Dương (share) -->
+              <button class="nacha-act" data-act="share" aria-label="Hoằng Dương — chia sẻ">
+                <span class="nacha-act-ico"></span>
+                <span class="nacha-act-label">Hoằng Dương</span>
+                <span class="nacha-act-num nacha-act-num--muted">Share</span>
+             </button>
+              <!-- Comment -->
+              <button class="nacha-act" data-act="comment" aria-label="Bình luận">
+                <span class="nacha-act-ico"></span>
+                <span class="nacha-act-label">Bình</span>
+                <span class="nacha-act-num" data-num="comment">0</span>
+             </button>
+           </div>
+            <!-- lượt nghe public -->
+            <p class="text-center text-xs text-parchment/55 mt-4">
+              <span class="nacha-listen-ico"></span>
+              <span class="text-bronze-light font-semibold" data-num="play">0</span> lượt nghe · cùng chung tứ chúng
+           </p>
+         </div>
+       </div>
+
+        <!-- RIGHT: auto-scroll lyrics -->
+        <div data-animate="fade-up">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-bronze-light animate-pulse"></span>
+            <span class="font-chinese text-bronze-light text-sm tracking-widest">歌 詞 · Lyric tự chạy</span>
+         </div>
+          <div id="nacha-lyrics" class="nacha-lyrics">
+            {lyrics.map((l, i) => (
+              <p class="nacha-line" data-t={l.t} data-i={i}>{l.text}</p>
+            ))}
+         </div>
+       </div>
+
+     </div>
+   </div>
+
+    <!-- lyric data for JS -->
+    <script type="application/json" id="nacha-lyric-data" set:html={JSON.stringify(lyrics)}></script>
+ </section>
+
+  <!-- ═══════════════ KHU BÌNH LUẬN (PUBLIC) ═══════════════ -->
+  <section id="nacha-comments-sec" class="section-dark relative" data-track={song.id}>
+    <div class="container-content max-w-2xl relative py-14">
+      <div class="text-center mb-8" data-animate="fade-up">
+        <span class="eyebrow text-bronze-light">菩 提 留 言</span>
+        <h2 class="font-display text-2xl md:text-3xl text-parchment mt-1">Lời đạo hữu — <span data-num="comment">0</span> bình</h2>
+        <p class="font-accent italic text-parchment/60 mt-3 text-sm">Mỗi lời là một chuyến kính gửi đến pháp giới.</p>
+     </div>
+
+      <!-- form nhập comment -->
+      <div class="nacha-cbox" data-animate="fade-up">
+        <div id="nacha-reply-hint" class="nacha-reply-hint">
+          <span id="nacha-reply-to">Đang trả lời…</span>
+          <button id="nacha-reply-cancel" aria-label="Hủy trả lời"><span aria-hidden="true">×</span></button>
+       </div>
+        <input id="nacha-cname" class="nacha-cinput-name" type="text" maxlength="40" placeholder="Tên của bạn (để trống = Ẩn danh)" />
+        <div class="nacha-cinput-wrap">
+          <textarea id="nacha-cbody" class="nacha-cinput-body" rows="3" maxlength="800" placeholder="Viết lời bình, lời nguyện…"></textarea>
+          <div class="nacha-emoji-bar">
+            <button type="button" class="nacha-emoji-toggle" aria-label="Thêm cảm xúc"></button>
+            <div class="nacha-emoji-pop" hidden>
+              <button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button>
+           </div>
+         </div>
+       </div>
+        <button id="nacha-csend" class="nacha-csend">Gửi lời bình</button>
+        <p id="nacha-cmsg" class="nacha-cmsg" hidden></p>
+     </div>
+
+      <!-- danh sách comment -->
+      <div id="nacha-clist" class="nacha-clist mt-8" data-animate="fade-up">
+        <p class="nacha-cempty text-center text-parchment/45 text-sm py-6">Chưa có lời bình nào — hãy là người đầu tiên gửi lời kính </p>
+     </div>
+   </div>
+ </section>
+
+  <!-- ════════ POPUP HOẰNG DƯƠNG (SHARE) ════════ -->
+  <div id="nacha-share-modal" class="nacha-modal" hidden>
+    <div class="nacha-modal-backdrop" data-close></div>
+    <div class="nacha-modal-card" role="dialog" aria-modal="true" aria-label="Hoằng Dương">
+      <button class="nacha-modal-x" data-close aria-label="Đóng"><span aria-hidden="true">×</span></button>
+      <div class="text-center mb-4">
+        <p class="font-brush text-bronze-light text-xl tracking-widest">弘 揚</p>
+        <h3 class="font-display text-2xl text-parchment mt-1">Hoằng Dương Pháp Âm</h3>
+        <p class="text-parchment/60 text-xs mt-2 italic">Pháp hay vốn chẳng tụ đây · Pháp hay là để share chung ta bà</p>
+     </div>
+
+      <label class="nacha-share-lbl">Nội dung chia sẻ (sửa tự do)</label>
+      <textarea id="nacha-share-text" class="nacha-share-text" rows="6">{SHARE_DEFAULT}</textarea>
+
+      <div class="nacha-share-grid">
+        <button class="nacha-share-btn nacha-share-fb" data-share="facebook">
+          <span></span> Facebook
+       </button>
+        <button class="nacha-share-btn nacha-share-tt" data-share="tiktok">
+          <span></span> TikTok
+       </button>
+        <button class="nacha-share-btn nacha-share-cp" data-share="copy">
+          <span></span> Chép nội dung
+       </button>
+        <button class="nacha-share-btn nacha-share-native" data-share="native">
+          <span></span> Ứng dụng khác
+       </button>
+     </div>
+      <p id="nacha-share-note" class="nacha-share-note" hidden></p>
+   </div>
+ </div>
+
+  <!-- ═══════════════ TRACK LIST ═══════════════ -->
+  <section class="section-padding bg-parchment">
+    <div class="container-content max-w-3xl">
+      <div class="section-header" data-animate="fade-up">
+        <span class="eyebrow">低 音 音 經</span>
+        <h2 class="font-display text-3xl md:text-4xl text-ink">Lofi Âm Kinh</h2>
+        <div class="divider-ornament mt-6"><span>播 放 清 單</span></div>
+        <p class="font-accent italic text-ink-light/70 max-w-xl mx-auto mt-4">
+          Bộ sưu tập bắt đầu — mỗi tuần thêm một bài, giữ chốn này luôn có tiếng kinh.
+       </p>
+     </div>
+
+      <div class="space-y-3 mt-8" data-animate="fade-up">
+        {tracks.map((t, i) => (
+          <div class="flex items-center gap-4 p-4 rounded-xl bg-parchment-warm border border-bronze/10 hover:border-bronze/30 transition-all duration-300">
+            <span class="font-chinese text-bronze/50 text-lg w-6 text-center flex-shrink-0">{i + 1}</span>
+            <img src={t.cover} alt={t.title} class="w-14 h-14 rounded-lg object-cover flex-shrink-0" loading="lazy" />
+            <div class="flex-1 min-w-0">
+              <h3 class="font-display text-base text-ink truncate">{t.title}</h3>
+              <p class="text-xs text-ink-light/70">{t.author} · {t.tag}</p>
+           </div>
+            <span class="text-xs text-ink-light/60 flex-shrink-0">{t.duration}</span>
+            {t.ready ? (
+              <button class="nacha-list-play flex-shrink-0 w-10 h-10 rounded-full bg-bronze text-parchment flex items-center justify-center hover:bg-bronze-dark transition-colors" aria-label="Phát bài này">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+             </button>
+            ) : (
+              <span class="text-[10px] uppercase tracking-widest text-bronze/60 flex-shrink-0">Sắp mở</span>
+            )}
+         </div>
+        ))}
+     </div>
+
+      <p class="text-center text-xs text-ink-light/50 mt-8">
+        Âm Kinh là kho mở — nghe miễn phí, tải tự do. Nếu bạn có bản thu về Phật muốn góp, hãy tìm đến Thủ Các.
+     </p>
+   </div>
+ </section>
+
+  <!-- ═══════════════ PAGE STYLES ═══════════════ -->
+  <style is:global>
+    /* Category cards */
+    .nacha-cat--active {
+      background: rgba(201,166,107,0.10);
+      border-color: rgba(201,166,107,0.45);
+      box-shadow: 0 8px 28px rgba(139,111,46,0.18);
+    }
+    .nacha-cat--active:hover { transform: translateY(-3px); border-color: rgba(201,166,107,0.75); }
+    .nacha-cat--soon {
+      background: rgba(242,232,213,0.04);
+      border-color: rgba(242,232,213,0.10);
+      opacity: 0.72;
+      cursor: not-allowed;
+    }
+
+    /* Vinyl cover */
+    .nacha-cover-wrap { display: grid; place-items: center; }
+    .nacha-vinyl {
+      position: relative;
+      width: 100%; height: 100%;
+      border-radius: 9999px;
+      padding: 8px;
+      background: conic-gradient(from 0deg, #1a1510, #3E2614, #1a1510, #5C4A1F, #1a1510);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55), inset 0 0 0 2px rgba(201,166,107,0.25);
+      animation: nacha-spin 22s linear infinite;
+      animation-play-state: paused;
+    }
+    .nacha-vinyl.spinning { animation-play-state: running; }
+    .nacha-vinyl img {
+      background: #F8F1E0;
+      box-shadow: inset 0 0 0 6px rgba(0,0,0,0.4);
+    }
+    .nacha-vinyl-hole {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 26px; height: 26px; border-radius: 9999px;
+      background: #1F1A14; box-shadow: 0 0 0 4px rgba(201,166,107,0.4);
+    }
+    .nacha-glow {
+      position: absolute; inset: -18%;
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(201,166,107,0.35), transparent 65%);
+      filter: blur(22px); z-index: -1;
+      animation: nacha-breathe 4s ease-in-out infinite;
+    }
+    @keyframes nacha-spin { to { transform: rotate(360deg); } }
+    @keyframes nacha-breathe { 0%,100% { opacity: 0.5; } 50% { opacity: 0.95; } }
+
+    /* Play controls */
+    .nacha-play {
+      width: 72px; height: 72px; border-radius: 9999px;
+      display: grid; place-items: center;
+      color: #F2E8D5; background: #8B6F2E;
+      box-shadow: 0 10px 30px rgba(139,111,46,0.5);
+      transition: transform .25s ease, background .25s ease;
+    }
+    .nacha-play:hover { transform: scale(1.06); background: #9c7c34; }
+    .nacha-play:active { transform: scale(0.96); }
+    .nacha-ctrl-mini {
+      color: rgba(242,232,213,0.7);
+      transition: color .25s ease, transform .2s ease;
+    }
+    .nacha-ctrl-mini:hover { color: #C9A66B; transform: scale(1.08); }
+
+    /* Tap-to-play hint (autoplay fallback) */
+    .nacha-tap {
+      position: relative;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.3rem;
+      border-radius: 9999px;
+      color: #1F1A14; background: #C9A66B;
+      font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(201,166,107,0.45);
+      animation: nacha-tap-pulse 2s ease-in-out infinite;
+    }
+    .nacha-tap:hover { background: #d4b47c; }
+    .nacha-tap-ring {
+      position: absolute; inset: 0; border-radius: 9999px;
+      border: 2px solid rgba(201,166,107,0.6);
+      animation: nacha-tap-ripple 2s ease-out infinite;
+    }
+    @keyframes nacha-tap-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+    @keyframes nacha-tap-ripple { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.4); opacity: 0; } }
+
+    /* Seek bar */
+    .nacha-seek {
+      position: relative; height: 6px; border-radius: 9999px;
+      background: rgba(242,232,213,0.15); cursor: pointer; overflow: hidden;
+    }
+    .nacha-seek-fill {
+      position: absolute; inset: 0; width: 0%;
+      background: linear-gradient(90deg, #8B6F2E, #C9A66B);
+      border-radius: 9999px; transition: width .12s linear;
+    }
+
+    /* Lyrics */
+    .nacha-lyrics {
+      height: 22rem;
+      overflow-y: auto;
+      padding: 1.5rem 1rem;
+      border-radius: 0.9rem;
+      background: rgba(31,26,20,0.55);
+      border: 1px solid rgba(201,166,107,0.18);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(201,166,107,0.4) transparent;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    }
+    .nacha-lyrics::-webkit-scrollbar { width: 5px; }
+    .nacha-lyrics::-webkit-scrollbar-thumb { background: rgba(201,166,107,0.4); border-radius: 9999px; }
+    .nacha-line {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: 1.35rem;
+      line-height: 1.9;
+      text-align: center;
+      color: rgba(242,232,213,0.34);
+      transition: color .4s ease, transform .4s ease, opacity .4s ease;
+      transform: scale(0.97);
+    }
+    .nacha-line.active {
+      color: #F2E8D5;
+      transform: scale(1.06);
+      text-shadow: 0 0 22px rgba(201,166,107,0.55);
+      font-weight: 600;
+    }
+    .nacha-line.passed { color: rgba(242,232,213,0.22); }
+
+    /* Sound rings in hero */
+    .nacha-rings { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+    .nacha-rings span {
+      position: absolute; width: 220px; height: 220px; border-radius: 9999px;
+      border: 1px solid rgba(201,166,107,0.22);
+      animation: nacha-ripple 5s ease-out infinite;
+    }
+    .nacha-rings span:nth-child(2) { animation-delay: 1.6s; }
+    .nacha-rings span:nth-child(3) { animation-delay: 3.2s; }
+    @keyframes nacha-ripple {
+      0% { transform: scale(0.5); opacity: 0.8; }
+      100% { transform: scale(2.6); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nacha-vinyl, .nacha-glow, .nacha-rings span { animation: none !important; }
+    }
+    @media (max-width: 480px) {
+      .nacha-line { font-size: 1.15rem; }
+      .nacha-lyrics { height: 18rem; }
+    }
+
+    /* ══ Action buttons (Kính/Like/Share/Comment) ══ */
+    .nacha-act {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      padding: 0.7rem 0.4rem;
+      border-radius: 0.85rem;
+      background: rgba(242,232,213,0.05);
+      border: 1px solid rgba(201,166,107,0.20);
+      color: rgba(242,232,213,0.85);
+      transition: transform .2s ease, background .25s ease, border-color .25s ease;
+      cursor: pointer;
+    }
+    .nacha-act:hover { background: rgba(201,166,107,0.14); border-color: rgba(201,166,107,0.5); transform: translateY(-2px); }
+    .nacha-act:active { transform: scale(0.94); }
+    .nacha-act-ico { font-size: 1.4rem; line-height: 1; }
+    .nacha-act-label { font-size: 0.62rem; letter-spacing: 0.02em; color: rgba(242,232,213,0.7); text-align:center; }
+    .nacha-act-num { font-size: 0.78rem; font-weight: 700; color: #C9A66B; }
+    .nacha-act-num--muted { color: rgba(242,232,213,0.5); font-weight: 500; }
+    .nacha-act.pulsed { animation: nacha-pop .5s ease; }
+    .nacha-act.done { background: rgba(201,166,107,0.20); border-color: rgba(201,166,107,0.6); }
+    @keyframes nacha-pop { 0%{transform:scale(1)} 40%{transform:scale(1.18)} 100%{transform:scale(1)} }
+
+    /* reaction wrap + tray (đè để chọn) */
+    .nacha-react-wrap { position: relative; }
+    .nacha-react-main { width: 100%; height: 100%; }
+    .nacha-react-tray[hidden] { display: none !important; }
+    .nacha-react-tray {
+      position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+      display: flex; gap: 4px; z-index: 40;
+      background: #241d15; border: 1px solid rgba(201,166,107,0.4);
+      border-radius: 9999px; padding: 6px 8px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+      animation: nacha-tray-in .18s ease;
+    }
+    @keyframes nacha-tray-in { from { opacity: 0; transform: translateX(-50%) translateY(6px); } to { opacity: 1; transform: translateX(-50%); } }
+    .nacha-react-tray button {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      padding: 3px 4px; border-radius: 0.6rem; cursor: pointer;
+      transition: transform .15s ease, background .15s ease; min-width: 2rem;
+    }
+    .nacha-react-tray button:hover { transform: scale(1.25) translateY(-3px); background: rgba(201,166,107,0.18); }
+    .nacha-react-tray button span { font-size: 1.5rem; line-height: 1; }
+    .nacha-react-tray button em { font-size: 0.62rem; font-style: normal; color: #C9A66B; font-weight: 700; margin-top: 1px; }
+    .nacha-float {
+      position: fixed; z-index: 60; pointer-events: none;
+      font-size: 1.6rem; animation: nacha-rise 1.1s ease-out forwards;
+    }
+    @keyframes nacha-rise { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-70px) scale(1.5)} }
+
+    /* ══ Comment box ══ */
+    .nacha-cbox { display: flex; flex-direction: column; gap: 0.6rem; }
+    .nacha-cinput-name, .nacha-cinput-body {
+      width: 100%; background: rgba(31,26,20,0.6);
+      border: 1px solid rgba(201,166,107,0.22); border-radius: 0.7rem;
+      color: #F2E8D5; padding: 0.7rem 0.9rem; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      transition: border-color .2s ease;
+    }
+    .nacha-cinput-name:focus, .nacha-cinput-body:focus { outline: none; border-color: rgba(201,166,107,0.6); }
+    .nacha-cinput-name::placeholder, .nacha-cinput-body::placeholder { color: rgba(242,232,213,0.4); }
+    .nacha-cinput-wrap { position: relative; }
+    .nacha-cinput-body { resize: vertical; min-height: 3.5rem; padding-right: 3rem; }
+    .nacha-emoji-bar { position: absolute; right: 0.6rem; bottom: 0.6rem; }
+    .nacha-emoji-toggle {
+      font-size: 1.15rem; line-height: 1; padding: 0.25rem; border-radius: 0.5rem;
+      background: rgba(201,166,107,0.12); cursor: pointer; transition: background .2s;
+    }
+    .nacha-emoji-toggle:hover { background: rgba(201,166,107,0.28); }
+    .nacha-emoji-pop[hidden] { display: none !important; }
+    .nacha-emoji-pop {
+      position: absolute; right: 0; bottom: 2.4rem; z-index: 30;
+      display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px;
+      background: #241d15; border: 1px solid rgba(201,166,107,0.35);
+      border-radius: 0.7rem; padding: 0.5rem; width: 15rem;
+      box-shadow: 0 12px 34px rgba(0,0,0,0.5);
+    }
+    .nacha-emoji-pop button { font-size: 1.15rem; padding: 0.25rem; border-radius: 0.4rem; cursor: pointer; transition: background .15s; }
+    .nacha-emoji-pop button:hover { background: rgba(201,166,107,0.25); }
+    .nacha-csend {
+      align-self: flex-start;
+      background: #8B6F2E; color: #F2E8D5;
+      padding: 0.6rem 1.5rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 600;
+      box-shadow: 0 8px 22px rgba(139,111,46,0.4); cursor: pointer;
+      transition: background .25s, transform .2s;
+    }
+    .nacha-csend:hover { background: #9c7c34; transform: translateY(-1px); }
+    .nacha-csend:disabled { opacity: 0.5; cursor: wait; }
+    .nacha-cmsg { font-size: 0.8rem; color: #C9A66B; }
+    .nacha-cmsg.err { color: #d98a8a; }
+
+    /* comment list */
+    .nacha-clist { display: flex; flex-direction: column; gap: 0.7rem; }
+    .nacha-citem {
+      background: rgba(31,26,20,0.5); border: 1px solid rgba(201,166,107,0.14);
+      border-radius: 0.8rem; padding: 0.85rem 1rem;
+    }
+    .nacha-citem-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem; }
+    .nacha-citem-name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem; color: #C9A66B; }
+    .nacha-citem-time { font-size: 0.68rem; color: rgba(242,232,213,0.4); }
+    .nacha-citem-body { font-size: 0.9rem; color: rgba(242,232,213,0.85); line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+    .nacha-citem-reply {
+      margin-top: 0.5rem; font-size: 0.72rem; color: rgba(201,166,107,0.85);
+      cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem; transition: color .2s;
+    }
+    .nacha-citem-reply:hover { color: #C9A66B; }
+    .nacha-creplies { margin-top: 0.6rem; margin-left: 1rem; padding-left: 0.9rem; border-left: 2px solid rgba(201,166,107,0.2); display: flex; flex-direction: column; gap: 0.5rem; }
+    .nacha-creplies .nacha-citem { background: rgba(31,26,20,0.35); }
+    /* thanh đang reply trên form */
+    .nacha-reply-hint {
+      display: none; align-items: center; justify-content: space-between; gap: 0.5rem;
+      background: rgba(201,166,107,0.12); border: 1px solid rgba(201,166,107,0.3);
+      border-radius: 0.6rem; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: #C9A66B; margin-bottom: 0.2rem;
+    }
+    .nacha-reply-hint.show { display: flex; }
+    .nacha-reply-hint button { color: rgba(242,232,213,0.7); cursor: pointer; font-size: 1rem; }
+
+    /* ══ Share modal ══ */
+    .nacha-modal { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 1rem; }
+    .nacha-modal[hidden] { display: none; }
+    .nacha-modal-backdrop { position: absolute; inset: 0; background: rgba(10,8,5,0.78); backdrop-filter: blur(4px); }
+    .nacha-modal-card {
+      position: relative; z-index: 1; width: 100%; max-width: 30rem;
+      background: linear-gradient(160deg, #241d15, #1a140d);
+      border: 1px solid rgba(201,166,107,0.35); border-radius: 1.2rem;
+      padding: 1.6rem 1.4rem; box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      animation: nacha-modal-in .3s ease;
+    }
+    @keyframes nacha-modal-in { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+    .nacha-modal-x {
+      position: absolute; top: 0.8rem; right: 1rem; font-size: 1.2rem;
+      color: rgba(242,232,213,0.6); cursor: pointer; transition: color .2s;
+    }
+    .nacha-modal-x:hover { color: #C9A66B; }
+    .nacha-share-lbl { display: block; font-size: 0.72rem; color: rgba(242,232,213,0.6); margin-bottom: 0.4rem; letter-spacing: 0.02em; }
+    .nacha-share-text {
+      width: 100%; background: rgba(31,26,20,0.7); border: 1px solid rgba(201,166,107,0.25);
+      border-radius: 0.7rem; color: #F2E8D5; padding: 0.8rem 0.9rem; font-size: 0.85rem;
+      font-family: 'Inter', sans-serif; line-height: 1.55; resize: vertical;
+    }
+    .nacha-share-text:focus { outline: none; border-color: rgba(201,166,107,0.6); }
+    .nacha-share-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 1rem; }
+    .nacha-share-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.75rem; border-radius: 0.7rem; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; transition: transform .2s, filter .2s;
+      color: #F2E8D5; border: 1px solid rgba(201,166,107,0.25); background: rgba(242,232,213,0.06);
+    }
+    .nacha-share-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+    .nacha-share-fb { background: rgba(59,89,152,0.28); border-color: rgba(89,119,192,0.5); }
+    .nacha-share-tt { background: rgba(255,0,80,0.14); border-color: rgba(255,80,120,0.4); }
+    .nacha-share-note { margin-top: 0.9rem; font-size: 0.78rem; color: #C9A66B; text-align: center; }
+
+    @media (max-width: 480px) {
+      .nacha-act-label { font-size: 0.56rem; }
+      .nacha-emoji-pop { width: 13rem; grid-template-columns: repeat(7, 1fr); }
+    }
+ </style>
+
+  <!-- ═══════════════ PLAYER LOGIC ═══════════════ -->
+  <script>
+    const audio = document.getElementById('nacha-audio') as HTMLAudioElement | null;
+    const playBtn = document.getElementById('nacha-play');
+    const iconPlay = document.getElementById('nacha-icon-play');
+    const iconPause = document.getElementById('nacha-icon-pause');
+    const vinyl = document.getElementById('nacha-vinyl');
+    const seek = document.getElementById('nacha-seek');
+    const fill = document.getElementById('nacha-seek-fill');
+    const curEl = document.getElementById('nacha-cur');
+    const durEl = document.getElementById('nacha-dur');
+    const back = document.getElementById('nacha-back');
+    const fwd = document.getElementById('nacha-fwd');
+    const lyricsBox = document.getElementById('nacha-lyrics');
+    const lines = Array.from(document.querySelectorAll('.nacha-line')) as HTMLElement[];
+    const listPlay = document.querySelector('.nacha-list-play');
+
+    function fmt(s: number): string {
+      if (!isFinite(s)) return '0:00';
+      const m = Math.floor(s / 60);
+      const ss = Math.floor(s % 60).toString().padStart(2, '0');
+      return `${m}:${ss}`;
+    }
+
+    function setPlaying(on: boolean) {
+      iconPlay?.classList.toggle('hidden', on);
+      iconPause?.classList.toggle('hidden', !on);
+      vinyl?.classList.toggle('spinning', on);
+    }
+
+    function toggle() {
+      if (!audio) return;
+      if (audio.paused) audio.play(); else audio.pause();
+    }
+
+    playBtn?.addEventListener('click', toggle);
+    listPlay?.addEventListener('click', () => {
+      if (!audio) return;
+      audio.play();
+      document.getElementById('nacha-play')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    const tapBtn = document.getElementById('nacha-tap');
+
+    audio?.addEventListener('play', () => { setPlaying(true); tapBtn?.classList.add('hidden'); });
+    audio?.addEventListener('pause', () => setPlaying(false));
+    audio?.addEventListener('ended', () => { setPlaying(false); if (fill) fill.style.width = '0%'; });
+
+    // ── Auto-play on page load ──
+    // Browsers block audible autoplay until a user gesture. Try to play;
+    // if blocked, reveal a tap hint and start on the first interaction anywhere.
+    function tryAutoplay() {
+      if (!audio) return;
+      const p = audio.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => {
+          tapBtn?.classList.add('hidden');
+        }).catch(() => {
+          // autoplay blocked → show hint + arm one-time gesture
+          tapBtn?.classList.remove('hidden');
+          const kick = () => {
+            audio.play().then(() => tapBtn?.classList.add('hidden')).catch(() => {});
+            document.removeEventListener('pointerdown', kick);
+            document.removeEventListener('keydown', kick);
+            document.removeEventListener('touchstart', kick);
+          };
+          document.addEventListener('pointerdown', kick, { once: true });
+          document.addEventListener('touchstart', kick, { once: true });
+          document.addEventListener('keydown', kick, { once: true });
+        });
+      }
+    }
+    tapBtn?.addEventListener('click', (e) => { e.stopPropagation(); audio?.play(); });
+    // fire once audio is ready enough to play
+    if (audio) {
+      if (audio.readyState >= 2) tryAutoplay();
+      else audio.addEventListener('canplay', tryAutoplay, { once: true });
+    }
+
+    audio?.addEventListener('loadedmetadata', () => {
+      if (durEl && audio) durEl.textContent = fmt(audio.duration);
+    });
+
+    back?.addEventListener('click', () => { if (audio) audio.currentTime = Math.max(0, audio.currentTime - 10); });
+    fwd?.addEventListener('click', () => { if (audio) audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 10); });
+
+    seek?.addEventListener('click', (e) => {
+      if (!audio || !seek) return;
+      const rect = (seek as HTMLElement).getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      audio.currentTime = ratio * (audio.duration || 0);
+    });
+
+    let activeIdx = -1;
+    audio?.addEventListener('timeupdate', () => {
+      if (!audio) return;
+      const t = audio.currentTime;
+      if (fill && audio.duration) fill.style.width = `${(t / audio.duration) * 100}%`;
+      if (curEl) curEl.textContent = fmt(t);
+
+      // find current lyric line
+      let idx = -1;
+      for (let i = 0; i < lines.length; i++) {
+        const lt = parseFloat(lines[i].dataset.t || '0');
+        if (t + 0.35 >= lt) idx = i; else break;
+      }
+      if (idx !== activeIdx) {
+        lines.forEach((el, i) => {
+          el.classList.toggle('active', i === idx);
+          el.classList.toggle('passed', i < idx);
+        });
+        activeIdx = idx;
+        const el = lines[idx];
+        if (el && lyricsBox) {
+          const target = el.offsetTop - lyricsBox.clientHeight / 2 + el.clientHeight / 2;
+          lyricsBox.scrollTo({ top: target, behavior: 'smooth' });
+        }
+      }
+    });
+
+    // keyboard: space to play/pause when page focused (avoid when typing)
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !(e.target as HTMLElement)?.closest('input,textarea,button,a')) {
+        e.preventDefault(); toggle();
+      }
+    });
+
+    // ═══════════ TƯƠNG TÁC PUBLIC (API backend trên VPS) ═══════════
+    const API = '/api';
+    const actionsWrap = document.querySelector('.nacha-actions') as HTMLElement | null;
+    const TRACK = actionsWrap?.dataset.track || 'da-nam-mo';
+    const numEls = Array.from(document.querySelectorAll('[data-num]')) as HTMLElement[];
+    const SHARE_TEXT_DEFAULT = (document.getElementById('nacha-share-text') as HTMLTextAreaElement | null)?.value || '';
+    const SHARE_LINK = 'https://tangkinhcac.62.146.238.213.sslip.io/nacha';
+
+    function fmtNum(n: number): string {
+      if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0','') + 'M';
+      if (n >= 1000) return (n / 1000).toFixed(1).replace('.0','') + 'K';
+      return String(n);
+    }
+    function paint(stats: any) {
+      if (!stats) return;
+      numEls.forEach((el) => {
+        const k = el.dataset.num!;
+        if (k in stats) el.textContent = fmtNum(stats[k]);
+      });
+    }
+    async function loadStats() {
+      try {
+        const r = await fetch(`${API}/stats?track=${encodeURIComponent(TRACK)}`);
+        const d = await r.json();
+        if (d.ok) { paint(d.stats); paintReactions(d.stats); }
+      } catch {}
+    }
+
+    // localStorage: nhớ người này đã Kính/Like chưa (UI state; số thật vẫn ở server)
+    function already(metric: string): boolean {
+      try { return localStorage.getItem(`nacha-${TRACK}-${metric}`) === '1'; } catch { return false; }
+    }
+    function mark(metric: string) {
+      try { localStorage.setItem(`nacha-${TRACK}-${metric}`, '1'); } catch {}
+    }
+
+    async function hit(metric: string) {
+      try {
+        const r = await fetch(`${API}/hit`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ track: TRACK, metric }),
+        });
+        const d = await r.json();
+        if (d.stats) { paint(d.stats); paintReactions(d.stats); }
+      } catch {}
+    }
+
+    function floatEmoji(x: number, y: number, emoji: string) {
+      const s = document.createElement('span');
+      s.className = 'nacha-float'; s.textContent = emoji;
+      s.style.left = x + 'px'; s.style.top = y + 'px';
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 1100);
+    }
+
+    // ══ REACTION: nút Kính chính + đè (long-press/hover) hiện tray chọn cảm xúc ══
+    const REACT_EMOJI: Record<string,string> = { kinh:'', like:'', sen:'', sang:'', tue:'', tym:'' };
+    const REACT_LABEL: Record<string,string> = { kinh:'Kính', like:'Thích', sen:'Sen', sang:'Hào quang', tue:'An lạc', tym:'Thương' };
+    const reactWrap = document.querySelector('.nacha-react-wrap') as HTMLElement | null;
+    const reactMain = document.querySelector('.nacha-react-main') as HTMLElement | null;
+    const reactTray = document.querySelector('.nacha-react-tray') as HTMLElement | null;
+    const reactIco = document.querySelector('[data-react-ico]') as HTMLElement | null;
+    const reactLabelEl = document.querySelector('[data-react-label]') as HTMLElement | null;
+    let longPressTimer: any = null;
+    let trayOpenedByHold = false;
+
+    function showTray() { if (reactTray) reactTray.hidden = false; }
+    function hideTray() { if (reactTray) reactTray.hidden = true; }
+
+    function doReact(metric: string, srcEl?: HTMLElement) {
+      const el = srcEl || reactMain;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        floatEmoji(rect.left + rect.width / 2 - 12, rect.top, REACT_EMOJI[metric] || '');
+      }
+      // đổi icon nút chính theo reaction vừa chọn
+      if (reactIco) reactIco.textContent = REACT_EMOJI[metric] || '';
+      if (reactLabelEl) reactLabelEl.textContent = REACT_LABEL[metric] || 'Kính';
+      reactMain?.classList.remove('pulsed'); void reactMain?.offsetWidth; reactMain?.classList.add('pulsed');
+      try { localStorage.setItem(`nacha-${TRACK}-lastreact`, metric); } catch {}
+      hit(metric);
+    }
+
+    // click nhanh = reaction mặc định (Kính, hoặc reaction lần trước)
+    reactMain?.addEventListener('click', (e) => {
+      if (trayOpenedByHold) { trayOpenedByHold = false; return; } // vừa long-press thì không bắn click
+      let last = 'kinh';
+      try { last = localStorage.getItem(`nacha-${TRACK}-lastreact`) || 'kinh'; } catch {}
+      doReact(last, reactMain!);
+    });
+
+    // long-press (mobile) + hover (desktop) để mở tray
+    reactMain?.addEventListener('pointerdown', () => {
+      longPressTimer = setTimeout(() => { trayOpenedByHold = true; showTray(); }, 380);
+    });
+    const cancelHold = () => { if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; } };
+    reactMain?.addEventListener('pointerup', cancelHold);
+    reactMain?.addEventListener('pointerleave', cancelHold);
+    reactWrap?.addEventListener('mouseenter', showTray);
+    reactWrap?.addEventListener('mouseleave', hideTray);
+    document.addEventListener('click', (e) => {
+      if (reactTray && !reactTray.hidden && !(e.target as HTMLElement).closest('.nacha-react-wrap')) hideTray();
+    });
+
+    // chọn 1 reaction trong tray
+    reactTray?.querySelectorAll('button[data-react]').forEach((b) => {
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const metric = (b as HTMLElement).dataset.react!;
+        doReact(metric, b as HTMLElement);
+        hideTray();
+      });
+    });
+
+    // paint số từng loại reaction trong tray + nút chính
+    function paintReactions(stats: any) {
+      if (!stats) return;
+      document.querySelectorAll('[data-rnum]').forEach((el) => {
+        const k = (el as HTMLElement).dataset.rnum!;
+        if (k in stats) el.textContent = fmtNum(stats[k]);
+      });
+    }
+
+    // ══ LƯỢT NGHE: chỉ tính khi nghe > 3s (1 lần/phiên) ══
+    let playCounted = false;
+    let listenAccum = 0; // giây đã nghe thực
+    let lastTs = 0;
+    audio?.addEventListener('play', () => { lastTs = Date.now(); });
+    audio?.addEventListener('pause', () => { if (lastTs) { listenAccum += (Date.now() - lastTs) / 1000; lastTs = 0; } });
+    audio?.addEventListener('timeupdate', () => {
+      if (playCounted || audio!.paused) return;
+      const now = Date.now();
+      const elapsed = lastTs ? listenAccum + (now - lastTs) / 1000 : listenAccum;
+      if (elapsed >= 3) { playCounted = true; hit('play'); }
+    });
+
+    // ══ COMMENTS ══
+    const cList = document.getElementById('nacha-clist');
+    const cName = document.getElementById('nacha-cname') as HTMLInputElement | null;
+    const cBody = document.getElementById('nacha-cbody') as HTMLTextAreaElement | null;
+    const cSend = document.getElementById('nacha-csend') as HTMLButtonElement | null;
+    const cMsg = document.getElementById('nacha-cmsg') as HTMLElement | null;
+    const replyHint = document.getElementById('nacha-reply-hint');
+    const replyToLabel = document.getElementById('nacha-reply-to');
+    const replyCancel = document.getElementById('nacha-reply-cancel');
+    let replyTo = 0;
+    function clearReply() { replyTo = 0; replyHint?.classList.remove('show'); }
+    replyCancel?.addEventListener('click', clearReply);
+
+    function timeAgo(ts: number): string {
+      const s = Math.floor((Date.now() - ts) / 1000);
+      if (s < 60) return 'vừa xong';
+      if (s < 3600) return Math.floor(s / 60) + ' phút trước';
+      if (s < 86400) return Math.floor(s / 3600) + ' giờ trước';
+      return Math.floor(s / 86400) + ' ngày trước';
+    }
+    function esc(s: string): string {
+      return s.replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c] as string));
+    }
+    function itemHtml(c: any, isReply: boolean): string {
+      return `
+        <div class="nacha-citem" data-cid="${c.id}">
+          <div class="nacha-citem-head">
+            <span class="nacha-citem-name">${esc(c.name)}</span>
+            <span class="nacha-citem-time">${timeAgo(c.ts)}</span>
+         </div>
+          <div class="nacha-citem-body">${esc(c.body)}</div>
+          ${isReply ? '' : `<span class="nacha-citem-reply" data-reply-id="${c.id}" data-reply-name="${esc(c.name)}">↩ Trả lời</span>`}
+       </div>`;
+    }
+    function renderComments(rows: any[]) {
+      if (!cList) return;
+      if (!rows || rows.length === 0) {
+        cList.innerHTML = '<p class="nacha-cempty text-center text-parchment/45 text-sm py-6">Chưa có lời bình nào — hãy là người đầu tiên gửi lời kính </p>';
+        bindReplyBtns(); return;
+      }
+      // gốc (parent=0) trước, mỗi gốc kèm các reply của nó
+      const roots = rows.filter((c) => !c.parent);
+      const byParent: Record<string, any[]> = {};
+      rows.filter((c) => c.parent).forEach((c) => { (byParent[c.parent] ||= []).push(c); });
+      cList.innerHTML = roots.map((root) => {
+        const replies = byParent[root.id] || [];
+        const rHtml = replies.length
+          ? `<div class="nacha-creplies">${replies.map((r) => itemHtml(r, true)).join('')}</div>` : '';
+        return itemHtml(root, false) + rHtml;
+      }).join('');
+      bindReplyBtns();
+    }
+    function bindReplyBtns() {
+      cList?.querySelectorAll('.nacha-citem-reply').forEach((el) => {
+        el.addEventListener('click', () => {
+          replyTo = parseInt((el as HTMLElement).dataset.replyId || '0', 10) || 0;
+          const nm = (el as HTMLElement).dataset.replyName || '';
+          if (replyHint && replyToLabel) { replyHint.classList.add('show'); replyToLabel.textContent = `↩ Đang trả lời ${nm}`; }
+          document.getElementById('nacha-comments-sec')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setTimeout(() => cBody?.focus(), 400);
+        });
+      });
+    }
+    async function loadComments() {
+      try {
+        const r = await fetch(`${API}/comments?track=${encodeURIComponent(TRACK)}&limit=500`);
+        const d = await r.json();
+        if (d.ok) renderComments(d.comments);
+      } catch {}
+    }
+
+    cSend?.addEventListener('click', async () => {
+      const body = (cBody?.value || '').trim();
+      if (!body) { if (cMsg) { cMsg.hidden = false; cMsg.className = 'nacha-cmsg err'; cMsg.textContent = 'Xin viết ít lời trước khi gửi.'; } return; }
+      cSend.disabled = true;
+      try {
+        const r = await fetch(`${API}/comment`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ track: TRACK, name: (cName?.value || '').trim(), body, parent: replyTo }),
+        });
+        const d = await r.json();
+        if (d.ok) {
+          renderComments(d.comments); paint(d.stats); paintReactions(d.stats);
+          if (cBody) cBody.value = '';
+          clearReply();
+          if (cMsg) { cMsg.hidden = false; cMsg.className = 'nacha-cmsg'; cMsg.textContent = 'Cảm ơn lời kính của bạn '; }
+        } else if (cMsg) {
+          cMsg.hidden = false; cMsg.className = 'nacha-cmsg err'; cMsg.textContent = d.error || 'Có lỗi, xin thử lại.';
+        }
+      } catch {
+        if (cMsg) { cMsg.hidden = false; cMsg.className = 'nacha-cmsg err'; cMsg.textContent = 'Không gửi được, kiểm tra mạng.'; }
+      } finally { cSend.disabled = false; setTimeout(() => { if (cMsg) cMsg.hidden = true; }, 4000); }
+    });
+
+    // emoji picker cho comment
+    const emojiToggle = document.querySelector('.nacha-emoji-toggle');
+    const emojiPop = document.querySelector('.nacha-emoji-pop') as HTMLElement | null;
+    emojiToggle?.addEventListener('click', (e) => { e.stopPropagation(); if (emojiPop) emojiPop.hidden = !emojiPop.hidden; });
+    emojiPop?.querySelectorAll('button').forEach((b) => {
+      b.addEventListener('click', () => {
+        if (cBody) { cBody.value += b.textContent; cBody.focus(); }
+        if (emojiPop) emojiPop.hidden = true;
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (emojiPop && !emojiPop.hidden && !(e.target as HTMLElement).closest('.nacha-emoji-bar')) emojiPop.hidden = true;
+    });
+
+    // scroll tới khu comment khi bấm nút Bình
+    document.querySelector('.nacha-act[data-act="comment"]')?.addEventListener('click', () => {
+      document.getElementById('nacha-comments-sec')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => cBody?.focus(), 500);
+    });
+
+    // ══ HOẰNG DƯƠNG (share modal) ══
+    const shareModal = document.getElementById('nacha-share-modal');
+    const shareText = document.getElementById('nacha-share-text') as HTMLTextAreaElement | null;
+    const shareNote = document.getElementById('nacha-share-note') as HTMLElement | null;
+
+    function openShare() {
+      if (shareModal) { shareModal.hidden = false; document.body.style.overflow = 'hidden'; }
+    }
+    function closeShare() {
+      if (shareModal) { shareModal.hidden = true; document.body.style.overflow = ''; if (shareNote) shareNote.hidden = true; }
+    }
+    document.querySelector('.nacha-act[data-act="share"]')?.addEventListener('click', openShare);
+    shareModal?.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeShare));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && shareModal && !shareModal.hidden) closeShare(); });
+
+    function noteShare(msg: string) {
+      if (shareNote) { shareNote.hidden = false; shareNote.textContent = msg; }
+    }
+
+    shareModal?.querySelectorAll('[data-share]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const kind = (btn as HTMLElement).dataset.share!;
+        const text = shareText?.value || SHARE_TEXT_DEFAULT;
+        if (kind === 'facebook') {
+          // Facebook share dialog: quote + url (u không nhận text dài nên gữi cả quote)
+          const u = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_LINK)}&quote=${encodeURIComponent(text)}`;
+          window.open(u, '_blank', 'noopener,width=680,height=640');
+          noteShare('Đã mở cửa sổ Facebook — bấm Đăng để hoằng dương pháp âm ');
+        } else if (kind === 'tiktok') {
+          // TikTok không có web share đăng bài — chép nội dung + mở tiktok upload
+          try { await navigator.clipboard.writeText(text); } catch {}
+          window.open('https://www.tiktok.com/upload', '_blank', 'noopener');
+          noteShare('Đã chép nội dung + mở TikTok. Dán vào phần mô tả khi đăng video nhé.');
+        } else if (kind === 'copy') {
+          try { await navigator.clipboard.writeText(text); noteShare('Đã chép nội dung — dán đi muôn nơi '); }
+          catch { noteShare('Không chép được, xin chọn và copy tay.'); }
+        } else if (kind === 'native') {
+          if ((navigator as any).share) {
+            try { await (navigator as any).share({ title: 'Tần Số Nacha — Âm Kinh', text, url: SHARE_LINK }); }
+            catch {}
+          } else {
+            try { await navigator.clipboard.writeText(text); noteShare('Thiết bị không hỗ trợ chia sẻ nhanh — đã chép nội dung thay.'); }
+            catch { noteShare('Thiết bị không hỗ trợ chia sẻ nhanh.'); }
+          }
+        }
+      });
+    });
+
+    // khởi động: nạp số + comment thật từ server; refresh nhẹ mỗi 25s
+    loadStats(); loadComments();
+    setInterval(loadStats, 25000);
+ </script>
+</BaseLayout>
